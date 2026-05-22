@@ -190,7 +190,17 @@ body { background:var(--dark); color:#fff; font-family:'Helvetica Neue',Arial,sa
 }
 .ex-panel.show { transform:translateY(0); }
 .ex-handle   { width:34px; height:3px; background:rgba(255,255,255,.12); border-radius:2px; margin:0 auto 14px; }
-.ex-tag      { font-size:8px; font-weight:700; letter-spacing:3px; margin-bottom:8px; }
+.ex-tag-row  { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.ex-tag      { font-size:8px; font-weight:700; letter-spacing:3px; }
+.ex-speak-btn {
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
+  color:#777; font-size:15px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:all .2s;
+  flex-shrink:0;
+}
+.ex-speak-btn:active  { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.18); }
+.ex-speak-btn.playing { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.12); }
 .ex-ru       { font-size:16px; font-weight:600; color:#e4e4e4; line-height:1.5; margin-bottom:4px; }
 .ex-jp       { font-size:13px; color:#666; margin-bottom:12px; line-height:1.4; }
 .ex-hr       { height:1px; background:rgba(255,255,255,.06); margin-bottom:10px; }
@@ -264,7 +274,10 @@ body { background:var(--dark); color:#fff; font-family:'Helvetica Neue',Arial,sa
 
     <div class="ex-panel" id="ex-panel">
       <div class="ex-handle"></div>
-      <div class="ex-tag" id="ex-tag">📝 例文</div>
+      <div class="ex-tag-row">
+        <div class="ex-tag" id="ex-tag">📝 例文</div>
+        <button class="ex-speak-btn" id="ex-speak-btn">🔊</button>
+      </div>
       <div class="ex-ru"  id="ex-ru"></div>
       <div class="ex-jp"  id="ex-jp"></div>
       <div class="ex-hr"></div>
@@ -297,103 +310,113 @@ function mkBg(type, R, G, B) {
 
     case 'planet': // large glowing sphere bottom-right
       return [
-        `radial-gradient(circle 250px at 82% 87%, ${c(.14)} 0%, ${c(.04)} 48%, transparent 66%)`,
-        `radial-gradient(circle 108px at 82% 87%, ${c(.22)} 0%, transparent 42%)`,
-        `radial-gradient(circle 240px at 82% 87%, transparent 225px, ${c(.07)} 228px, transparent 240px)`,
+        `radial-gradient(circle 260px at 82% 87%, ${c(.38)} 0%, ${c(.14)} 44%, transparent 66%)`,
+        `radial-gradient(circle 120px at 82% 87%, ${c(.55)} 0%, ${c(.20)} 50%, transparent 70%)`,
+        `radial-gradient(circle 50px  at 82% 87%, ${w(.18)} 0%, transparent 50%)`,
+        `radial-gradient(circle 245px at 82% 87%, transparent 228px, ${c(.22)} 232px, transparent 248px)`,
       ].join(',');
 
     case 'moon': // cooler sphere upper-right
       return [
-        `radial-gradient(circle 200px at 80% 22%, ${c(.14)} 0%, ${c(.03)} 48%, transparent 65%)`,
-        `radial-gradient(circle 88px at 80% 22%, ${c(.22)} 0%, transparent 40%)`,
-        `radial-gradient(circle 200px at 80% 22%, transparent 185px, ${c(.06)} 188px, transparent 200px)`,
+        `radial-gradient(circle 210px at 80% 22%, ${c(.36)} 0%, ${c(.10)} 44%, transparent 65%)`,
+        `radial-gradient(circle 96px  at 80% 22%, ${c(.55)} 0%, ${c(.18)} 50%, transparent 70%)`,
+        `radial-gradient(circle 40px  at 80% 22%, ${w(.18)} 0%, transparent 50%)`,
+        `radial-gradient(circle 205px at 80% 22%, transparent 190px, ${c(.18)} 194px, transparent 208px)`,
       ].join(',');
 
     case 'star': // bright star with halo upper area
       return [
-        `radial-gradient(circle 170px at 68% 26%, ${c(.12)} 0%, transparent 56%)`,
-        `radial-gradient(circle 36px at 68% 26%, ${c(.32)} 0%, transparent 50%)`,
-        `radial-gradient(circle 8px at 68% 26%, ${w(.55)} 0%, transparent 50%)`,
-        `radial-gradient(1px 1px at 25% 55%, ${w(.45)}, transparent)`,
-        `radial-gradient(1px 1px at 82% 65%, ${w(.40)}, transparent)`,
-        `radial-gradient(1px 1px at 12% 30%, ${w(.35)}, transparent)`,
+        `radial-gradient(circle 200px at 68% 26%, ${c(.28)} 0%, transparent 56%)`,
+        `radial-gradient(circle 48px  at 68% 26%, ${c(.70)} 0%, transparent 50%)`,
+        `radial-gradient(circle 12px  at 68% 26%, ${w(.88)} 0%, transparent 50%)`,
+        `radial-gradient(2.5px 2.5px at 25% 55%, ${w(.70)}, transparent)`,
+        `radial-gradient(2px 2px at 82% 65%, ${w(.62)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 12% 30%, ${w(.55)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 55% 80%, ${w(.48)}, transparent)`,
       ].join(',');
 
     case 'rocket': // rocket exhaust column from bottom
       return [
-        `radial-gradient(ellipse 55px 320px at 50% 102%, ${c(.16)} 0%, transparent 56%)`,
-        `radial-gradient(ellipse 24px 150px at 50% 102%, rgba(255,200,80,.14) 0%, transparent 46%)`,
-        `radial-gradient(ellipse 10px 60px at 50% 102%, ${w(.12)} 0%, transparent 40%)`,
-        `radial-gradient(circle 40px at 50% 78%, ${c(.08)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 70px 340px at 50% 105%, ${c(.38)} 0%, transparent 56%)`,
+        `radial-gradient(ellipse 32px 180px at 50% 105%, rgba(255,200,80,.42) 0%, transparent 46%)`,
+        `radial-gradient(ellipse 14px 80px  at 50% 105%, ${w(.30)} 0%, transparent 40%)`,
+        `radial-gradient(circle 55px at 50% 80%, ${c(.22)} 0%, transparent 50%)`,
+        `radial-gradient(circle 28px at 50% 78%, ${c(.30)} 0%, transparent 50%)`,
       ].join(',');
 
     case 'nebula': // soft interstellar cloud
       return [
-        `radial-gradient(ellipse 320px 200px at 62% 40%, ${c(.08)} 0%, transparent 56%)`,
-        `radial-gradient(ellipse 210px 160px at 28% 68%, ${c(.05)} 0%, transparent 52%)`,
-        `radial-gradient(ellipse 140px 80px at 75% 72%, ${c(.06)} 0%, transparent 48%)`,
-        `radial-gradient(1.5px 1.5px at 15% 20%, ${w(.38)}, transparent)`,
-        `radial-gradient(1px 1px at 55% 35%, ${w(.30)}, transparent)`,
-        `radial-gradient(1px 1px at 85% 15%, ${w(.35)}, transparent)`,
+        `radial-gradient(ellipse 340px 220px at 62% 40%, ${c(.22)} 0%, transparent 56%)`,
+        `radial-gradient(ellipse 220px 170px at 28% 68%, ${c(.16)} 0%, transparent 52%)`,
+        `radial-gradient(ellipse 160px 95px  at 75% 72%, ${c(.18)} 0%, transparent 48%)`,
+        `radial-gradient(2px 2px at 15% 20%, ${w(.62)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 55% 35%, ${w(.52)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 85% 15%, ${w(.58)}, transparent)`,
+        `radial-gradient(1px 1px at 40% 70%, ${w(.42)}, transparent)`,
       ].join(',');
 
     case 'orbit': // orbital ring around a small planet
       return [
-        `radial-gradient(circle 55px at 50% 74%, ${c(.12)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 260px 90px at 50% 74%, transparent 148px, ${c(.09)} 151px, transparent 156px)`,
-        `radial-gradient(ellipse 200px 68px at 50% 74%, transparent 108px, ${c(.07)} 111px, transparent 116px)`,
-        `radial-gradient(circle 10px at 88% 52%, ${c(.28)} 0%, transparent 50%)`,
+        `radial-gradient(circle 62px at 50% 74%, ${c(.32)} 0%, transparent 50%)`,
+        `radial-gradient(circle 30px at 50% 74%, ${c(.55)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 280px 95px at 50% 74%, transparent 148px, ${c(.24)} 152px, transparent 160px)`,
+        `radial-gradient(ellipse 215px 72px at 50% 74%, transparent 108px, ${c(.18)} 112px, transparent 120px)`,
+        `radial-gradient(circle 14px at 88% 52%, ${c(.65)} 0%, transparent 50%)`,
+        `radial-gradient(circle 7px  at 88% 52%, ${w(.40)} 0%, transparent 50%)`,
       ].join(',');
 
     case 'signal': // concentric radio rings from a point
       return [
-        `radial-gradient(circle 220px at 78% 42%, transparent 162px, ${c(.09)} 165px, transparent 169px)`,
-        `radial-gradient(circle 220px at 78% 42%, transparent 124px, ${c(.07)} 127px, transparent 131px)`,
-        `radial-gradient(circle 220px at 78% 42%, transparent 90px,  ${c(.06)} 93px,  transparent 97px)`,
-        `radial-gradient(circle 220px at 78% 42%, transparent 60px,  ${c(.05)} 62px,  transparent 66px)`,
-        `radial-gradient(circle 14px at 78% 42%, ${c(.24)} 0%, transparent 50%)`,
-        `radial-gradient(circle 6px at 78% 42%, ${w(.40)} 0%, transparent 50%)`,
+        `radial-gradient(circle 230px at 78% 42%, transparent 162px, ${c(.24)} 166px, transparent 172px)`,
+        `radial-gradient(circle 230px at 78% 42%, transparent 124px, ${c(.20)} 128px, transparent 134px)`,
+        `radial-gradient(circle 230px at 78% 42%, transparent 90px,  ${c(.18)} 94px,  transparent 100px)`,
+        `radial-gradient(circle 230px at 78% 42%, transparent 60px,  ${c(.15)} 63px,  transparent 69px)`,
+        `radial-gradient(circle 20px at 78% 42%, ${c(.55)} 0%, transparent 50%)`,
+        `radial-gradient(circle 8px  at 78% 42%, ${w(.75)} 0%, transparent 50%)`,
       ].join(',');
 
     case 'horizon': // dawn/sunset glow at bottom
       return [
-        `radial-gradient(ellipse 420px 120px at 50% 100%, ${c(.18)} 0%, transparent 56%)`,
-        `radial-gradient(ellipse 280px 60px at 50% 100%, ${c(.10)} 0%, transparent 50%)`,
-        `linear-gradient(to top, ${c(.05)} 0%, transparent 24%)`,
-        `radial-gradient(1.5px 1.5px at 20% 40%, ${w(.40)}, transparent)`,
-        `radial-gradient(1px 1px at 60% 28%, ${w(.35)}, transparent)`,
-        `radial-gradient(1px 1px at 80% 55%, ${w(.30)}, transparent)`,
+        `radial-gradient(ellipse 440px 140px at 50% 100%, ${c(.45)} 0%, transparent 56%)`,
+        `radial-gradient(ellipse 300px 80px  at 50% 100%, ${c(.28)} 0%, transparent 50%)`,
+        `linear-gradient(to top, ${c(.14)} 0%, transparent 28%)`,
+        `radial-gradient(2px 2px at 20% 40%, ${w(.62)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 60% 28%, ${w(.55)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 80% 55%, ${w(.48)}, transparent)`,
       ].join(',');
 
     case 'wave': // flowing gravitational/atmospheric waves
       return [
-        `radial-gradient(ellipse 340px 70px at 50% 42%, ${c(.07)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 300px 55px at 50% 57%, ${c(.05)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 250px 45px at 50% 70%, ${c(.04)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 180px 35px at 50% 81%, ${c(.03)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 360px 80px at 50% 38%, ${c(.20)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 320px 65px at 50% 52%, ${c(.16)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 270px 52px at 50% 64%, ${c(.12)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 200px 40px at 50% 75%, ${c(.09)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 130px 28px at 50% 84%, ${c(.07)} 0%, transparent 50%)`,
       ].join(',');
 
     case 'heart': // warm centered glow
       return [
-        `radial-gradient(ellipse 210px 170px at 50% 42%, ${c(.12)} 0%, transparent 54%)`,
-        `radial-gradient(circle 66px at 50% 38%, ${c(.20)} 0%, transparent 50%)`,
-        `radial-gradient(circle 24px at 50% 36%, ${c(.18)} 0%, transparent 50%)`,
+        `radial-gradient(ellipse 240px 195px at 50% 42%, ${c(.32)} 0%, transparent 54%)`,
+        `radial-gradient(circle 80px  at 50% 38%, ${c(.50)} 0%, transparent 50%)`,
+        `radial-gradient(circle 32px  at 50% 36%, ${c(.45)} 0%, transparent 50%)`,
+        `radial-gradient(circle 12px  at 50% 34%, ${w(.22)} 0%, transparent 50%)`,
       ].join(',');
 
     case 'particles': // scattered stars / constellation
       return [
-        `radial-gradient(2px 2px at 12% 35%, ${w(.42)}, transparent)`,
-        `radial-gradient(2px 2px at 72% 18%, ${w(.38)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 52% 62%, ${w(.32)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 28% 72%, ${w(.28)}, transparent)`,
-        `radial-gradient(2px 2px at 83% 52%, ${w(.34)}, transparent)`,
-        `radial-gradient(1px 1px at 40% 28%, ${w(.26)}, transparent)`,
-        `radial-gradient(1px 1px at 65% 80%, ${w(.24)}, transparent)`,
-        `radial-gradient(circle 130px at 50% 50%, ${c(.06)} 0%, transparent 60%)`,
+        `radial-gradient(3px 3px at 12% 35%, ${w(.72)}, transparent)`,
+        `radial-gradient(3px 3px at 72% 18%, ${w(.65)}, transparent)`,
+        `radial-gradient(2.5px 2.5px at 52% 62%, ${w(.58)}, transparent)`,
+        `radial-gradient(2px 2px at 28% 72%, ${w(.52)}, transparent)`,
+        `radial-gradient(3px 3px at 83% 52%, ${w(.60)}, transparent)`,
+        `radial-gradient(2px 2px at 40% 28%, ${w(.48)}, transparent)`,
+        `radial-gradient(2px 2px at 65% 80%, ${w(.45)}, transparent)`,
+        `radial-gradient(1.5px 1.5px at 18% 60%, ${w(.40)}, transparent)`,
+        `radial-gradient(circle 160px at 50% 50%, ${c(.14)} 0%, transparent 60%)`,
       ].join(',');
 
     default:
-      return `radial-gradient(circle 180px at 68% 68%, ${c(.09)} 0%, transparent 56%)`;
+      return `radial-gradient(circle 180px at 68% 68%, ${c(.22)} 0%, transparent 56%)`;
   }
 }
 
@@ -661,7 +684,7 @@ document.addEventListener('keydown', e => {
   if (e.key==='Escape') document.getElementById('back-btn').click();
 });
 
-/* ── Speak ── */
+/* ── Speak word ── */
 function speakNow() {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
@@ -672,6 +695,21 @@ function speakNow() {
   }, 320);
 }
 document.getElementById('speak-btn').addEventListener('click', speakNow);
+
+/* ── Speak example sentence ── */
+function speakEx() {
+  if (!window.speechSynthesis) return;
+  const btn = document.getElementById('ex-speak-btn');
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(WORDS[cur].ex_ru);
+  u.lang='ru-RU'; u.rate=0.72; u.pitch=1.0;
+  u.onstart = () => btn.classList.add('playing');
+  u.onend   = () => btn.classList.remove('playing');
+  u.onerror = () => btn.classList.remove('playing');
+  window.speechSynthesis.speak(u);
+}
+document.getElementById('ex-speak-btn').addEventListener('click', e => { e.stopPropagation(); speakEx(); });
+document.getElementById('ex-speak-btn').addEventListener('touchend', e => { e.stopPropagation(); });
 </script>
 </body>
 </html>
