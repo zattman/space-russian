@@ -2,302 +2,327 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>宇宙ロシア語 単語帳 — HAMA Space Russian</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>🚀 宇宙ロシア語 単語帳</title>
 <style>
-:root{--gold:#C9A84C;--dark:#080810;--card-w:220px;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  background:var(--dark);
-  color:#fff;
-  font-family:'Helvetica Neue',Arial,sans-serif;
-  min-height:100vh;
+:root { --gold:#C9A84C; --dark:#07070f; }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { height:100%; overflow:hidden; }
+body { background:var(--dark); color:#fff; font-family:'Helvetica Neue',Arial,sans-serif; }
+
+.stars-bg {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
   background-image:
-    radial-gradient(ellipse at 20% 20%,rgba(74,120,220,.06) 0%,transparent 50%),
-    radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.04) 0%,transparent 50%);
+    radial-gradient(1px 1px at 8% 7%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1px 1px at 23% 15%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1.5px 1.5px at 39% 5%,rgba(255,255,255,.60),transparent),
+    radial-gradient(1px 1px at 54% 21%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1px 1px at 69% 10%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1.5px 1.5px at 85% 18%,rgba(255,255,255,.65),transparent),
+    radial-gradient(1px 1px at 95% 34%,rgba(255,255,255,.35),transparent),
+    radial-gradient(1px 1px at 5% 42%,rgba(255,255,255,.50),transparent),
+    radial-gradient(1px 1px at 18% 55%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1px 1px at 32% 48%,rgba(255,255,255,.50),transparent),
+    radial-gradient(1.5px 1.5px at 48% 62%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1px 1px at 63% 70%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1px 1px at 78% 58%,rgba(255,255,255,.35),transparent),
+    radial-gradient(1px 1px at 90% 75%,rgba(255,255,255,.60),transparent),
+    radial-gradient(1px 1px at 12% 82%,rgba(255,255,255,.50),transparent),
+    radial-gradient(1px 1px at 35% 88%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1.5px 1.5px at 60% 92%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1px 1px at 75% 85%,rgba(255,255,255,.45),transparent),
+    radial-gradient(1px 1px at 50% 50%,rgba(255,255,255,.30),transparent),
+    radial-gradient(1px 1px at 22% 30%,rgba(255,255,255,.35),transparent),
+    radial-gradient(1px 1px at 44% 73%,rgba(255,255,255,.38),transparent),
+    radial-gradient(1px 1px at 87% 43%,rgba(255,255,255,.42),transparent),
+    radial-gradient(1.5px 1.5px at 4% 69%,rgba(255,255,255,.48),transparent),
+    radial-gradient(1px 1px at 67% 39%,rgba(255,255,255,.32),transparent);
 }
 
-/* ── HEADER ── */
-header{
-  text-align:center;
-  padding:50px 20px 30px;
-  position:relative;
-  overflow:hidden;
+/* ═══════════════ TOC ═══════════════ */
+#page-toc {
+  position:fixed; inset:0; z-index:10;
+  display:flex; flex-direction:column;
+  transition:transform .35s ease, opacity .35s ease;
 }
-header::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(201,168,76,.04) 0%,transparent 100%);
-  pointer-events:none;
-}
-.logo{font-size:9px;letter-spacing:6px;color:#C9A84C88;margin-bottom:10px;}
-.main-title{
-  font-size:32px;font-weight:900;letter-spacing:3px;
-  background:linear-gradient(135deg,#C9A84C,#fff 50%,#C9A84C);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:8px;
-}
-.sub-title{font-size:12px;color:#444;letter-spacing:3px;margin-bottom:24px;}
-.stats{
-  display:inline-flex;gap:32px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:40px;padding:10px 28px;
-}
-.stat{text-align:center;}
-.stat-num{font-size:20px;font-weight:700;color:#C9A84C;}
-.stat-label{font-size:9px;color:#444;letter-spacing:2px;}
+#page-toc.hidden { transform:translateY(-100%); opacity:0; pointer-events:none; }
 
-/* ── WEEK TABS ── */
-.week-tabs{
-  display:flex;justify-content:center;gap:8px;
-  padding:24px 20px 0;flex-wrap:wrap;
+.toc-header {
+  padding:18px 20px 8px; text-align:center; flex-shrink:0;
+  background:linear-gradient(180deg,rgba(7,7,15,.97) 65%,transparent);
 }
-.tab{
-  padding:8px 20px;border-radius:20px;font-size:11px;
-  font-weight:600;letter-spacing:1px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.08);color:#555;
-  background:transparent;transition:all .25s;
+.toc-logo  { font-size:8px; letter-spacing:6px; color:rgba(201,168,76,.38); margin-bottom:6px; }
+.toc-title {
+  font-size:20px; font-weight:900; letter-spacing:3px;
+  background:linear-gradient(135deg,var(--gold),#fff 55%,var(--gold));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:3px;
 }
-.tab:hover{border-color:#C9A84C44;color:#C9A84C88;}
-.tab.active{
-  background:rgba(201,168,76,.12);
-  border-color:#C9A84C66;color:#C9A84C;
-}
+.toc-sub { font-size:8px; color:#2e2e48; letter-spacing:4px; }
 
-/* ── WEEK HEADER ── */
-.week-title{
-  text-align:center;padding:32px 20px 8px;
+.week-filter {
+  display:flex; gap:6px; padding:8px 12px 6px;
+  flex-shrink:0; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
 }
-.week-title h2{
-  font-size:14px;font-weight:700;color:#C9A84C;
-  letter-spacing:3px;margin-bottom:4px;
+.week-filter::-webkit-scrollbar { display:none; }
+.wf-btn {
+  flex-shrink:0; padding:5px 12px; border-radius:14px; font-size:9px; font-weight:700;
+  letter-spacing:1px; cursor:pointer; border:1px solid rgba(255,255,255,.08);
+  color:#444; background:transparent; transition:all .2s; white-space:nowrap;
 }
-.week-title p{font-size:11px;color:#444;letter-spacing:1px;}
-.week-divider{
-  width:60px;height:1px;background:linear-gradient(90deg,transparent,#C9A84C66,transparent);
-  margin:12px auto 0;
-}
+.wf-btn.active { background:rgba(201,168,76,.12); border-color:#C9A84C66; color:#C9A84C; }
 
-/* ── CARDS GRID ── */
-.cards-grid{
-  display:flex;flex-wrap:wrap;justify-content:center;
-  gap:20px;padding:24px 24px 40px;
-  max-width:1400px;margin:0 auto;
-}
+.toc-scroll { flex:1; overflow-y:auto; padding:6px 12px 24px; -webkit-overflow-scrolling:touch; }
 
-/* ── FLIP CARD ── */
-.flip-wrap{
-  width:var(--card-w);height:360px;
-  perspective:1000px;cursor:pointer;
+.toc-week-header {
+  font-size:8px; font-weight:700; letter-spacing:3px; color:#333;
+  padding:12px 4px 6px; text-transform:uppercase;
 }
-.flip-inner{
-  width:100%;height:100%;
-  transform-style:preserve-3d;
-  transition:transform .55s cubic-bezier(.4,0,.2,1);
-  position:relative;
-}
-.flip-wrap.flipped .flip-inner{transform:rotateY(180deg);}
+.toc-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 
-.face{
-  position:absolute;inset:0;
-  backface-visibility:hidden;
-  border-radius:16px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.07);
+.toc-item {
+  background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.065);
+  border-radius:12px; padding:12px 11px 10px; cursor:pointer;
+  transition:all .18s; display:flex; flex-direction:column; gap:2px;
+  position:relative; overflow:hidden;
 }
+.toc-item::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,var(--c,transparent) 0%,transparent 68%);
+  opacity:.055; pointer-events:none;
+}
+.toc-item:active { transform:scale(.96); }
+.toc-day     { font-size:8px; font-weight:700; letter-spacing:2px; color:var(--c,#4a78dc); }
+.toc-word    { font-size:19px; font-weight:900; color:#fff; line-height:1.1; }
+.toc-meaning { font-size:11px; color:#555; margin-top:1px; }
+.toc-tag-sm  { font-size:8px; color:#2a2a44; margin-top:2px; line-height:1.3; }
 
-/* FRONT */
-.front{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:20px 16px 14px;
-  position:relative;
+/* ═══════════════ FLASHCARD ═══════════════ */
+#page-card {
+  position:fixed; inset:0; z-index:10;
+  display:flex; flex-direction:column;
+  transition:transform .35s ease, opacity .35s ease; overflow:hidden;
 }
-.front-stars{
-  position:absolute;inset:0;
-  background-image:
-    radial-gradient(1px 1px at 10% 15%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 40% 8%,#ffffffaa 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 70% 20%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 20% 55%,#ffffffcc 0%,transparent 100%),
-    radial-gradient(1px 1px at 88% 45%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 55% 70%,#ffffffaa 0%,transparent 100%),
-    radial-gradient(1px 1px at 15% 80%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 82% 75%,#ffffffcc 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 50% 50%,#fff 0%,transparent 100%),
-    radial-gradient(1px 1px at 90% 90%,#fff 0%,transparent 100%);
-  opacity:.7;pointer-events:none;
-}
-.front-planet{
-  position:absolute;top:12px;right:-10px;
-  width:50px;height:50px;border-radius:50%;
-  opacity:.6;
-}
-.front-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(80,130,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(80,130,255,.03) 1px,transparent 1px);
-  background-size:24px 24px;pointer-events:none;
-}
-.front-day{
-  font-size:9px;font-weight:700;letter-spacing:3px;
-  padding:4px 10px;border-radius:10px;
-  border:1px solid var(--acc,#4a78dc);
-  color:var(--acc,#4a78dc);
-  margin-bottom:auto;align-self:flex-start;
-  position:relative;z-index:1;
-}
-.front-word{
-  font-size:52px;font-weight:900;
-  line-height:1;letter-spacing:1px;
-  text-align:center;
-  position:relative;z-index:1;
-  margin:auto 0;
-}
-.front-kana{
-  font-size:11px;color:#888;letter-spacing:1.5px;
-  margin-top:6px;position:relative;z-index:1;
-}
-.front-phonetic-row{
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  margin-top:4px;position:relative;z-index:1;
-}
-.front-stress{
-  font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;font-style:italic;
-}
-.speak-btn{
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
-  color:rgba(255,255,255,.7);font-size:12px;padding:2px 7px;border-radius:7px;
-  cursor:pointer;transition:all .2s;line-height:1.4;
-}
-.speak-btn:hover{background:rgba(201,168,76,.3);border-color:#C9A84C88;color:#C9A84C;}
-.front-line{
-  width:80px;height:1.5px;margin:10px auto;
-  border-radius:1px;position:relative;z-index:1;
-}
-.front-meaning-hint{
-  font-size:13px;font-weight:700;
-  position:relative;z-index:1;
-}
-.front-tag{
-  font-size:8px;color:#555;letter-spacing:.5px;
-  margin-top:4px;position:relative;z-index:1;
-  text-align:center;
-}
-.front-flip-hint{
-  position:absolute;bottom:10px;right:12px;
-  font-size:7px;color:#333;letter-spacing:1px;
-}
+#page-card.hidden { transform:translateY(100%); opacity:0; pointer-events:none; }
 
-/* BACK */
-.back{
-  transform:rotateY(180deg);
-  display:flex;flex-direction:column;
-  padding:14px 14px 12px;
-  background:#0a0a16;
-  position:relative;
+.card-topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 20px 8px; flex-shrink:0; z-index:2; position:relative;
 }
-.back-topbar{
-  position:absolute;top:0;left:0;right:0;height:2px;
-  border-radius:16px 16px 0 0;
+.back-btn {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
+  color:#777; font-size:10px; padding:7px 15px; border-radius:20px;
+  cursor:pointer; letter-spacing:1.5px; transition:all .2s;
 }
-.back-header{
-  display:flex;justify-content:space-between;
-  align-items:center;margin-bottom:8px;
-  margin-top:4px;
+.back-btn:active { background:rgba(255,255,255,.14); color:#ccc; }
+.card-day-badge {
+  font-size:9px; font-weight:700; letter-spacing:4px;
+  padding:5px 16px; border-radius:14px; border:1px solid;
 }
-.back-word{font-size:22px;font-weight:900;}
-.back-meaning{
-  font-size:11px;font-weight:700;
-  padding:2px 8px;border-radius:8px;
+.speak-btn {
+  width:42px; height:42px; border-radius:50%;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
+  color:#777; font-size:17px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:all .2s;
 }
-.back-section{
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.05);
-  border-radius:8px;padding:8px 10px;
-  margin-bottom:7px;
-}
-.back-label{
-  font-size:7px;font-weight:700;letter-spacing:2px;
-  margin-bottom:4px;
-}
-.back-text{font-size:9px;line-height:1.6;color:#bbb;}
-.back-example{
-  font-size:10px;font-weight:600;color:#ddd;
-  margin-bottom:2px;
-}
-.back-example-kana{font-size:10px;color:#a8a8cc;letter-spacing:.8px;margin-bottom:3px;font-style:italic;background:rgba(120,120,200,.07);border-left:2px solid rgba(140,140,220,.25);padding:2px 6px;border-radius:0 4px 4px 0;}
-.back-example-jp{font-size:9px;color:#666;}
-.back-check{
-  display:flex;justify-content:space-between;
-  align-items:center;margin-top:auto;
-  padding-top:6px;border-top:1px solid rgba(255,255,255,.05);
-}
-.check-btn{
-  font-size:8px;font-weight:700;letter-spacing:1px;
-  padding:4px 10px;border-radius:8px;cursor:pointer;
-  border:1px solid;transition:all .2s;
-}
-.check-btn.good{color:#32c87a;border-color:#32c87a44;}
-.check-btn.good:hover{background:#32c87a22;}
-.check-btn.again{color:#dc6023;border-color:#dc602344;}
-.check-btn.again:hover{background:#dc602322;}
-.learned-badge{
-  font-size:7px;font-weight:700;letter-spacing:2px;
-  color:#32c87a;display:none;
-}
-.learned-badge.show{display:block;}
-.check-done{font-size:10px;}
+.speak-btn:active { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.15); }
 
-/* Progress indicator on card */
-.card-progress{
-  position:absolute;top:10px;right:12px;
-  width:6px;height:6px;border-radius:50%;
-  background:#333;transition:background .3s;
-  z-index:10;
+.card-main {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  z-index:2; text-align:center;
+  user-select:none; cursor:pointer;
+  position:relative; overflow:hidden;
+  padding:0 32px;
 }
-.card-progress.done{background:#32c87a;}
+.card-scene  { position:absolute; inset:0; pointer-events:none; z-index:0; transition:background-image .4s ease; }
+.card-emoji  {
+  position:absolute; pointer-events:none; z-index:1; bottom:6%; right:-1%;
+  font-size:clamp(110px,30vw,155px); line-height:1; opacity:0.06;
+  transform:rotate(-10deg); transition:opacity .3s; user-select:none;
+}
+.card-main.ex-open .card-emoji { opacity:0.028; }
 
-/* ── FOOTER ── */
-footer{
-  text-align:center;padding:40px;
-  color:#333;font-size:10px;letter-spacing:2px;
+.word-section {
+  display:flex; flex-direction:column; align-items:center;
+  pointer-events:none; position:relative; z-index:2;
+  transition:transform .35s ease;
 }
+.card-main.ex-open .word-section { transform:translateY(-16px); }
+
+.card-cat {
+  font-size:8px; font-weight:700; letter-spacing:4px;
+  margin-bottom:14px; opacity:.55; text-transform:uppercase;
+}
+.card-word {
+  font-size:clamp(50px,14.5vw,92px); font-weight:900;
+  line-height:1.02; letter-spacing:1px; margin-bottom:12px;
+}
+.card-phonetics { display:flex; align-items:center; gap:8px; margin-bottom:20px; }
+.pho-stress { font-size:13px; color:rgba(255,255,255,.32); font-style:italic; letter-spacing:1.5px; }
+.pho-sep    { font-size:11px; color:rgba(255,255,255,.12); }
+.pho-kana   { font-size:14px; color:rgba(255,255,255,.52); letter-spacing:2px; }
+.card-line  { width:52px; height:1.5px; border-radius:1px; margin-bottom:18px; }
+.card-meaning { font-size:28px; font-weight:700; letter-spacing:2px; }
+.tap-hint {
+  font-size:8px; color:rgba(255,255,255,.15); letter-spacing:4px; margin-top:18px;
+  transition:opacity .3s;
+}
+.card-main.ex-open .tap-hint { opacity:0; }
+
+/* ── Example bottom sheet ── */
+.ex-panel {
+  position:absolute; bottom:0; left:0; right:0;
+  background:rgba(7,7,18,0.97); backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.09);
+  border-radius:22px 22px 0 0;
+  padding:6px 24px 22px;
+  transform:translateY(100%);
+  transition:transform .38s cubic-bezier(0.32,0.72,0,1);
+  z-index:5; cursor:default;
+  overflow-y:auto; max-height:72vh;
+}
+.ex-panel.show { transform:translateY(0); }
+.ex-handle   { width:34px; height:3px; background:rgba(255,255,255,.12); border-radius:2px; margin:0 auto 14px; }
+.ex-tag-row  { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.ex-tag      { font-size:8px; font-weight:700; letter-spacing:3px; }
+.ex-speak-btn {
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
+  color:#777; font-size:15px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0;
+}
+.ex-speak-btn:active  { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.18); }
+.ex-speak-btn.playing { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.12); }
+.ex-ru   { font-size:16px; font-weight:600; color:#e4e4e4; line-height:1.5; margin-bottom:4px; }
+.ex-kana { font-size:11px; color:#8888cc; letter-spacing:.8px; margin-bottom:8px; font-style:italic;
+           border-left:2px solid rgba(130,130,200,.30); padding:2px 8px;
+           background:rgba(100,100,180,.06); border-radius:0 4px 4px 0; line-height:1.6; }
+.ex-jp   { font-size:13px; color:#666; margin-bottom:12px; line-height:1.4; }
+.ex-hr   { height:1px; background:rgba(255,255,255,.06); margin-bottom:10px; }
+.ex-naze-tag { font-size:8px; font-weight:700; letter-spacing:2px; color:var(--gold); margin-bottom:6px; }
+.ex-naze { font-size:12px; color:#888; line-height:1.7; margin-bottom:10px; }
+.ex-x-tag { font-size:8px; font-weight:700; letter-spacing:2px; color:#444; margin-bottom:4px; margin-top:4px; }
+.ex-x    { font-size:10px; color:#333; line-height:1.6; }
+
+/* ── Bottom nav ── */
+.card-bottom {
+  flex-shrink:0; padding:10px 24px 26px;
+  display:flex; flex-direction:column; gap:12px;
+  align-items:center; z-index:2;
+}
+.card-counter { font-size:9px; color:#333; letter-spacing:4px; }
+.card-nav     { display:flex; align-items:center; gap:20px; }
+.nav-btn {
+  width:54px; height:54px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.05);
+  color:rgba(255,255,255,.55); font-size:26px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:all .2s; line-height:1;
+}
+.nav-btn:active   { background:rgba(255,255,255,.13); color:#fff; }
+.nav-btn:disabled { opacity:.14; cursor:default; }
+.progress-bar  { width:100%; height:2px; background:rgba(255,255,255,.06); border-radius:1px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--gold),rgba(255,255,255,.8)); transition:width .3s ease; }
+
+.card-main.fx-l { animation:fxL .28s ease forwards; }
+.card-main.fx-r { animation:fxR .28s ease forwards; }
+@keyframes fxL { 0%{opacity:1;transform:none} 38%{opacity:0;transform:translateX(-26px)} 39%{opacity:0;transform:translateX(26px)} 100%{opacity:1;transform:none} }
+@keyframes fxR { 0%{opacity:1;transform:none} 38%{opacity:0;transform:translateX(26px)} 39%{opacity:0;transform:translateX(-26px)} 100%{opacity:1;transform:none} }
 </style>
 </head>
 <body>
+<div class="stars-bg"></div>
 
-<header>
-  <div class="logo">@HAMA_CPA_SPACE</div>
-  <div class="main-title">🚀 宇宙ロシア語 単語帳</div>
-  <div class="sub-title">SPACE RUSSIAN VOCABULARY — FULL 78 DAYS</div>
-  <div class="stats">
-    <div class="stat"><div class="stat-num">78</div><div class="stat-label">WORDS</div></div>
-    <div class="stat"><div class="stat-num">11</div><div class="stat-label">WEEKS</div></div>
-    <div class="stat"><div class="stat-num" id="learned-count">0</div><div class="stat-label">LEARNED</div></div>
+<!-- ── TOC ── -->
+<div id="page-toc">
+  <div class="toc-header">
+    <div class="toc-logo">HAMA × SPACE RUSSIAN</div>
+    <div class="toc-title">宇宙ロシア語 単語帳</div>
+    <div class="toc-sub">78 WORDS · 11 WEEKS</div>
   </div>
-</header>
-
-<div class="week-tabs">
-  <button class="tab active" data-week="all">ALL 78</button>
-  <button class="tab" data-week="1">WEEK 1</button>
-  <button class="tab" data-week="2">WEEK 2</button>
-  <button class="tab" data-week="3">WEEK 3</button>
-  <button class="tab" data-week="4">WEEK 4</button>
-  <button class="tab" data-week="5">WEEK 5</button>
-  <button class="tab" data-week="6">WEEK 6</button>
-  <button class="tab" data-week="7">WEEK 7</button>
-  <button class="tab" data-week="8">WEEK 8</button>
-  <button class="tab" data-week="9">WEEK 9</button>
-  <button class="tab" data-week="10">WEEK 10</button>
-  <button class="tab" data-week="11">WEEK 11</button>
+  <div class="week-filter" id="week-filter"></div>
+  <div class="toc-scroll"><div id="toc-body"></div></div>
 </div>
 
-<div id="cards-container"></div>
-<footer>HAMA × JOE — 宇宙飛行士への道はここから始まる 🚀</footer>
+<!-- ── FLASHCARD ── -->
+<div id="page-card" class="hidden">
+  <div class="card-topbar">
+    <button class="back-btn" id="back-btn">← 一覧</button>
+    <div class="card-day-badge" id="card-day">DAY 01</div>
+    <button class="speak-btn" id="speak-btn">🔊</button>
+  </div>
+
+  <div class="card-main" id="card-main">
+    <div class="card-scene" id="card-scene"></div>
+    <div class="card-emoji" id="card-emoji"></div>
+
+    <div class="word-section">
+      <div class="card-cat"    id="card-cat">名詞</div>
+      <div class="card-word"   id="card-word"></div>
+      <div class="card-phonetics">
+        <span class="pho-stress" id="pho-stress"></span>
+        <span class="pho-sep">|</span>
+        <span class="pho-kana"   id="pho-kana"></span>
+      </div>
+      <div class="card-line" id="card-line"></div>
+      <div class="card-meaning" id="card-meaning"></div>
+      <div class="tap-hint">✦ TAP · EXAMPLE ✦</div>
+    </div>
+
+    <div class="ex-panel" id="ex-panel">
+      <div class="ex-handle"></div>
+      <div class="ex-tag-row">
+        <div class="ex-tag" id="ex-tag">📝 例文</div>
+        <button class="ex-speak-btn" id="ex-speak-btn">🔊</button>
+      </div>
+      <div class="ex-ru"   id="ex-ru"></div>
+      <div class="ex-kana" id="ex-kana"></div>
+      <div class="ex-jp"   id="ex-jp"></div>
+      <div class="ex-hr"></div>
+      <div class="ex-naze-tag">🚀 なぜこの単語？</div>
+      <div class="ex-naze" id="ex-naze"></div>
+      <div class="ex-x-tag">🐦 X投稿ドラフト</div>
+      <div class="ex-x"    id="ex-x"></div>
+    </div>
+  </div>
+
+  <div class="card-bottom">
+    <div class="card-counter" id="card-counter">1 / 78</div>
+    <div class="card-nav">
+      <button class="nav-btn" id="prev-btn">‹</button>
+      <button class="nav-btn" id="next-btn">›</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+  </div>
+</div>
 
 <script>
-// ── アクセント付きキリル（発音記号） ──
-const STRESS = {
+/* ── Space art backgrounds ── */
+function hexRgb(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+function mkBg(type,R,G,B){
+  const c=(a)=>`rgba(${R},${G},${B},${a})`,w=(a)=>`rgba(255,255,255,${a})`;
+  switch(type){
+    case 'planet':return[`radial-gradient(circle 260px at 82% 87%,${c(.38)} 0%,${c(.14)} 44%,transparent 66%)`,`radial-gradient(circle 120px at 82% 87%,${c(.55)} 0%,${c(.20)} 50%,transparent 70%)`,`radial-gradient(circle 50px at 82% 87%,${w(.18)} 0%,transparent 50%)`,`radial-gradient(circle 245px at 82% 87%,transparent 228px,${c(.22)} 232px,transparent 248px)`].join(',');
+    case 'moon':return[`radial-gradient(circle 210px at 80% 22%,${c(.36)} 0%,${c(.10)} 44%,transparent 65%)`,`radial-gradient(circle 96px at 80% 22%,${c(.55)} 0%,${c(.18)} 50%,transparent 70%)`,`radial-gradient(circle 40px at 80% 22%,${w(.18)} 0%,transparent 50%)`,`radial-gradient(circle 205px at 80% 22%,transparent 190px,${c(.18)} 194px,transparent 208px)`].join(',');
+    case 'star':return[`radial-gradient(circle 200px at 68% 26%,${c(.28)} 0%,transparent 56%)`,`radial-gradient(circle 48px at 68% 26%,${c(.70)} 0%,transparent 50%)`,`radial-gradient(circle 12px at 68% 26%,${w(.88)} 0%,transparent 50%)`,`radial-gradient(2.5px 2.5px at 25% 55%,${w(.70)},transparent)`,`radial-gradient(2px 2px at 82% 65%,${w(.62)},transparent)`,`radial-gradient(1.5px 1.5px at 12% 30%,${w(.55)},transparent)`,`radial-gradient(1.5px 1.5px at 55% 80%,${w(.48)},transparent)`].join(',');
+    case 'rocket':return[`radial-gradient(ellipse 70px 340px at 50% 105%,${c(.38)} 0%,transparent 56%)`,`radial-gradient(ellipse 32px 180px at 50% 105%,rgba(255,200,80,.42) 0%,transparent 46%)`,`radial-gradient(ellipse 14px 80px at 50% 105%,${w(.30)} 0%,transparent 40%)`,`radial-gradient(circle 55px at 50% 80%,${c(.22)} 0%,transparent 50%)`,`radial-gradient(circle 28px at 50% 78%,${c(.30)} 0%,transparent 50%)`].join(',');
+    case 'nebula':return[`radial-gradient(ellipse 340px 220px at 62% 40%,${c(.22)} 0%,transparent 56%)`,`radial-gradient(ellipse 220px 170px at 28% 68%,${c(.16)} 0%,transparent 52%)`,`radial-gradient(ellipse 160px 95px at 75% 72%,${c(.18)} 0%,transparent 48%)`,`radial-gradient(2px 2px at 15% 20%,${w(.62)},transparent)`,`radial-gradient(1.5px 1.5px at 55% 35%,${w(.52)},transparent)`,`radial-gradient(1.5px 1.5px at 85% 15%,${w(.58)},transparent)`,`radial-gradient(1px 1px at 40% 70%,${w(.42)},transparent)`].join(',');
+    case 'orbit':return[`radial-gradient(circle 62px at 50% 74%,${c(.32)} 0%,transparent 50%)`,`radial-gradient(circle 30px at 50% 74%,${c(.55)} 0%,transparent 50%)`,`radial-gradient(ellipse 280px 95px at 50% 74%,transparent 148px,${c(.24)} 152px,transparent 160px)`,`radial-gradient(ellipse 215px 72px at 50% 74%,transparent 108px,${c(.18)} 112px,transparent 120px)`,`radial-gradient(circle 14px at 88% 52%,${c(.65)} 0%,transparent 50%)`,`radial-gradient(circle 7px at 88% 52%,${w(.40)} 0%,transparent 50%)`].join(',');
+    case 'signal':return[`radial-gradient(circle 230px at 78% 42%,transparent 162px,${c(.24)} 166px,transparent 172px)`,`radial-gradient(circle 230px at 78% 42%,transparent 124px,${c(.20)} 128px,transparent 134px)`,`radial-gradient(circle 230px at 78% 42%,transparent 90px,${c(.18)} 94px,transparent 100px)`,`radial-gradient(circle 230px at 78% 42%,transparent 60px,${c(.15)} 63px,transparent 69px)`,`radial-gradient(circle 20px at 78% 42%,${c(.55)} 0%,transparent 50%)`,`radial-gradient(circle 8px at 78% 42%,${w(.75)} 0%,transparent 50%)`].join(',');
+    case 'horizon':return[`radial-gradient(ellipse 440px 140px at 50% 100%,${c(.45)} 0%,transparent 56%)`,`radial-gradient(ellipse 300px 80px at 50% 100%,${c(.28)} 0%,transparent 50%)`,`linear-gradient(to top,${c(.14)} 0%,transparent 28%)`,`radial-gradient(2px 2px at 20% 40%,${w(.62)},transparent)`,`radial-gradient(1.5px 1.5px at 60% 28%,${w(.55)},transparent)`,`radial-gradient(1.5px 1.5px at 80% 55%,${w(.48)},transparent)`].join(',');
+    case 'wave':return[`radial-gradient(ellipse 360px 80px at 50% 38%,${c(.20)} 0%,transparent 50%)`,`radial-gradient(ellipse 320px 65px at 50% 52%,${c(.16)} 0%,transparent 50%)`,`radial-gradient(ellipse 270px 52px at 50% 64%,${c(.12)} 0%,transparent 50%)`,`radial-gradient(ellipse 200px 40px at 50% 75%,${c(.09)} 0%,transparent 50%)`].join(',');
+    case 'heart':return[`radial-gradient(ellipse 240px 195px at 50% 42%,${c(.32)} 0%,transparent 54%)`,`radial-gradient(circle 80px at 50% 38%,${c(.50)} 0%,transparent 50%)`,`radial-gradient(circle 32px at 50% 36%,${c(.45)} 0%,transparent 50%)`,`radial-gradient(circle 12px at 50% 34%,${w(.22)} 0%,transparent 50%)`].join(',');
+    default:return[`radial-gradient(3px 3px at 12% 35%,${w(.72)},transparent)`,`radial-gradient(3px 3px at 72% 18%,${w(.65)},transparent)`,`radial-gradient(2.5px 2.5px at 52% 62%,${w(.58)},transparent)`,`radial-gradient(2px 2px at 28% 72%,${w(.52)},transparent)`,`radial-gradient(3px 3px at 83% 52%,${w(.60)},transparent)`,`radial-gradient(circle 160px at 50% 50%,${c(.14)} 0%,transparent 60%)`].join(',');
+  }
+}
+
+const BG_CYCLE=['planet','moon','star','rocket','nebula','orbit','signal','horizon','wave','heart','particles'];
+function getBg(d){return d.gold?'star':BG_CYCLE[(d.day-1)%BG_CYCLE.length];}
+function getEmoji(x){const m=x&&x.match(/^\p{Extended_Pictographic}/u);return m?m[0]:'🚀';}
+
+const WEEK_CAT={1:'基本語 I',2:'基本語 II',3:'基本語 III',4:'基本語 IV',5:'天体',6:'ミッション',7:'精神力',8:'科学技術',9:'宇宙生活',10:'宇宙史',11:'宇宙ビジネス'};
+
+const STRESS={
   "Привет":"Приве́т","Спасибо":"Спаси́бо","Мечта":"Мечта́","Космос":"Ко́смос",
   "Удача":"Уда́ча","Сила":"Си́ла","Вперёд":"Вперёд","Земля":"Земля́",
   "Луна":"Луна́","Звезда":"Звезда́","Ракета":"Раке́та","Полёт":"Полёт",
@@ -322,19 +347,7 @@ const STRESS = {
   "Партнёр":"Партнёр","Стратегия":"Страте́гия","Финансы":"Фина́нсы","Мечтатель":"Мечта́тель"
 };
 
-// ── 音声読み上げ（Web Speech API / ru-RU） ──
-function speakWord(word, rate=0.75){
-  if(!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(word);
-  utt.lang = 'ru-RU';
-  utt.rate = rate;
-  utt.pitch = 1.0;
-  window.speechSynthesis.speak(utt);
-}
-
-const DAYS = [
-  // ─── WEEK 1 ───────────────────────────────────────────────
+const WORDS=[
   {day:1,week:1,word:"Привет",kana:"プリヴィエット",meaning:"こんにちは",tag:"宇宙船ドッキング時の第一声",
    ex_ru:"Привет из космоса!",ex_ru_kana:"プリヴィエット イズ コースマサ！",ex_jp:"宇宙からこんにちは！",
    naze:"NASAとロシア宇宙飛行士がドッキング後に交わす最初の言葉。",
@@ -370,7 +383,6 @@ const DAYS = [
    naze:"ソユーズ打ち上げカウントダウン最後、地上管制官が叫ぶ言葉。",
    x:"🚀DAY7: Вперёд（フピリョート）=前へ！打ち上げ時の掛け声 #ソユーズ #宇宙",
    acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
-  // ─── WEEK 2 ───────────────────────────────────────────────
   {day:8,week:2,word:"Земля",kana:"ジムリャー",meaning:"地球",tag:"宇宙飛行士が最も恋しがる言葉",
    ex_ru:"Земля — наш общий дом.",ex_ru_kana:"ジムリャー ナシュ オープシー ドーム。",ex_jp:"地球は私たちの共通の家だ。",
    naze:"180日の無重力生活後、この一言が最初に口をついて出る。",
@@ -406,7 +418,6 @@ const DAYS = [
    naze:"地球軌道、月軌道、火星軌道—すべてのミッション計画の基本がОрбита。",
    x:"🛸DAY14: Орбита（アルビータ）=軌道。ISSは今も地球軌道を飛ぶ #ISS #宇宙",
    acc:"#8c50e6",gold:false,planet:["120,70,210","60,30,140"]},
-  // ─── WEEK 3 ───────────────────────────────────────────────
   {day:15,week:3,word:"Станция",kana:"スタンツィヤ",meaning:"ステーション",tag:"МКС=国際宇宙ステーション",
    ex_ru:"МКС — международная станция.",ex_ru_kana:"エムカエース ミジュナロードナヤ スタンツィヤ。",ex_jp:"МКСは国際ステーションだ。",
    naze:"ISS到着時に報告する「Станция！」は感動の一言。",
@@ -442,7 +453,6 @@ const DAYS = [
    naze:"宇宙飛行士の最大の勝利は無事に地球へ帰ること。",
    x:"🏆DAY21: Победа（パベーダ）=勝利。宇宙飛行士の勝利は無事帰還すること #宇宙",
    acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
-  // ─── WEEK 4 ───────────────────────────────────────────────
   {day:22,week:4,word:"Терпение",kana:"チルピェーニエ",meaning:"忍耐",tag:"長期ミッションの精神的支柱",
    ex_ru:"Терпение — ключ к звёздам.",ex_ru_kana:"チルピェーニエ クリュチ クズヴョーズダム。",ex_jp:"忍耐が星への鍵だ。",
    naze:"ISS長期滞在最大1年以上。孤独・閉鎖空間を耐えるТерпениеが必須スキル。",
@@ -478,7 +488,6 @@ const DAYS = [
    naze:"宇宙開発は常に未来への投資。JAXA・SpaceX・iSpaceが見る未来の一部に俺もなる。",
    x:"🚀DAY28: Будущее（ブドゥシチエ）=未来。28日間ありがとう！未来は今日の積み重ね✨",
    acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
-  // ─── WEEK 5 — 太陽系・天体 ────────────────────────────────
   {day:29,week:5,word:"Солнце",kana:"ソールンツェ",meaning:"太陽",tag:"ISSの電力源・命のエネルギー",
    ex_ru:"Солнце светит всегда.",ex_ru_kana:"ソールンツェ スヴィチット フスィグダー。",ex_jp:"太陽はいつも輝いている。",
    naze:"ISSの電力はすべて太陽光パネルから。宇宙飛行士が最も恋しがるものの一つ。",
@@ -514,7 +523,6 @@ const DAYS = [
    naze:"宇宙から見た地球の曲線——その先にホライズン。「視野を広げる」という比喩にも使う。",
    x:"🌅DAY35: Горизонт（ガリゾント）=地平線。宇宙から見れば地球が丸いとわかる #地球",
    acc:"#e89840",gold:false,planet:["210,130,40","120,65,15"]},
-  // ─── WEEK 6 — 宇宙行動・ミッション ──────────────────────
   {day:36,week:6,word:"Запуск",kana:"ザープスク",meaning:"打ち上げ・発射",tag:"すべてのミッションの始まり",
    ex_ru:"Запуск успешный!",ex_ru_kana:"ザープスク ウスピェーシュヌイ！",ex_jp:"打ち上げ成功！",
    naze:"ミッションコントロールが叫ぶ「Запуск！」。夢への扉が開く瞬間。",
@@ -550,7 +558,6 @@ const DAYS = [
    naze:"JAXAの地球観測衛星「だいち」シリーズもНаблюдение。データが防災・農業を変える。",
    x:"🔭DAY42: Наблюдение（ナブリュジェーニエ）=観測。地球観測が世界を救う #JAXA #衛星",
    acc:"#30c8a0",gold:false,planet:["35,175,135","15,90,65"]},
-  // ─── WEEK 7 — 感情・精神力 ───────────────────────────────
   {day:43,week:7,word:"Смелость",kana:"スミェーラスチ",meaning:"勇気",tag:"宇宙飛行士に最も必要な資質",
    ex_ru:"Смелость открывает звёзды.",ex_ru_kana:"スミェーラスチ アトクルィヴァエット ズヴョーズドゥィ。",ex_jp:"勇気が星への道を開く。",
    naze:"JAXA選抜では人間性・Смелостьが問われる。「勇気ある者だけが宇宙へ行ける」",
@@ -586,7 +593,6 @@ const DAYS = [
    naze:"「Overview Effect」——宇宙から地球を見ると、人類への愛が生まれる。Любовь。",
    x:"💙DAY49: Любовь（リュボーフィ）=愛。宇宙から地球を見ると愛が大きくなる #Overview",
    acc:"#e85080",gold:false,planet:["215,60,100","130,25,50"]},
-  // ─── WEEK 8 — 科学・技術 ─────────────────────────────────
   {day:50,week:8,word:"Кислород",kana:"キスラロット",meaning:"酸素",tag:"宇宙で最も貴重な元素",
    ex_ru:"Кислород нужен для жизни.",ex_ru_kana:"キスラロット ヌージェン ドリャ ジーズニ。",ex_jp:"酸素は生命に必要だ。",
    naze:"ISSでは水の電気分解で酸素を生産。Кислородの管理が飛行士の命を守る。",
@@ -622,7 +628,6 @@ const DAYS = [
    naze:"GPS・スマホ・メモリーフォームは宇宙技術の副産物——Технологияは社会を変える。",
    x:"💡DAY56: Технология（チフナロギヤ）=技術。GPS・スマホは宇宙技術の落とし子 #テクノロジー",
    acc:"#50a0e0",gold:false,planet:["60,135,210","28,68,135"]},
-  // ─── WEEK 9 — 宇宙生活・日常 ────────────────────────────
   {day:57,week:9,word:"Питание",kana:"ピタニエ",meaning:"食事・栄養",tag:"チューブ食から宇宙ラーメンまで",
    ex_ru:"Питание в космосе особое.",ex_ru_kana:"ピタニエ フコースマスェ アソーバエ。",ex_jp:"宇宙での食事は特別だ。",
    naze:"宇宙食はロシア発。最初はチューブ入りペースト——今は寿司も宇宙へ。日清の宇宙ラーメン。",
@@ -658,7 +663,6 @@ const DAYS = [
    naze:"「Поехали！（出発！）」——ガガーリンが叫び、Человекが宇宙へ行った瞬間、歴史が変わった。",
    x:"👨‍🚀DAY63: Человек（チェラヴィェーク）=人間。1961年、人類が宇宙に行った日 #ガガーリン",
    acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
-  // ─── WEEK 10 — ロシア宇宙史・偉人 ──────────────────────
   {day:64,week:10,word:"Гагарин",kana:"ガガーリン",meaning:"ガガーリン",tag:"「ポヨーハリ！（出発！）」",
    ex_ru:"Гагарин — первый человек в космосе.",ex_ru_kana:"ガガーリン ピェールヴィ チェラヴィェーク フコースマスェ。",ex_jp:"ガガーリンは宇宙初の人間だ。",
    naze:"1961年4月12日、ユーリ・ガガーリンが「ポヨーハリ！」と叫んで宇宙に飛び立った。",
@@ -694,7 +698,6 @@ const DAYS = [
    naze:"2021年打ち上げのISSロシア実験棟「Наука（科学）」——科学こそ宇宙開発の魂。",
    x:"🧬DAY70: Наука（ナウカ）=科学。ISSのロシア実験棟の名前でもある #ISS #科学",
    acc:"#40b8a0",gold:false,planet:["45,160,135","20,90,68"]},
-  // ─── WEEK 11 — HAMA×宇宙ビジネス ────────────────────────
   {day:71,week:11,word:"Деньги",kana:"ジェーニギ",meaning:"お金",tag:"宇宙開発の燃料はお金",
    ex_ru:"Деньги нужны для космоса.",ex_ru_kana:"ジェーニギ ヌージュヌィ ドリャ コースマサ。",ex_jp:"宇宙にはお金が必要だ。",
    naze:"Artemis 1回で$4.1B——宇宙開発の資金調達を支援するのが浜田会計事務所の使命。",
@@ -737,197 +740,184 @@ const DAYS = [
    acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
 ];
 
-const learned = new Set();
+/* ── Build TOC ── */
+let filterWeek = 'all';
 
-function updateLearnedCount(){
-  document.getElementById('learned-count').textContent = learned.size;
-}
-
-function makeCard(d){
-  const g = d.gold;
-  const wc = g ? '#C9A84C' : '#ffffff';
-  const mc = g ? '#C9A84C' : d.acc;
-  const kanaLine = d.ex_ru_kana
-    ? `<div class="back-example-kana">${d.ex_ru_kana}</div>`
-    : '';
-  return `
-  <div class="flip-wrap" id="card-${d.day}" data-day="${d.day}">
-    <div class="flip-inner">
-      <div class="face front" style="background:linear-gradient(160deg,rgb(${d.bg1||'8,8,20'}),rgb(${d.bg2||'15,15,40'}))">
-        <div class="front-stars"></div>
-        <div class="front-planet" style="background:radial-gradient(circle at 35% 35%,rgb(${d.planet[0]}),rgb(${d.planet[1]}));box-shadow:0 0 20px rgba(${d.planet[0]},.5)"></div>
-        <div class="front-grid"></div>
-        <div class="card-progress" id="prog-${d.day}"></div>
-        <div class="front-day" style="--acc:${d.acc};border-color:${d.acc}44;color:${d.acc}">DAY ${String(d.day).padStart(2,'0')}${d.tag.includes('★')?' ★':''}</div>
-        <div class="front-word" style="color:${wc};text-shadow:0 0 25px ${d.acc}88,0 0 50px ${d.acc}33">${d.word}</div>
-        <div class="front-kana">${d.kana}</div>
-        <div class="front-phonetic-row">
-          <span class="front-stress">${STRESS[d.word]||''}</span>
-          <button class="speak-btn" onclick="event.stopPropagation();speakWord('${d.word}')" title="発音を聞く">🔊</button>
-        </div>
-        <div class="front-line" style="background:linear-gradient(90deg,transparent,${d.acc},transparent)"></div>
-        <div class="front-meaning-hint" style="color:${mc}">${d.meaning}</div>
-        <div class="front-tag">${d.tag}</div>
-        <div class="front-flip-hint">TAP TO FLIP →</div>
-      </div>
-      <div class="face back">
-        <div class="back-topbar" style="background:${d.acc}"></div>
-        <div class="back-header">
-          <div class="back-word" style="color:${mc}">${d.word}</div>
-          <div class="back-meaning" style="color:${mc};background:${d.acc}18;border:1px solid ${d.acc}33">${d.meaning}</div>
-        </div>
-        <div class="back-section">
-          <div class="back-label" style="color:${d.acc}">🛸 例文</div>
-          <div class="back-example">${d.ex_ru}</div>
-          ${kanaLine}
-          <div class="back-example-jp">${d.ex_jp}</div>
-        </div>
-        <div class="back-section" style="flex:1">
-          <div class="back-label" style="color:${d.acc}">🚀 なぜこの単語？</div>
-          <div class="back-text">${d.naze}</div>
-        </div>
-        <div class="back-section">
-          <div class="back-label" style="color:${d.acc}">🐦 X投稿ドラフト</div>
-          <div class="back-text" style="font-size:8px;color:#999">${d.x}</div>
-        </div>
-        <div class="back-check">
-          <button class="check-btn again" onclick="markAgain(${d.day})">もう一度</button>
-          <div class="learned-badge" id="lbadge-${d.day}">✓ LEARNED</div>
-          <button class="check-btn good" onclick="markGood(${d.day})">覚えた！✓</button>
-        </div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function markGood(day){
-  learned.add(day);
-  document.getElementById(`prog-${day}`).classList.add('done');
-  document.getElementById(`lbadge-${day}`).classList.add('show');
-  updateLearnedCount();
-}
-function markAgain(day){
-  learned.delete(day);
-  document.getElementById(`prog-${day}`).classList.remove('done');
-  document.getElementById(`lbadge-${day}`).classList.remove('show');
-  updateLearnedCount();
-  const wrap = document.getElementById(`card-${day}`);
-  if(wrap) wrap.classList.remove('flipped');
-}
-
-document.addEventListener('click', e=>{
-  const wrap = e.target.closest('.flip-wrap');
-  const btn = e.target.closest('.check-btn');
-  if(wrap && !btn) wrap.classList.toggle('flipped');
-});
-
-let currentWeek = 'all';
-document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    currentWeek = tab.dataset.week;
-    renderCards();
-  });
-});
-
-function renderCards(){
-  const container = document.getElementById('cards-container');
-  const weeks = currentWeek==='all' ? [1,2,3,4,5,6,7,8,9,10,11] : [parseInt(currentWeek)];
-  const weekNames = {
-    1:"🌍 WEEK 1 — 宇宙への第一歩",
-    2:"🛸 WEEK 2 — 宇宙の「場所と物」",
-    3:"🛰️ WEEK 3 — ミッションの言葉",
-    4:"🚀 WEEK 4 — 宇宙飛行士のマインド",
-    5:"☀️ WEEK 5 — 太陽系・天体",
-    6:"🎯 WEEK 6 — 宇宙行動・ミッション",
-    7:"💫 WEEK 7 — 感情・精神力",
-    8:"⚗️ WEEK 8 — 科学・技術",
-    9:"🏕️ WEEK 9 — 宇宙生活・日常",
-    10:"📜 WEEK 10 — ロシア宇宙史・偉人",
-    11:"💼 WEEK 11 — HAMA×宇宙ビジネス"
-  };
-  const weekSubs = {
-    1:"挨拶・感謝・夢・宇宙・幸運・力・前進",
-    2:"地球・月・星・ロケット・飛行・宇宙服・軌道",
-    3:"ISS・重力・通信・空気・発見・チーム・勝利",
-    4:"忍耐・希望・知識・道・心・宇宙全体・未来",
-    5:"太陽・火星・銀河・衛星・大気・彗星・地平線",
-    6:"打ち上げ・着陸・EVA・ドッキング・訓練・管理・観測",
-    7:"勇気・喜び・自由・好奇心・美・誇り・愛",
-    8:"酸素・圧力・速度・温度・エネルギー・実験・技術",
-    9:"食事・睡眠・健康・静寂・故郷・時間・人間",
-    10:"ガガーリン・ファースト・ボストーク・成功・歴史・探査・科学",
-    11:"お金・投資・会社・成長・パートナー・戦略・財務・夢追い人"
-  };
-
-  // 背景色マッピング（DAY 1-78）
-  const bgs = {
-    1:["8,8,28","15,25,70"], 2:["5,22,15","12,50,35"], 3:["22,16,4","55,38,8"],
-    4:["8,5,28","25,12,65"], 5:["18,6,28","50,15,68"], 6:["28,8,4","70,22,6"],
-    7:["22,16,4","55,38,8"], 8:["5,15,35","10,35,75"], 9:["15,15,30","35,35,65"],
-    10:["5,5,15","15,10,35"], 11:["20,8,5","55,20,10"], 12:["5,12,35","12,28,75"],
-    13:["5,14,18","12,32,42"], 14:["8,5,22","20,12,55"], 15:["5,12,28","10,22,58"],
-    16:["10,5,20","25,10,50"], 17:["5,15,22","10,35,50"], 18:["5,16,12","10,40,28"],
-    19:["22,16,4","55,38,8"], 20:["5,10,22","10,22,55"], 21:["22,16,4","55,38,8"],
-    22:["10,7,20","25,15,48"], 23:["22,16,4","55,38,8"], 24:["5,10,22","10,22,55"],
-    25:["5,15,22","10,35,50"], 26:["22,5,12","55,12,28"], 27:["5,5,15","12,8,38"],
-    28:["22,16,4","55,38,8"],
-    // WEEK 5
-    29:["28,16,4","65,35,8"], 30:["28,5,4","65,12,8"], 31:["8,5,28","22,12,68"],
-    32:["5,14,28","12,32,68"], 33:["5,18,28","10,40,65"], 34:["15,20,5","35,48,10"],
-    35:["28,15,5","65,35,10"],
-    // WEEK 6
-    36:["28,8,4","65,20,8"], 37:["5,22,12","10,55,28"], 38:["5,12,28","12,28,68"],
-    39:["10,5,22","25,12,55"], 40:["22,8,5","55,20,10"], 41:["5,16,20","10,38,50"],
-    42:["5,18,16","10,42,35"],
-    // WEEK 7
-    43:["25,12,5","60,28,10"], 44:["25,18,4","60,42,8"], 45:["5,16,25","10,38,62"],
-    46:["12,5,22","28,12,55"], 47:["22,5,14","55,10,32"], 48:["22,16,4","55,38,8"],
-    49:["22,5,10","55,12,25"],
-    // WEEK 8
-    50:["5,18,18","10,42,42"], 51:["5,12,25","10,28,62"], 52:["25,14,4","60,32,8"],
-    53:["25,7,4","60,18,8"], 54:["25,10,4","60,22,8"], 55:["10,5,22","24,10,55"],
-    56:["5,12,22","10,28,55"],
-    // WEEK 9
-    57:["22,14,4","55,32,8"], 58:["8,7,20","18,16,50"], 59:["5,18,10","10,42,25"],
-    60:["10,9,22","24,20,55"], 61:["22,10,5","55,24,12"], 62:["5,12,22","10,28,55"],
-    63:["22,16,4","55,38,8"],
-    // WEEK 10
-    64:["22,4,4","55,10,10"], 65:["22,16,4","55,38,8"], 66:["22,7,4","55,18,8"],
-    67:["5,18,10","10,42,25"], 68:["8,6,20","18,14,50"], 69:["5,14,22","10,32,55"],
-    70:["5,16,14","10,38,32"],
-    // WEEK 11
-    71:["22,16,4","55,38,8"], 72:["5,12,25","10,28,62"], 73:["5,12,22","10,28,55"],
-    74:["5,18,10","10,42,25"], 75:["10,5,22","25,10,55"], 76:["22,8,4","55,20,8"],
-    77:["5,10,22","10,22,55"], 78:["22,16,4","55,38,8"]
-  };
-
-  let html='';
-  weeks.forEach(w=>{
-    const days = DAYS.filter(d=>d.week===w);
-    days.forEach(d=>{
-      d.bg1 = bgs[d.day]?.[0] || "8,8,20";
-      d.bg2 = bgs[d.day]?.[1] || "15,15,40";
+function buildToc(){
+  // Week filter buttons
+  const wf = document.getElementById('week-filter');
+  wf.innerHTML = `<button class="wf-btn active" data-w="all">ALL 78</button>`;
+  for(let w=1;w<=11;w++){
+    wf.innerHTML += `<button class="wf-btn" data-w="${w}">W${w}</button>`;
+  }
+  wf.querySelectorAll('.wf-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      wf.querySelectorAll('.wf-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      filterWeek = btn.dataset.w;
+      renderToc();
     });
-    html+=`
-    <div class="week-title">
-      <h2>${weekNames[w]}</h2>
-      <p>${weekSubs[w]}</p>
-      <div class="week-divider"></div>
-    </div>
-    <div class="cards-grid">${days.map(makeCard).join('')}</div>`;
   });
-  container.innerHTML = html;
-  learned.forEach(day=>{
-    const p = document.getElementById(`prog-${day}`);
-    const b = document.getElementById(`lbadge-${day}`);
-    if(p) p.classList.add('done');
-    if(b) b.classList.add('show');
+  renderToc();
+}
+
+function renderToc(){
+  const body = document.getElementById('toc-body');
+  const weeks = filterWeek==='all'
+    ? [1,2,3,4,5,6,7,8,9,10,11]
+    : [parseInt(filterWeek)];
+  let html = '';
+  weeks.forEach(wk=>{
+    const ws = WORDS.filter(w=>w.week===wk);
+    if(!ws.length) return;
+    html += `<div class="toc-week-header">WEEK ${wk} ─ ${WEEK_CAT[wk]}</div>`;
+    html += '<div class="toc-grid">';
+    ws.forEach(w=>{
+      const idx = WORDS.indexOf(w);
+      html += `<div class="toc-item" style="--c:${w.acc}" data-idx="${idx}">
+        <div class="toc-day">DAY ${String(w.day).padStart(2,'0')}${w.gold?' ★':''}</div>
+        <div class="toc-word">${w.word}</div>
+        <div class="toc-meaning">${w.meaning}</div>
+        <div class="toc-tag-sm">${w.tag}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  body.innerHTML = html;
+  body.querySelectorAll('.toc-item').forEach(el=>{
+    el.addEventListener('click',()=>openCard(parseInt(el.dataset.idx)));
   });
 }
 
-renderCards();
+/* ── Open card ── */
+let cur=0, exOpen=false;
+
+function openCard(idx){
+  cur=idx; exOpen=false;
+  render(null);
+  document.getElementById('page-toc').classList.add('hidden');
+  document.getElementById('page-card').classList.remove('hidden');
+  speakNow();
+}
+
+/* ── Render ── */
+function render(fx){
+  const w=WORDS[cur];
+  const main=document.getElementById('card-main');
+  const panel=document.getElementById('ex-panel');
+  exOpen=false;
+  main.classList.remove('ex-open');
+  panel.classList.remove('show');
+
+  if(fx){ main.classList.add(fx); setTimeout(()=>main.classList.remove(fx),300); }
+
+  const [R,G,B]=w.planet[0].split(',').map(Number);
+  document.getElementById('card-scene').style.backgroundImage=mkBg(getBg(w),R,G,B);
+  document.getElementById('card-emoji').textContent=getEmoji(w.x);
+
+  document.getElementById('card-cat').textContent=WEEK_CAT[w.week];
+  document.getElementById('card-cat').style.color=w.acc;
+  document.getElementById('card-day').textContent=`DAY ${String(w.day).padStart(2,'0')}`;
+  document.getElementById('card-day').style.cssText=`border-color:${w.acc};color:${w.acc}`;
+  document.getElementById('card-word').textContent=w.word;
+  document.getElementById('card-word').style.cssText=`color:${w.gold?'#C9A84C':'#ffffff'};text-shadow:0 0 36px ${w.acc}44,0 0 72px ${w.acc}18`;
+  document.getElementById('pho-stress').textContent=STRESS[w.word]||w.word;
+  document.getElementById('pho-kana').textContent=w.kana;
+  document.getElementById('card-line').style.background=`linear-gradient(90deg,transparent,${w.acc},transparent)`;
+  document.getElementById('card-meaning').textContent=w.meaning;
+  document.getElementById('card-meaning').style.color=w.acc;
+  document.getElementById('card-counter').textContent=`${cur+1} / ${WORDS.length}`;
+  document.getElementById('prog-fill').style.width=`${((cur+1)/WORDS.length)*100}%`;
+  document.getElementById('prev-btn').disabled=cur===0;
+  document.getElementById('next-btn').disabled=cur===WORDS.length-1;
+
+  document.getElementById('ex-tag').style.color=w.acc;
+  document.getElementById('ex-ru').textContent=w.ex_ru;
+  const kanaEl=document.getElementById('ex-kana');
+  kanaEl.textContent=w.ex_ru_kana||'';
+  kanaEl.style.display=w.ex_ru_kana?'':'none';
+  document.getElementById('ex-jp').textContent=w.ex_jp;
+  document.getElementById('ex-naze').textContent=w.naze;
+  document.getElementById('ex-x').textContent=w.x||'';
+}
+
+/* ── Toggle example ── */
+function toggleEx(){
+  exOpen=!exOpen;
+  document.getElementById('card-main').classList.toggle('ex-open',exOpen);
+  document.getElementById('ex-panel').classList.toggle('show',exOpen);
+}
+
+/* ── Tap / click on card-main ── */
+const cardMain=document.getElementById('card-main');
+let tapX,tapY,tapT;
+cardMain.addEventListener('touchstart',e=>{tapX=e.touches[0].clientX;tapY=e.touches[0].clientY;tapT=Date.now();},{passive:true});
+cardMain.addEventListener('touchend',e=>{
+  if(Math.abs(e.changedTouches[0].clientX-tapX)<12&&Math.abs(e.changedTouches[0].clientY-tapY)<12&&Date.now()-tapT<300)toggleEx();
+});
+cardMain.addEventListener('click',e=>{if(!e.target.closest('.ex-panel'))toggleEx();});
+document.getElementById('ex-panel').addEventListener('click',e=>e.stopPropagation());
+document.getElementById('ex-panel').addEventListener('touchend',e=>e.stopPropagation());
+
+/* ── Swipe ── */
+let swX,swY;
+const cardPage=document.getElementById('page-card');
+cardPage.addEventListener('touchstart',e=>{swX=e.touches[0].clientX;swY=e.touches[0].clientY;},{passive:true});
+cardPage.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-swX,dy=e.changedTouches[0].clientY-swY;
+  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>44)go(dx<0?1:-1);
+});
+
+/* ── Navigate ── */
+function go(dir){const n=cur+dir;if(n<0||n>=WORDS.length)return;cur=n;render(dir>0?'fx-l':'fx-r');speakNow();}
+document.getElementById('prev-btn').addEventListener('click',()=>go(-1));
+document.getElementById('next-btn').addEventListener('click',()=>go(1));
+
+/* ── Back ── */
+document.getElementById('back-btn').addEventListener('click',()=>{
+  window.speechSynthesis&&window.speechSynthesis.cancel();
+  document.getElementById('page-card').classList.add('hidden');
+  document.getElementById('page-toc').classList.remove('hidden');
+});
+
+/* ── Keyboard ── */
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('page-card').classList.contains('hidden'))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+  if(e.key===' '){e.preventDefault();toggleEx();}
+  if(e.key==='Escape')document.getElementById('back-btn').click();
+});
+
+/* ── Speak word ── */
+function speakNow(){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  setTimeout(()=>{
+    const u=new SpeechSynthesisUtterance(WORDS[cur].word);
+    u.lang='ru-RU';u.rate=0.75;u.pitch=1.0;
+    window.speechSynthesis.speak(u);
+  },320);
+}
+document.getElementById('speak-btn').addEventListener('click',speakNow);
+
+/* ── Speak example ── */
+function speakEx(){
+  if(!window.speechSynthesis)return;
+  const btn=document.getElementById('ex-speak-btn');
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(WORDS[cur].ex_ru);
+  u.lang='ru-RU';u.rate=0.72;u.pitch=1.0;
+  u.onstart=()=>btn.classList.add('playing');
+  u.onend=()=>btn.classList.remove('playing');
+  u.onerror=()=>btn.classList.remove('playing');
+  window.speechSynthesis.speak(u);
+}
+document.getElementById('ex-speak-btn').addEventListener('click',e=>{e.stopPropagation();speakEx();});
+document.getElementById('ex-speak-btn').addEventListener('touchend',e=>{e.stopPropagation();});
+
+/* ── Init ── */
+buildToc();
 </script>
 </body>
 </html>
