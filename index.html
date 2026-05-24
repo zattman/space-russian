@@ -2,714 +2,932 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>🚀 宇宙ロシア語 単語帳</title>
+<title>宇宙ロシア語 単語帳 — HAMA Space Russian</title>
 <style>
-:root { --gold:#C9A84C; --dark:#07070f; }
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html,body { height:100%; overflow:hidden; }
-body { background:var(--dark); color:#fff; font-family:'Helvetica Neue',Arial,sans-serif; }
-
-/* ── Ambient stars (body layer) ── */
-.stars-bg {
-  position:fixed; inset:0; pointer-events:none; z-index:0;
+:root{--gold:#C9A84C;--dark:#080810;--card-w:220px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--dark);
+  color:#fff;
+  font-family:'Helvetica Neue',Arial,sans-serif;
+  min-height:100vh;
   background-image:
-    radial-gradient(1px 1px at 8% 7%,rgba(255,255,255,.55),transparent),
-    radial-gradient(1px 1px at 23% 15%,rgba(255,255,255,.45),transparent),
-    radial-gradient(1.5px 1.5px at 39% 5%,rgba(255,255,255,.60),transparent),
-    radial-gradient(1px 1px at 54% 21%,rgba(255,255,255,.40),transparent),
-    radial-gradient(1px 1px at 69% 10%,rgba(255,255,255,.55),transparent),
-    radial-gradient(1.5px 1.5px at 85% 18%,rgba(255,255,255,.65),transparent),
-    radial-gradient(1px 1px at 95% 34%,rgba(255,255,255,.35),transparent),
-    radial-gradient(1px 1px at 5% 42%,rgba(255,255,255,.50),transparent),
-    radial-gradient(1px 1px at 18% 55%,rgba(255,255,255,.40),transparent),
-    radial-gradient(1px 1px at 32% 48%,rgba(255,255,255,.50),transparent),
-    radial-gradient(1.5px 1.5px at 48% 62%,rgba(255,255,255,.55),transparent),
-    radial-gradient(1px 1px at 63% 70%,rgba(255,255,255,.45),transparent),
-    radial-gradient(1px 1px at 78% 58%,rgba(255,255,255,.35),transparent),
-    radial-gradient(1px 1px at 90% 75%,rgba(255,255,255,.60),transparent),
-    radial-gradient(1px 1px at 12% 82%,rgba(255,255,255,.50),transparent),
-    radial-gradient(1px 1px at 35% 88%,rgba(255,255,255,.40),transparent),
-    radial-gradient(1.5px 1.5px at 60% 92%,rgba(255,255,255,.55),transparent),
-    radial-gradient(1px 1px at 75% 85%,rgba(255,255,255,.45),transparent),
-    radial-gradient(1px 1px at 50% 50%,rgba(255,255,255,.30),transparent),
-    radial-gradient(1px 1px at 22% 30%,rgba(255,255,255,.35),transparent),
-    radial-gradient(1px 1px at 44% 73%,rgba(255,255,255,.38),transparent),
-    radial-gradient(1px 1px at 87% 43%,rgba(255,255,255,.42),transparent),
-    radial-gradient(1.5px 1.5px at 4% 69%,rgba(255,255,255,.48),transparent),
-    radial-gradient(1px 1px at 67% 39%,rgba(255,255,255,.32),transparent);
+    radial-gradient(ellipse at 20% 20%,rgba(74,120,220,.06) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.04) 0%,transparent 50%);
 }
 
-/* ═══════════════════════════ TOC ═══════════════════════════ */
-#page-toc {
-  position:fixed; inset:0; z-index:10;
-  display:flex; flex-direction:column;
-  transition:transform .35s ease, opacity .35s ease;
+/* ── HEADER ── */
+header{
+  text-align:center;
+  padding:50px 20px 30px;
+  position:relative;
+  overflow:hidden;
 }
-#page-toc.hidden { transform:translateY(-100%); opacity:0; pointer-events:none; }
+header::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(201,168,76,.04) 0%,transparent 100%);
+  pointer-events:none;
+}
+.logo{font-size:9px;letter-spacing:6px;color:#C9A84C88;margin-bottom:10px;}
+.main-title{
+  font-size:32px;font-weight:900;letter-spacing:3px;
+  background:linear-gradient(135deg,#C9A84C,#fff 50%,#C9A84C);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+.sub-title{font-size:12px;color:#444;letter-spacing:3px;margin-bottom:24px;}
+.stats{
+  display:inline-flex;gap:32px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:40px;padding:10px 28px;
+}
+.stat{text-align:center;}
+.stat-num{font-size:20px;font-weight:700;color:#C9A84C;}
+.stat-label{font-size:9px;color:#444;letter-spacing:2px;}
 
-.toc-header {
-  padding:22px 20px 12px; text-align:center; flex-shrink:0;
-  background:linear-gradient(180deg,rgba(7,7,15,.96) 65%,transparent);
+/* ── WEEK TABS ── */
+.week-tabs{
+  display:flex;justify-content:center;gap:8px;
+  padding:24px 20px 0;flex-wrap:wrap;
 }
-.toc-logo  { font-size:8px; letter-spacing:6px; color:rgba(201,168,76,.38); margin-bottom:8px; }
-.toc-title {
-  font-size:20px; font-weight:900; letter-spacing:3px;
-  background:linear-gradient(135deg,var(--gold),#fff 55%,var(--gold));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:4px;
+.tab{
+  padding:8px 20px;border-radius:20px;font-size:11px;
+  font-weight:600;letter-spacing:1px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.08);color:#555;
+  background:transparent;transition:all .25s;
 }
-.toc-sub { font-size:8px; color:#2e2e48; letter-spacing:4px; }
-.toc-scroll { flex:1; overflow-y:auto; padding:10px 12px 24px; -webkit-overflow-scrolling:touch; }
-.toc-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-
-.toc-item {
-  background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.065);
-  border-radius:12px; padding:14px 11px; cursor:pointer;
-  transition:all .18s; display:flex; flex-direction:column; gap:3px;
-  position:relative; overflow:hidden;
-}
-.toc-item::before {
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(135deg,var(--c,transparent) 0%,transparent 68%);
-  opacity:.055; pointer-events:none;
-}
-.toc-item:active { transform:scale(.96); }
-.toc-day     { font-size:8px; font-weight:700; letter-spacing:2px; color:var(--c,#4a78dc); }
-.toc-word    { font-size:21px; font-weight:900; color:#fff; line-height:1.1; }
-.toc-meaning { font-size:11px; color:#555; margin-top:2px; }
-
-/* ═══════════════════════════ FLASHCARD ═══════════════════════════ */
-#page-card {
-  position:fixed; inset:0; z-index:10;
-  display:flex; flex-direction:column;
-  transition:transform .35s ease, opacity .35s ease; overflow:hidden;
-}
-#page-card.hidden { transform:translateY(100%); opacity:0; pointer-events:none; }
-
-/* ── Top bar ── */
-.card-topbar {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:20px 20px 8px; flex-shrink:0; z-index:2; position:relative;
-}
-.back-btn {
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
-  color:#777; font-size:10px; padding:7px 15px; border-radius:20px;
-  cursor:pointer; letter-spacing:1.5px; transition:all .2s;
-}
-.back-btn:active { background:rgba(255,255,255,.14); color:#ccc; }
-.card-day-badge {
-  font-size:9px; font-weight:700; letter-spacing:4px;
-  padding:5px 16px; border-radius:14px; border:1px solid;
-}
-.speak-btn {
-  width:42px; height:42px; border-radius:50%;
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
-  color:#777; font-size:17px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; transition:all .2s;
-}
-.speak-btn:active { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.15); }
-
-/* ── Main ── */
-.card-main {
-  flex:1; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  z-index:2; text-align:center;
-  user-select:none; cursor:pointer;
-  position:relative; overflow:hidden;
-  /* padding kept small so background is visible */
-  padding:0 32px;
+.tab:hover{border-color:#C9A84C44;color:#C9A84C88;}
+.tab.active{
+  background:rgba(201,168,76,.12);
+  border-color:#C9A84C66;color:#C9A84C;
 }
 
-/* ── Space illustration (CSS gradient art) ── */
-.card-scene {
-  position:absolute; inset:0; pointer-events:none;
-  z-index:0; transition:background-image .4s ease;
+/* ── WEEK HEADER ── */
+.week-title{
+  text-align:center;padding:32px 20px 8px;
+}
+.week-title h2{
+  font-size:14px;font-weight:700;color:#C9A84C;
+  letter-spacing:3px;margin-bottom:4px;
+}
+.week-title p{font-size:11px;color:#444;letter-spacing:1px;}
+.week-divider{
+  width:60px;height:1px;background:linear-gradient(90deg,transparent,#C9A84C66,transparent);
+  margin:12px auto 0;
 }
 
-/* ── Emoji watermark ── */
-.card-emoji {
-  position:absolute; pointer-events:none;
-  z-index:1; bottom:6%; right:-1%;
-  font-size:clamp(110px, 30vw, 155px);
-  line-height:1; opacity:0.06;
-  transform:rotate(-10deg);
-  transition:opacity .3s; user-select:none;
-}
-.card-main.ex-open .card-emoji { opacity:0.028; }
-
-/* ── Word section ── */
-.word-section {
-  display:flex; flex-direction:column; align-items:center;
-  pointer-events:none; position:relative; z-index:2;
-  transition:transform .35s ease;
-}
-.card-main.ex-open .word-section { transform:translateY(-16px); }
-
-/* Distinction-style category chip */
-.card-cat {
-  font-size:8px; font-weight:700; letter-spacing:4px;
-  margin-bottom:14px; opacity:.55; text-transform:uppercase;
+/* ── CARDS GRID ── */
+.cards-grid{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:20px;padding:24px 24px 40px;
+  max-width:1400px;margin:0 auto;
 }
 
-/* THE word — hero element */
-.card-word {
-  font-size:clamp(50px,14.5vw,92px); font-weight:900;
-  line-height:1.02; letter-spacing:1px; margin-bottom:12px;
+/* ── FLIP CARD ── */
+.flip-wrap{
+  width:var(--card-w);height:360px;
+  perspective:1000px;cursor:pointer;
+}
+.flip-inner{
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.flip-wrap.flipped .flip-inner{transform:rotateY(180deg);}
+
+.face{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
 }
 
-/* Phonetics — single compact row (Distinction style) */
-.card-phonetics {
-  display:flex; align-items:center; gap:8px; margin-bottom:20px;
+/* FRONT */
+.front{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:20px 16px 14px;
+  position:relative;
 }
-.pho-stress { font-size:13px; color:rgba(255,255,255,.32); font-style:italic; letter-spacing:1.5px; }
-.pho-sep    { font-size:11px; color:rgba(255,255,255,.12); }
-.pho-kana   { font-size:14px; color:rgba(255,255,255,.52); letter-spacing:2px; }
-
-/* Divider line */
-.card-line  { width:52px; height:1.5px; border-radius:1px; margin-bottom:18px; }
-
-/* Meaning */
-.card-meaning { font-size:28px; font-weight:700; letter-spacing:2px; }
-
-.tap-hint {
-  font-size:8px; color:rgba(255,255,255,.15); letter-spacing:4px; margin-top:18px;
-  transition:opacity .3s;
+.front-stars{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 40% 8%,#ffffffaa 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 20%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 20% 55%,#ffffffcc 0%,transparent 100%),
+    radial-gradient(1px 1px at 88% 45%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 70%,#ffffffaa 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 80%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 82% 75%,#ffffffcc 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 50% 50%,#fff 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 90%,#fff 0%,transparent 100%);
+  opacity:.7;pointer-events:none;
 }
-.card-main.ex-open .tap-hint { opacity:0; }
+.front-planet{
+  position:absolute;top:12px;right:-10px;
+  width:50px;height:50px;border-radius:50%;
+  opacity:.6;
+}
+.front-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(80,130,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(80,130,255,.03) 1px,transparent 1px);
+  background-size:24px 24px;pointer-events:none;
+}
+.front-day{
+  font-size:9px;font-weight:700;letter-spacing:3px;
+  padding:4px 10px;border-radius:10px;
+  border:1px solid var(--acc,#4a78dc);
+  color:var(--acc,#4a78dc);
+  margin-bottom:auto;align-self:flex-start;
+  position:relative;z-index:1;
+}
+.front-word{
+  font-size:52px;font-weight:900;
+  line-height:1;letter-spacing:1px;
+  text-align:center;
+  position:relative;z-index:1;
+  margin:auto 0;
+}
+.front-kana{
+  font-size:11px;color:#888;letter-spacing:1.5px;
+  margin-top:6px;position:relative;z-index:1;
+}
+.front-phonetic-row{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  margin-top:4px;position:relative;z-index:1;
+}
+.front-stress{
+  font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;font-style:italic;
+}
+.speak-btn{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.7);font-size:12px;padding:2px 7px;border-radius:7px;
+  cursor:pointer;transition:all .2s;line-height:1.4;
+}
+.speak-btn:hover{background:rgba(201,168,76,.3);border-color:#C9A84C88;color:#C9A84C;}
+.front-line{
+  width:80px;height:1.5px;margin:10px auto;
+  border-radius:1px;position:relative;z-index:1;
+}
+.front-meaning-hint{
+  font-size:13px;font-weight:700;
+  position:relative;z-index:1;
+}
+.front-tag{
+  font-size:8px;color:#555;letter-spacing:.5px;
+  margin-top:4px;position:relative;z-index:1;
+  text-align:center;
+}
+.front-flip-hint{
+  position:absolute;bottom:10px;right:12px;
+  font-size:7px;color:#333;letter-spacing:1px;
+}
 
-/* ── Example bottom sheet ── */
-.ex-panel {
-  position:absolute; bottom:0; left:0; right:0;
-  background:rgba(7,7,18,0.97); backdrop-filter:blur(20px);
-  border-top:1px solid rgba(255,255,255,.09);
-  border-radius:22px 22px 0 0;
-  padding:6px 24px 22px;
-  transform:translateY(100%);
-  transition:transform .38s cubic-bezier(0.32,0.72,0,1);
-  z-index:5; cursor:default;
+/* BACK */
+.back{
+  transform:rotateY(180deg);
+  display:flex;flex-direction:column;
+  padding:14px 14px 12px;
+  background:#0a0a16;
+  position:relative;
 }
-.ex-panel.show { transform:translateY(0); }
-.ex-handle   { width:34px; height:3px; background:rgba(255,255,255,.12); border-radius:2px; margin:0 auto 14px; }
-.ex-tag-row  { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.ex-tag      { font-size:8px; font-weight:700; letter-spacing:3px; }
-.ex-speak-btn {
-  width:34px; height:34px; border-radius:50%;
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
-  color:#777; font-size:15px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; transition:all .2s;
-  flex-shrink:0;
+.back-topbar{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  border-radius:16px 16px 0 0;
 }
-.ex-speak-btn:active  { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.18); }
-.ex-speak-btn.playing { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.12); }
-.ex-ru       { font-size:16px; font-weight:600; color:#e4e4e4; line-height:1.5; margin-bottom:4px; }
-.ex-jp       { font-size:13px; color:#666; margin-bottom:12px; line-height:1.4; }
-.ex-hr       { height:1px; background:rgba(255,255,255,.06); margin-bottom:10px; }
-.ex-naze-tag { font-size:8px; font-weight:700; letter-spacing:2px; color:var(--gold); margin-bottom:6px; }
-.ex-naze     { font-size:12px; color:#888; line-height:1.7; }
+.back-header{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:8px;
+  margin-top:4px;
+}
+.back-word{font-size:22px;font-weight:900;}
+.back-meaning{
+  font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:8px;
+}
+.back-section{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:8px;padding:8px 10px;
+  margin-bottom:7px;
+}
+.back-label{
+  font-size:7px;font-weight:700;letter-spacing:2px;
+  margin-bottom:4px;
+}
+.back-text{font-size:9px;line-height:1.6;color:#bbb;}
+.back-example{
+  font-size:10px;font-weight:600;color:#ddd;
+  margin-bottom:2px;
+}
+.back-example-kana{font-size:10px;color:#a8a8cc;letter-spacing:.8px;margin-bottom:3px;font-style:italic;background:rgba(120,120,200,.07);border-left:2px solid rgba(140,140,220,.25);padding:2px 6px;border-radius:0 4px 4px 0;}
+.back-example-jp{font-size:9px;color:#666;}
+.back-check{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:auto;
+  padding-top:6px;border-top:1px solid rgba(255,255,255,.05);
+}
+.check-btn{
+  font-size:8px;font-weight:700;letter-spacing:1px;
+  padding:4px 10px;border-radius:8px;cursor:pointer;
+  border:1px solid;transition:all .2s;
+}
+.check-btn.good{color:#32c87a;border-color:#32c87a44;}
+.check-btn.good:hover{background:#32c87a22;}
+.check-btn.again{color:#dc6023;border-color:#dc602344;}
+.check-btn.again:hover{background:#dc602322;}
+.learned-badge{
+  font-size:7px;font-weight:700;letter-spacing:2px;
+  color:#32c87a;display:none;
+}
+.learned-badge.show{display:block;}
+.check-done{font-size:10px;}
 
-/* ── Bottom nav ── */
-.card-bottom {
-  flex-shrink:0; padding:10px 24px 26px;
-  display:flex; flex-direction:column; gap:12px;
-  align-items:center; z-index:2;
+/* Progress indicator on card */
+.card-progress{
+  position:absolute;top:10px;right:12px;
+  width:6px;height:6px;border-radius:50%;
+  background:#333;transition:background .3s;
+  z-index:10;
 }
-.card-counter { font-size:9px; color:#333; letter-spacing:4px; }
-.card-nav     { display:flex; align-items:center; gap:20px; }
-.nav-btn {
-  width:54px; height:54px; border-radius:50%;
-  border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.05);
-  color:rgba(255,255,255,.55); font-size:26px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; transition:all .2s; line-height:1;
-}
-.nav-btn:active   { background:rgba(255,255,255,.13); color:#fff; }
-.nav-btn:disabled { opacity:.14; cursor:default; }
-.progress-bar  { width:100%; height:2px; background:rgba(255,255,255,.06); border-radius:1px; overflow:hidden; }
-.progress-fill { height:100%; background:linear-gradient(90deg,var(--gold),rgba(255,255,255,.8)); transition:width .3s ease; }
+.card-progress.done{background:#32c87a;}
 
-/* ── Animations ── */
-.card-main.fx-l { animation:fxL .28s ease forwards; }
-.card-main.fx-r { animation:fxR .28s ease forwards; }
-@keyframes fxL { 0%{opacity:1;transform:none} 38%{opacity:0;transform:translateX(-26px)} 39%{opacity:0;transform:translateX(26px)} 100%{opacity:1;transform:none} }
-@keyframes fxR { 0%{opacity:1;transform:none} 38%{opacity:0;transform:translateX(26px)} 39%{opacity:0;transform:translateX(-26px)} 100%{opacity:1;transform:none} }
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:40px;
+  color:#333;font-size:10px;letter-spacing:2px;
+}
 </style>
 </head>
 <body>
 
-<div class="stars-bg"></div>
-
-<!-- ── TOC ── -->
-<div id="page-toc">
-  <div class="toc-header">
-    <div class="toc-logo">HAMA × SPACE RUSSIAN</div>
-    <div class="toc-title">宇宙ロシア語 単語帳</div>
-    <div class="toc-sub">TAP A WORD · 28 DAYS</div>
+<header>
+  <div class="logo">@HAMA_CPA_SPACE</div>
+  <div class="main-title">🚀 宇宙ロシア語 単語帳</div>
+  <div class="sub-title">SPACE RUSSIAN VOCABULARY — FULL 78 DAYS</div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">78</div><div class="stat-label">WORDS</div></div>
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">WEEKS</div></div>
+    <div class="stat"><div class="stat-num" id="learned-count">0</div><div class="stat-label">LEARNED</div></div>
   </div>
-  <div class="toc-scroll"><div class="toc-grid" id="toc-grid"></div></div>
+</header>
+
+<div class="week-tabs">
+  <button class="tab active" data-week="all">ALL 78</button>
+  <button class="tab" data-week="1">WEEK 1</button>
+  <button class="tab" data-week="2">WEEK 2</button>
+  <button class="tab" data-week="3">WEEK 3</button>
+  <button class="tab" data-week="4">WEEK 4</button>
+  <button class="tab" data-week="5">WEEK 5</button>
+  <button class="tab" data-week="6">WEEK 6</button>
+  <button class="tab" data-week="7">WEEK 7</button>
+  <button class="tab" data-week="8">WEEK 8</button>
+  <button class="tab" data-week="9">WEEK 9</button>
+  <button class="tab" data-week="10">WEEK 10</button>
+  <button class="tab" data-week="11">WEEK 11</button>
 </div>
 
-<!-- ── FLASHCARD ── -->
-<div id="page-card" class="hidden">
-  <div class="card-topbar">
-    <button class="back-btn" id="back-btn">← 一覧</button>
-    <div class="card-day-badge" id="card-day">DAY 01</div>
-    <button class="speak-btn" id="speak-btn">🔊</button>
-  </div>
-
-  <div class="card-main" id="card-main">
-    <div class="card-scene" id="card-scene"></div>
-    <div class="card-emoji" id="card-emoji"></div>
-
-    <div class="word-section">
-      <div class="card-cat" id="card-cat">名詞</div>
-      <div class="card-word"    id="card-word"></div>
-      <div class="card-phonetics">
-        <span class="pho-stress" id="pho-stress"></span>
-        <span class="pho-sep">|</span>
-        <span class="pho-kana"   id="pho-kana"></span>
-      </div>
-      <div class="card-line" id="card-line"></div>
-      <div class="card-meaning" id="card-meaning"></div>
-      <div class="tap-hint">✦ TAP · EXAMPLE ✦</div>
-    </div>
-
-    <div class="ex-panel" id="ex-panel">
-      <div class="ex-handle"></div>
-      <div class="ex-tag-row">
-        <div class="ex-tag" id="ex-tag">📝 例文</div>
-        <button class="ex-speak-btn" id="ex-speak-btn">🔊</button>
-      </div>
-      <div class="ex-ru"  id="ex-ru"></div>
-      <div class="ex-jp"  id="ex-jp"></div>
-      <div class="ex-hr"></div>
-      <div class="ex-naze-tag">🚀 なぜこの単語？</div>
-      <div class="ex-naze" id="ex-naze"></div>
-    </div>
-  </div>
-
-  <div class="card-bottom">
-    <div class="card-counter" id="card-counter">1 / 28</div>
-    <div class="card-nav">
-      <button class="nav-btn" id="prev-btn">‹</button>
-      <button class="nav-btn" id="next-btn">›</button>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-  </div>
-</div>
+<div id="cards-container"></div>
+<footer>HAMA × JOE — 宇宙飛行士への道はここから始まる 🚀</footer>
 
 <script>
-/* ─────────────────────────────────────────────
-   CSS ART GENERATOR — space-themed backgrounds
-───────────────────────────────────────────── */
-function hexRgb(h) {
-  return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
-}
-function mkBg(type, R, G, B) {
-  const c = (a) => `rgba(${R},${G},${B},${a})`;
-  const w = (a) => `rgba(255,255,255,${a})`;
-  switch(type) {
+// ── アクセント付きキリル（発音記号） ──
+const STRESS = {
+  "Привет":"Приве́т","Спасибо":"Спаси́бо","Мечта":"Мечта́","Космос":"Ко́смос",
+  "Удача":"Уда́ча","Сила":"Си́ла","Вперёд":"Вперёд","Земля":"Земля́",
+  "Луна":"Луна́","Звезда":"Звезда́","Ракета":"Раке́та","Полёт":"Полёт",
+  "Скафандр":"Скафа́ндр","Орбита":"Орби́та","Станция":"Ста́нция",
+  "Гравитация":"Грави́тация","Связь":"Связь","Воздух":"Во́здух",
+  "Открытие":"Откры́тие","Команда":"Кома́нда","Победа":"Побе́да",
+  "Терпение":"Терпе́ние","Надежда":"Наде́жда","Знание":"Зна́ние",
+  "Путь":"Путь","Сердце":"Се́рдце","Вселенная":"Вселе́нная","Будущее":"Бу́дущее",
+  "Солнце":"Со́лнце","Марс":"Марс","Галактика":"Гала́ктика","Спутник":"Спу́тник",
+  "Атмосфера":"Атмосфе́ра","Комета":"Коме́та","Горизонт":"Горизо́нт",
+  "Запуск":"За́пуск","Посадка":"Поса́дка","Выход":"Вы́ход","Стыковка":"Стыко́вка",
+  "Тренировка":"Трениро́вка","Управление":"Управле́ние","Наблюдение":"Наблюде́ние",
+  "Смелость":"Сме́лость","Радость":"Ра́дость","Свобода":"Свобо́да",
+  "Любопытство":"Любопы́тство","Красота":"Красота́","Гордость":"Го́рдость","Любовь":"Любо́вь",
+  "Кислород":"Кислоро́д","Давление":"Давле́ние","Скорость":"Ско́рость",
+  "Температура":"Температу́ра","Энергия":"Эне́ргия","Эксперимент":"Экспериме́нт","Технология":"Техноло́гия",
+  "Питание":"Пита́ние","Сон":"Сон","Здоровье":"Здоро́вье","Тишина":"Тишина́",
+  "Дом":"Дом","Время":"Вре́мя","Человек":"Челове́к",
+  "Гагарин":"Гага́рин","Первый":"Пе́рвый","Восток":"Восто́к","Успех":"Успе́х",
+  "История":"Исто́рия","Исследование":"Иссле́дование","Наука":"Нау́ка",
+  "Деньги":"Де́ньги","Инвестиция":"Инвести́ция","Компания":"Компа́ния","Рост":"Рост",
+  "Партнёр":"Партнёр","Стратегия":"Страте́гия","Финансы":"Фина́нсы","Мечтатель":"Мечта́тель"
+};
 
-    case 'planet': // large glowing sphere bottom-right
-      return [
-        `radial-gradient(circle 260px at 82% 87%, ${c(.38)} 0%, ${c(.14)} 44%, transparent 66%)`,
-        `radial-gradient(circle 120px at 82% 87%, ${c(.55)} 0%, ${c(.20)} 50%, transparent 70%)`,
-        `radial-gradient(circle 50px  at 82% 87%, ${w(.18)} 0%, transparent 50%)`,
-        `radial-gradient(circle 245px at 82% 87%, transparent 228px, ${c(.22)} 232px, transparent 248px)`,
-      ].join(',');
-
-    case 'moon': // cooler sphere upper-right
-      return [
-        `radial-gradient(circle 210px at 80% 22%, ${c(.36)} 0%, ${c(.10)} 44%, transparent 65%)`,
-        `radial-gradient(circle 96px  at 80% 22%, ${c(.55)} 0%, ${c(.18)} 50%, transparent 70%)`,
-        `radial-gradient(circle 40px  at 80% 22%, ${w(.18)} 0%, transparent 50%)`,
-        `radial-gradient(circle 205px at 80% 22%, transparent 190px, ${c(.18)} 194px, transparent 208px)`,
-      ].join(',');
-
-    case 'star': // bright star with halo upper area
-      return [
-        `radial-gradient(circle 200px at 68% 26%, ${c(.28)} 0%, transparent 56%)`,
-        `radial-gradient(circle 48px  at 68% 26%, ${c(.70)} 0%, transparent 50%)`,
-        `radial-gradient(circle 12px  at 68% 26%, ${w(.88)} 0%, transparent 50%)`,
-        `radial-gradient(2.5px 2.5px at 25% 55%, ${w(.70)}, transparent)`,
-        `radial-gradient(2px 2px at 82% 65%, ${w(.62)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 12% 30%, ${w(.55)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 55% 80%, ${w(.48)}, transparent)`,
-      ].join(',');
-
-    case 'rocket': // rocket exhaust column from bottom
-      return [
-        `radial-gradient(ellipse 70px 340px at 50% 105%, ${c(.38)} 0%, transparent 56%)`,
-        `radial-gradient(ellipse 32px 180px at 50% 105%, rgba(255,200,80,.42) 0%, transparent 46%)`,
-        `radial-gradient(ellipse 14px 80px  at 50% 105%, ${w(.30)} 0%, transparent 40%)`,
-        `radial-gradient(circle 55px at 50% 80%, ${c(.22)} 0%, transparent 50%)`,
-        `radial-gradient(circle 28px at 50% 78%, ${c(.30)} 0%, transparent 50%)`,
-      ].join(',');
-
-    case 'nebula': // soft interstellar cloud
-      return [
-        `radial-gradient(ellipse 340px 220px at 62% 40%, ${c(.22)} 0%, transparent 56%)`,
-        `radial-gradient(ellipse 220px 170px at 28% 68%, ${c(.16)} 0%, transparent 52%)`,
-        `radial-gradient(ellipse 160px 95px  at 75% 72%, ${c(.18)} 0%, transparent 48%)`,
-        `radial-gradient(2px 2px at 15% 20%, ${w(.62)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 55% 35%, ${w(.52)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 85% 15%, ${w(.58)}, transparent)`,
-        `radial-gradient(1px 1px at 40% 70%, ${w(.42)}, transparent)`,
-      ].join(',');
-
-    case 'orbit': // orbital ring around a small planet
-      return [
-        `radial-gradient(circle 62px at 50% 74%, ${c(.32)} 0%, transparent 50%)`,
-        `radial-gradient(circle 30px at 50% 74%, ${c(.55)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 280px 95px at 50% 74%, transparent 148px, ${c(.24)} 152px, transparent 160px)`,
-        `radial-gradient(ellipse 215px 72px at 50% 74%, transparent 108px, ${c(.18)} 112px, transparent 120px)`,
-        `radial-gradient(circle 14px at 88% 52%, ${c(.65)} 0%, transparent 50%)`,
-        `radial-gradient(circle 7px  at 88% 52%, ${w(.40)} 0%, transparent 50%)`,
-      ].join(',');
-
-    case 'signal': // concentric radio rings from a point
-      return [
-        `radial-gradient(circle 230px at 78% 42%, transparent 162px, ${c(.24)} 166px, transparent 172px)`,
-        `radial-gradient(circle 230px at 78% 42%, transparent 124px, ${c(.20)} 128px, transparent 134px)`,
-        `radial-gradient(circle 230px at 78% 42%, transparent 90px,  ${c(.18)} 94px,  transparent 100px)`,
-        `radial-gradient(circle 230px at 78% 42%, transparent 60px,  ${c(.15)} 63px,  transparent 69px)`,
-        `radial-gradient(circle 20px at 78% 42%, ${c(.55)} 0%, transparent 50%)`,
-        `radial-gradient(circle 8px  at 78% 42%, ${w(.75)} 0%, transparent 50%)`,
-      ].join(',');
-
-    case 'horizon': // dawn/sunset glow at bottom
-      return [
-        `radial-gradient(ellipse 440px 140px at 50% 100%, ${c(.45)} 0%, transparent 56%)`,
-        `radial-gradient(ellipse 300px 80px  at 50% 100%, ${c(.28)} 0%, transparent 50%)`,
-        `linear-gradient(to top, ${c(.14)} 0%, transparent 28%)`,
-        `radial-gradient(2px 2px at 20% 40%, ${w(.62)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 60% 28%, ${w(.55)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 80% 55%, ${w(.48)}, transparent)`,
-      ].join(',');
-
-    case 'wave': // flowing gravitational/atmospheric waves
-      return [
-        `radial-gradient(ellipse 360px 80px at 50% 38%, ${c(.20)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 320px 65px at 50% 52%, ${c(.16)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 270px 52px at 50% 64%, ${c(.12)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 200px 40px at 50% 75%, ${c(.09)} 0%, transparent 50%)`,
-        `radial-gradient(ellipse 130px 28px at 50% 84%, ${c(.07)} 0%, transparent 50%)`,
-      ].join(',');
-
-    case 'heart': // warm centered glow
-      return [
-        `radial-gradient(ellipse 240px 195px at 50% 42%, ${c(.32)} 0%, transparent 54%)`,
-        `radial-gradient(circle 80px  at 50% 38%, ${c(.50)} 0%, transparent 50%)`,
-        `radial-gradient(circle 32px  at 50% 36%, ${c(.45)} 0%, transparent 50%)`,
-        `radial-gradient(circle 12px  at 50% 34%, ${w(.22)} 0%, transparent 50%)`,
-      ].join(',');
-
-    case 'particles': // scattered stars / constellation
-      return [
-        `radial-gradient(3px 3px at 12% 35%, ${w(.72)}, transparent)`,
-        `radial-gradient(3px 3px at 72% 18%, ${w(.65)}, transparent)`,
-        `radial-gradient(2.5px 2.5px at 52% 62%, ${w(.58)}, transparent)`,
-        `radial-gradient(2px 2px at 28% 72%, ${w(.52)}, transparent)`,
-        `radial-gradient(3px 3px at 83% 52%, ${w(.60)}, transparent)`,
-        `radial-gradient(2px 2px at 40% 28%, ${w(.48)}, transparent)`,
-        `radial-gradient(2px 2px at 65% 80%, ${w(.45)}, transparent)`,
-        `radial-gradient(1.5px 1.5px at 18% 60%, ${w(.40)}, transparent)`,
-        `radial-gradient(circle 160px at 50% 50%, ${c(.14)} 0%, transparent 60%)`,
-      ].join(',');
-
-    default:
-      return `radial-gradient(circle 180px at 68% 68%, ${c(.22)} 0%, transparent 56%)`;
-  }
+// ── 音声読み上げ（Web Speech API / ru-RU） ──
+function speakWord(word, rate=0.75){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(word);
+  utt.lang = 'ru-RU';
+  utt.rate = rate;
+  utt.pitch = 1.0;
+  window.speechSynthesis.speak(utt);
 }
 
-/* ─────────────────────── WORDS ─────────────────────── */
-const WORDS = [
-  {day:1,  word:"Привет",     stress:"Приве́т",      kana:"プリヴィエット",      meaning:"こんにちは",   color:"#4a78dc", emoji:"👋", cat:"感嘆詞", bg:"particles",
-   ex_ru:"Привет из космоса! Земля, ты прекрасна!",
-   ex_jp:"宇宙からこんにちは！地球、めっちゃキレイやん！",
-   naze:"宇宙への第一歩はここから。ドッキング成功直後に叫ぶ「Привет！」が人生最高の瞬間になる予定。"},
-
-  {day:2,  word:"Спасибо",    stress:"Спаси́бо",     kana:"スパシーバ",          meaning:"ありがとう",   color:"#32c87a", emoji:"🙏", cat:"感嘆詞", bg:"particles",
-   ex_ru:"Спасибо, что не уронил отвёртку!",
-   ex_jp:"ドライバー落とさないでくれてありがとう！",
-   naze:"宇宙では工具を落としたら軌道の向こう側へ消える。「スパシーバ」の重みが地上とは全然違う。"},
-
-  {day:3,  word:"Мечта",      stress:"Мечта́",       kana:"ミェチュタ",          meaning:"夢",           color:"#C9A84C", emoji:"🌠", cat:"名詞", bg:"star",
-   ex_ru:"Моя мечта — стать космонавтом!",
-   ex_jp:"俺の夢は宇宙飛行士になること！",
-   naze:"JAXA宇宙飛行士候補の倍率は4,000倍超。それでもМечтаがあれば挑む価値がある。夢は非常識なくらいデカい方がいい。"},
-
-  {day:4,  word:"Космос",     stress:"Ко́смос",      kana:"コースモス",          meaning:"宇宙",         color:"#7846dc", emoji:"🌌", cat:"名詞", bg:"nebula",
-   ex_ru:"Космос бесконечен, как наши мечты.",
-   ex_jp:"宇宙は無限、俺たちの夢も無限。",
-   naze:"英語の cosmos・cosmonaut もここが語源。ロシアが宇宙語を作ったと言っても過言じゃない。"},
-
-  {day:5,  word:"Удача",      stress:"Уда́ча",       kana:"ウダーチャ",          meaning:"幸運",         color:"#9646c8", emoji:"🍀", cat:"名詞", bg:"star",
-   ex_ru:"Удачи в полёте! Возвращайся живым.",
-   ex_jp:"飛行に幸運を！生きて帰ってきてな。",
-   naze:"打ち上げ前の伝統の言葉。60年以上使われてきた。宇宙には実力＋運が必要。USCPA試験も同じ。"},
-
-  {day:6,  word:"Сила",       stress:"Си́ла",        kana:"スィーラ",            meaning:"力",           color:"#dc6023", emoji:"⚡", cat:"名詞", bg:"rocket",
-   ex_ru:"Сила ракеты — 7,9 км в секунду!",
-   ex_jp:"ロケットの力＝秒速7.9km！",
-   naze:"第一宇宙速度は秒速7.9km。東京→大阪が約2秒。物理のF=maのFがСила。地球の重力を振り切るのに必要な力と同じ単語。"},
-
-  {day:7,  word:"Вперёд",     stress:"Вперёд",       kana:"フピリョート",        meaning:"前へ！",       color:"#C9A84C", emoji:"🚀", cat:"副詞", bg:"rocket",
-   ex_ru:"Вперёд, к звёздам! Нас ждут!",
-   ex_jp:"前へ、星へ！俺たちを待ってる！",
-   naze:"ソユーズ打ち上げカウントダウン、点火の瞬間に叫ぶ言葉。迷ったらВперёд。これはもはや人生訓。"},
-
-  {day:8,  word:"Земля",      stress:"Земля́",       kana:"ジムリャー",          meaning:"地球",         color:"#3c82dc", emoji:"🌍", cat:"名詞", bg:"planet",
-   ex_ru:"Земля — самая красивая планета!",
-   ex_jp:"地球が一番美しい惑星！",
-   naze:"180日の無重力生活後に帰還した宇宙飛行士が最初に泣く理由。地面を踏む感覚、草の匂い、全部Земля。"},
-
-  {day:9,  word:"Луна",       stress:"Луна́",        kana:"ルナ",                meaning:"月",           color:"#b4b4dc", emoji:"🌕", cat:"名詞", bg:"moon",
-   ex_ru:"Луна ждёт нового гостя.",
-   ex_jp:"月は新しい訪問者を待っている。",
-   naze:"アルテミス計画でJAXAも月へ。iSpaceが月面ビジネスを始めた今、この単語は最重要ワードの一つ。"},
-
-  {day:10, word:"Звезда",     stress:"Звезда́",      kana:"ズヴィズダー",        meaning:"星",           color:"#ffd040", emoji:"⭐", cat:"名詞", bg:"star",
-   ex_ru:"Звезда горит в темноте.",
-   ex_jp:"星は暗闇の中でこそ輝く。",
-   naze:"ISSのロシア製コアモジュールの名前が「Звезда（星）」。今この瞬間も地上400kmで輝いてる。"},
-
-  {day:11, word:"Ракета",     stress:"Раке́та",      kana:"ラケータ",            meaning:"ロケット",     color:"#ff6432", emoji:"🚀", cat:"名詞", bg:"rocket",
-   ex_ru:"Ракета, старт! Поехали!",
-   ex_jp:"ロケット、発射！行くぞ！",
-   naze:"「ラケータ、スタルト！」を自分のミッションで聞いた瞬間、人生が変わる。ガガーリンの「ポヨーハリ！」と同じ温度。"},
-
-  {day:12, word:"Полёт",      stress:"Полёт",        kana:"パリョート",          meaning:"飛行",         color:"#5096ff", emoji:"✈️", cat:"名詞", bg:"orbit",
-   ex_ru:"Полёт к Луне — следующий шаг!",
-   ex_jp:"月への飛行が次のステップ！",
-   naze:"ガガーリンの初飛行は108分。その108分が人類の歴史を変えた。俺の人生を変える108分はいつ来る？"},
-
-  {day:13, word:"Скафандр",   stress:"Скафа́ндр",    kana:"スカファンドル",      meaning:"宇宙服",       color:"#32c8b4", emoji:"👨‍🚀", cat:"名詞", bg:"horizon",
-   ex_ru:"Скафандр стоит как квартира в Токио!",
-   ex_jp:"宇宙服は東京のマンション一室分の値段！",
-   naze:"EVA用宇宙服は1着約17億円。着てる本人は「高い服だな」とは思わないらしい。宇宙に出たら全部忘れる。"},
-
-  {day:14, word:"Орбита",     stress:"Орби́та",      kana:"アルビータ",          meaning:"軌道",         color:"#8c50e6", emoji:"🛸", cat:"名詞", bg:"orbit",
-   ex_ru:"МКС делает 16 витков в сутки.",
-   ex_jp:"ISSは1日に地球を16周する。",
-   naze:"地球軌道速度は時速27,700km。東京→大阪が約2秒。「軌道に乗る」という言葉の重さが宇宙視点で変わる。"},
-
-  {day:15, word:"Станция",    stress:"Ста́нция",     kana:"スタンツィヤ",        meaning:"ステーション", color:"#4678e6", emoji:"🛰️", cat:"名詞", bg:"orbit",
-   ex_ru:"МКС — наш дом в космосе.",
-   ex_jp:"ISSは宇宙の俺たちの家。",
-   naze:"ISS（МКС）は25年以上誰かが住み続けているホテル。家賃は払えないが、宇宙飛行士になれば無料で泊まれる。"},
-
-  {day:16, word:"Гравитация", stress:"Грави́тация",  kana:"グラヴィタツィヤ",    meaning:"重力",         color:"#a050f0", emoji:"⚖️", cat:"名詞", bg:"wave",
-   ex_ru:"Без гравитации слёзы не текут вниз.",
-   ex_jp:"重力なしだと涙が下に流れない。",
-   naze:"宇宙で泣くと涙が丸い球になって顔に張り付く。感動的な場面でも拭かないといけない。泣けない環境。"},
-
-  {day:17, word:"Связь",      stress:"Связь",        kana:"スヴャーシ",          meaning:"通信",         color:"#32b4dc", emoji:"📡", cat:"名詞", bg:"signal",
-   ex_ru:"Связь с Землёй — наша жизнь.",
-   ex_jp:"地球との通信が俺たちの命綱。",
-   naze:"光速でも地球→火星は最大22分。「元気？」と送って返事が44分後に来る。それでも繋がり続ける意味がある。"},
-
-  {day:18, word:"Воздух",     stress:"Во́здух",      kana:"ヴォーズドゥフ",      meaning:"空気",         color:"#32d28c", emoji:"💨", cat:"名詞", bg:"wave",
-   ex_ru:"Воздух на МКС создаётся искусственно.",
-   ex_jp:"ISSの空気は人工的に作られている。",
-   naze:"水の電気分解で酸素を生産。1kgの空気を宇宙へ運ぶコストは約100万円。今タダで吸ってる空気に感謝。"},
-
-  {day:19, word:"Открытие",   stress:"Откры́тие",    kana:"アトクルィーティエ",  meaning:"発見",         color:"#C9A84C", emoji:"🔭", cat:"名詞", bg:"star",
-   ex_ru:"Каждый полёт — это открытие!",
-   ex_jp:"すべての飛行は新たな発見だ！",
-   naze:"ロシア語で「発見」と「扉を開く」は同じ語根（открыть）。宇宙の扉を開くことが新発見になる。"},
-
-  {day:20, word:"Команда",    stress:"Кома́нда",     kana:"カマンダ",            meaning:"チーム",       color:"#5096ff", emoji:"👫", cat:"名詞", bg:"particles",
-   ex_ru:"Команда МКС — лучшие в мире!",
-   ex_jp:"ISSチームは世界最高！",
-   naze:"アメリカ人もロシア人も日本人も、宇宙では一つのКоманда。地上で対立してても宇宙では協力する。それが人類の希望。"},
-
-  {day:21, word:"Победа",     stress:"Побе́да",      kana:"パベーダ",            meaning:"勝利",         color:"#C9A84C", emoji:"🏆", cat:"名詞", bg:"star",
-   ex_ru:"Победа — вернуться домой живым!",
-   ex_jp:"勝利＝生きて地球に帰ること！",
-   naze:"宇宙飛行士の最大の勝利は無事帰還。地球に戻ってきた瞬間、その人の目に映る青空が最高の景色らしい。"},
-
-  {day:22, word:"Терпение",   stress:"Терпе́ние",    kana:"チルピェーニエ",      meaning:"忍耐",         color:"#8264dc", emoji:"⏳", cat:"名詞", bg:"particles",
-   ex_ru:"Терпение — ключ к звёздам!",
-   ex_jp:"忍耐が星への鍵！",
-   naze:"JAXA宇宙飛行士の訓練は平均10年。今この瞬間も地球のどこかで同じ夢を持って耐えてる人がいる。Терпение、その人たちの共通語。"},
-
-  {day:23, word:"Надежда",    stress:"Наде́жда",     kana:"ナジェージュダ",      meaning:"希望",         color:"#C9A84C", emoji:"🌟", cat:"名詞", bg:"horizon",
-   ex_ru:"Надежда всегда есть — не сдавайся!",
-   ex_jp:"希望はいつもある——諦めるな！",
-   naze:"ソユーズ宇宙船に「希望」と名付けるロシアのセンスが好き。人類の望みを乗せて宇宙へ飛ぶ船の名がНадежда。"},
-
-  {day:24, word:"Знание",     stress:"Зна́ние",      kana:"ズナーニエ",          meaning:"知識",         color:"#5096ff", emoji:"📚", cat:"名詞", bg:"particles",
-   ex_ru:"Знание — сила в космосе и на Земле.",
-   ex_jp:"知識は宇宙でも地球でも力になる。",
-   naze:"JAXA試験：英語・ロシア語・理工学・医学・操縦技術…全部Знание。宇宙飛行士は知識の塊みたいな存在。"},
-
-  {day:25, word:"Путь",       stress:"Путь",         kana:"プーチ",              meaning:"道",           color:"#32b4dc", emoji:"🛤️", cat:"名詞", bg:"nebula",
-   ex_ru:"Мой путь — в космос, через цифры!",
-   ex_jp:"俺の道は数字を通じて宇宙へ！",
-   naze:"宇宙への道は一本じゃない。エンジニアでも、医者でも、教師でも、いろんな道から宇宙に辿り着いた人がいる。"},
-
-  {day:26, word:"Сердце",     stress:"Се́рдце",      kana:"スィェールツェ",      meaning:"心",           color:"#e63c64", emoji:"❤️", cat:"名詞", bg:"heart",
-   ex_ru:"В невесомости сердце становится шаром!",
-   ex_jp:"無重力だと心臓が球形になる！",
-   naze:"本当の話。地上では重力で縦長だが、宇宙では球形に変形する。心まで宇宙仕様にアップデートされる感じ。"},
-
-  {day:27, word:"Вселенная",  stress:"Вселе́нная",   kana:"フスィリェーンナヤ",  meaning:"宇宙全体",     color:"#b482ff", emoji:"🌌", cat:"名詞", bg:"nebula",
-   ex_ru:"Вселенная больше, чем мы думаем.",
-   ex_jp:"宇宙は俺たちが思うよりずっと大きい。",
-   naze:"КосмосがSpace（空間）、ВселеннаяはUniverse（万物）。観測可能な宇宙の直径は930億光年。大きすぎて理解不能、だから好き。"},
-
-  {day:28, word:"Будущее",    stress:"Бу́дущее",     kana:"ブドゥシチエ",        meaning:"未来",         color:"#C9A84C", emoji:"🌅", cat:"名詞", bg:"horizon",
-   ex_ru:"Будущее начинается с Привет! 28日完走！",
-   ex_jp:"未来は「こんにちは」から始まる！28日間おつかれ！",
-   naze:"DAY01に学んだПриветとDAY28のБудущееが繋がった。宇宙への道に終わりはない。DAY29以降の Будущее は自分で作れ。"},
+const DAYS = [
+  // ─── WEEK 1 ───────────────────────────────────────────────
+  {day:1,week:1,word:"Привет",kana:"プリヴィエット",meaning:"こんにちは",tag:"宇宙船ドッキング時の第一声",
+   ex_ru:"Привет из космоса!",ex_ru_kana:"プリヴィエット イズ コースマサ！",ex_jp:"宇宙からこんにちは！",
+   naze:"NASAとロシア宇宙飛行士がドッキング後に交わす最初の言葉。",
+   x:"🚀DAY1: Привет（プリヴィエット）=こんにちは。宇宙でも挨拶が全ての始まり #ロシア語 #宇宙",
+   acc:"#4a78dc",gold:false,planet:["60,100,200","20,50,120"]},
+  {day:2,week:1,word:"Спасибо",kana:"スパシーバ",meaning:"ありがとう",tag:"ソユーズ帰還後の第一声",
+   ex_ru:"Спасибо за помощь!",ex_ru_kana:"スパシーバ ザ パーモシ！",ex_jp:"助けてくれてありがとう！",
+   naze:"着地後、救助隊に最初に告げる感謝の言葉。生きて帰れた喜びが込められている。",
+   x:"🛸DAY2: Спасибо（スパシーバ）=ありがとう。宇宙飛行士の最初の言葉 #ロシア語",
+   acc:"#32c87a",gold:false,planet:["40,160,80","15,80,35"]},
+  {day:3,week:1,word:"Мечта",kana:"ミェチュタ",meaning:"夢",tag:"★今週のキーワード",
+   ex_ru:"Мечта — стать космонавтом.",ex_ru_kana:"ミェチュタ スタチ カスマナフタム。",ex_jp:"夢は宇宙飛行士になること。",
+   naze:"ソユーズ試験でも出題される必須語彙。宇宙飛行士への夢を語るならこの一語。",
+   x:"🌟DAY3: Мечта（ミェチュタ）=夢。俺の夢は宇宙飛行士 #ロシア語 #JAXA",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  {day:4,week:1,word:"Космос",kana:"コースモス",meaning:"宇宙",tag:"英語cosmosの語源",
+   ex_ru:"Космос бесконечен.",ex_ru_kana:"コースモス ビスカニェーチン。",ex_jp:"宇宙は無限だ。",
+   naze:"宇宙飛行士=Космонавт。英語の「cosmos」はここから来ている。",
+   x:"🌌DAY4: Космос（コースモス）=宇宙。英語cosmosの語源はロシア語！ #宇宙 #ロシア語",
+   acc:"#7846dc",gold:false,planet:["100,60,200","50,25,120"]},
+  {day:5,week:1,word:"Удача",kana:"ウダーチャ",meaning:"幸運",tag:"打ち上げ前の必須フレーズ",
+   ex_ru:"Удача с тобой!",ex_ru_kana:"ウダーチャ スタボイ！",ex_jp:"幸運があなたと共に！",
+   naze:"打ち上げ前の縁起担ぎの言葉。ロシアの宇宙文化に根付く。",
+   x:"🍀DAY5: Удача（ウダーチャ）=幸運。打ち上げ前に使うロシアの縁起言葉 #宇宙 #ロシア語",
+   acc:"#9646c8",gold:false,planet:["140,60,190","70,25,110"]},
+  {day:6,week:1,word:"Сила",kana:"スィーラ",meaning:"力・エネルギー",tag:"ロケット推力の物理用語",
+   ex_ru:"Сила ракеты огромна.",ex_ru_kana:"スィーラ ラキェーティ アグローマナ。",ex_jp:"ロケットの力は巨大だ。",
+   naze:"F=maのF（Force）がСила。科学と言語が交差する一語。",
+   x:"⚡DAY6: Сила（スィーラ）=力。ロケット推力はF=maのСила #物理 #ロシア語",
+   acc:"#dc6023",gold:false,planet:["200,80,30","100,35,10"]},
+  {day:7,week:1,word:"Вперёд",kana:"フピリョート",meaning:"前へ！",tag:"★打ち上げカウントダウン最後",
+   ex_ru:"Вперёд, к звёздам!",ex_ru_kana:"フピリョート クズヴョーズダム！",ex_jp:"前へ、星へ向かって！",
+   naze:"ソユーズ打ち上げカウントダウン最後、地上管制官が叫ぶ言葉。",
+   x:"🚀DAY7: Вперёд（フピリョート）=前へ！打ち上げ時の掛け声 #ソユーズ #宇宙",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  // ─── WEEK 2 ───────────────────────────────────────────────
+  {day:8,week:2,word:"Земля",kana:"ジムリャー",meaning:"地球",tag:"宇宙飛行士が最も恋しがる言葉",
+   ex_ru:"Земля — наш общий дом.",ex_ru_kana:"ジムリャー ナシュ オープシー ドーム。",ex_jp:"地球は私たちの共通の家だ。",
+   naze:"180日の無重力生活後、この一言が最初に口をついて出る。",
+   x:"🌍DAY8: Земля（ジムリャー）=地球。宇宙から見ると国境は消える #地球 #ロシア語",
+   acc:"#3c82dc",gold:false,planet:["50,120,220","20,60,140"]},
+  {day:9,week:2,word:"Луна",kana:"ルナ",meaning:"月",tag:"人類が次に目指す場所",
+   ex_ru:"Луна ждёт нас.",ex_ru_kana:"ルナ ジョット ナス。",ex_jp:"月が私たちを待っている。",
+   naze:"Artemis計画でJAXA宇宙飛行士も月面へ。月を目指すなら覚えるべき一語。",
+   x:"🌙DAY9: Луна（ルナ）=月。Artemis計画でJAXAも月へ #月面 #宇宙飛行士",
+   acc:"#b4b4dc",gold:false,planet:["200,200,230","130,130,170"]},
+  {day:10,week:2,word:"Звезда",kana:"ズヴィズダー",meaning:"星",tag:"ISSロシアモジュールの名前",
+   ex_ru:"Звезда горит в темноте.",ex_ru_kana:"ズヴィズダー ガリート フチムナチェー。",ex_jp:"星が暗闇の中で輝く。",
+   naze:"ISSのロシア製サービスモジュールの名前が「Звезда（星）」。今も宇宙を飛んでいる。",
+   x:"⭐DAY10: Звезда（ズヴィズダー）=星。ISSのロシアモジュール名でもある #ISS #ロシア語",
+   acc:"#ffd040",gold:false,planet:["255,200,60","160,120,20"]},
+  {day:11,week:2,word:"Ракета",kana:"ラケータ",meaning:"ロケット",tag:"宇宙への唯一の乗り物",
+   ex_ru:"Ракета летит к звёздам.",ex_ru_kana:"ラケータ リチット クズヴョーズダム。",ex_jp:"ロケットが星へ向かって飛ぶ。",
+   naze:"「ラケータ、スタルト！」が聞けたら宇宙飛行士の証。",
+   x:"🚀DAY11: Ракета（ラケータ）=ロケット。「ラケータ、スタルト！」 #ソユーズ #宇宙",
+   acc:"#ff6432",gold:false,planet:["220,80,30","120,40,10"]},
+  {day:12,week:2,word:"Полёт",kana:"パリョート",meaning:"飛行・フライト",tag:"ミッションの核心",
+   ex_ru:"Полёт на Луну — мечта.",ex_ru_kana:"パリョート ナルヌ ミェチュタ。",ex_jp:"月への飛行は夢だ。",
+   naze:"宇宙ミッションの核心語。訓練中の合言葉でもある。",
+   x:"✈️DAY12: Полёт（パリョート）=飛行。月への飛行、俺の夢も飛んでる #宇宙飛行士",
+   acc:"#5096ff",gold:false,planet:["70,130,230","30,70,160"]},
+  {day:13,week:2,word:"Скафандр",kana:"スカファンドル",meaning:"宇宙服",tag:"命を守る13億円の衣装",
+   ex_ru:"Скафандр защищает жизнь.",ex_ru_kana:"スカファンドル ザシシャーエト ジーズニ。",ex_jp:"宇宙服が命を守る。",
+   naze:"1着約13億円。EVA時の宇宙服はロシア語でСкафандр。",
+   x:"👨‍🚀DAY13: Скафандр（スカファンドル）=宇宙服。1着13億円の命綱 #EVA #宇宙",
+   acc:"#32c8b4",gold:false,planet:["40,180,170","15,100,95"]},
+  {day:14,week:2,word:"Орбита",kana:"アルビータ",meaning:"軌道",tag:"地球を周回するパス",
+   ex_ru:"МКС на орбите 25 лет.",ex_ru_kana:"エムカエース ナアルビーチェ 25 リェート。",ex_jp:"ISSは軌道上に25年いる。",
+   naze:"地球軌道、月軌道、火星軌道—すべてのミッション計画の基本がОрбита。",
+   x:"🛸DAY14: Орбита（アルビータ）=軌道。ISSは今も地球軌道を飛ぶ #ISS #宇宙",
+   acc:"#8c50e6",gold:false,planet:["120,70,210","60,30,140"]},
+  // ─── WEEK 3 ───────────────────────────────────────────────
+  {day:15,week:3,word:"Станция",kana:"スタンツィヤ",meaning:"ステーション",tag:"МКС=国際宇宙ステーション",
+   ex_ru:"МКС — международная станция.",ex_ru_kana:"エムカエース ミジュナロードナヤ スタンツィヤ。",ex_jp:"МКСは国際ステーションだ。",
+   naze:"ISS到着時に報告する「Станция！」は感動の一言。",
+   x:"🏗️DAY15: Станция（スタンツィヤ）=ステーション。ISSはМКС #ISS #ロシア語",
+   acc:"#4678e6",gold:false,planet:["60,100,200","25,50,120"]},
+  {day:16,week:3,word:"Гравитация",kana:"グラヴィタツィヤ",meaning:"重力",tag:"宇宙で最初に消えるもの",
+   ex_ru:"В космосе нет гравитации.",ex_ru_kana:"フコースマスェ ニェット グラヴィタツィイ。",ex_jp:"宇宙には重力がない。",
+   naze:"骨密度低下を防ぐため宇宙飛行士は毎日2時間運動する。",
+   x:"⚖️DAY16: Гравитация（グラヴィタツィヤ）=重力。宇宙ではゼロ #無重力 #物理",
+   acc:"#a050f0",gold:false,planet:["140,70,220","70,30,150"]},
+  {day:17,week:3,word:"Связь",kana:"スヴャーシ",meaning:"通信・繋がり",tag:"地球との命綱",
+   ex_ru:"Связь с Землёй важна.",ex_ru_kana:"スヴャーシ スジムリョーイ ヴァジュナー。",ex_jp:"地球との通信は重要だ。",
+   naze:"Связьが途切れると緊急事態。通信が命を救う。",
+   x:"📡DAY17: Связь（スヴャーシ）=通信。宇宙でも繋がりが命を救う #ISS #通信",
+   acc:"#32b4dc",gold:false,planet:["40,160,200","15,80,120"]},
+  {day:18,week:3,word:"Воздух",kana:"ヴォーズドゥフ",meaning:"空気",tag:"宇宙で最も貴重なもの",
+   ex_ru:"Воздух создаётся искусственно.",ex_ru_kana:"ヴォーズドゥフ サズダヨッツァ イスクースストヴィナ。",ex_jp:"空気は人工的に作られる。",
+   naze:"ISS内の空気は水の電気分解で生産。Воздухの管理が飛行士の日課。",
+   x:"💨DAY18: Воздух（ヴォーズドゥフ）=空気。ISSでは機械が空気を作る #ISS #宇宙生活",
+   acc:"#32d28c",gold:false,planet:["40,190,120","15,100,55"]},
+  {day:19,week:3,word:"Открытие",kana:"アトクルィーティエ",meaning:"発見",tag:"★「発見」=「扉を開く」",
+   ex_ru:"Каждый полёт — открытие.",ex_ru_kana:"カージュドィ パリョート アトクルィーティエ。",ex_jp:"すべての飛行は新たな発見だ。",
+   naze:"「発見」と「扉を開く」が同じ語源。宇宙への扉を開くことが新発見。",
+   x:"🔭DAY19: Открытие（アトクルィーティエ）=発見。「開く」と同じ語源 #ロシア語 #発見",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  {day:20,week:3,word:"Команда",kana:"カマンダ",meaning:"チーム",tag:"宇宙ミッションの基本単位",
+   ex_ru:"Команда МКС — 6 человек.",ex_ru_kana:"カマンダ エムカエース シェースチ チェラヴィェーク。",ex_jp:"ISSのチームは6人だ。",
+   naze:"国際クルーが共通言語ロシア語で協力する—それがISSの日常。",
+   x:"👥DAY20: Команда（カマンダ）=チーム。ISSクルー6人が地球を守る #チーム #ISS",
+   acc:"#5096ff",gold:false,planet:["70,130,230","30,65,160"]},
+  {day:21,week:3,word:"Победа",kana:"パベーダ",meaning:"勝利・成功",tag:"帰還こそが最大の勝利",
+   ex_ru:"Победа — возвращение домой.",ex_ru_kana:"パビェーダ ヴァズヴラシェーニエ ダモイ。",ex_jp:"勝利とは家に帰ること。",
+   naze:"宇宙飛行士の最大の勝利は無事に地球へ帰ること。",
+   x:"🏆DAY21: Победа（パベーダ）=勝利。宇宙飛行士の勝利は無事帰還すること #宇宙",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  // ─── WEEK 4 ───────────────────────────────────────────────
+  {day:22,week:4,word:"Терпение",kana:"チルピェーニエ",meaning:"忍耐",tag:"長期ミッションの精神的支柱",
+   ex_ru:"Терпение — ключ к звёздам.",ex_ru_kana:"チルピェーニエ クリュチ クズヴョーズダム。",ex_jp:"忍耐が星への鍵だ。",
+   naze:"ISS長期滞在最大1年以上。孤独・閉鎖空間を耐えるТерпениеが必須スキル。",
+   x:"🧘DAY22: Терпение（チルピェーニエ）=忍耐。USCPA勉強中の俺にも刺さる #受験 #宇宙",
+   acc:"#8264dc",gold:false,planet:["110,70,200","55,30,130"]},
+  {day:23,week:4,word:"Надежда",kana:"ナジェージュダ",meaning:"希望",tag:"★ソユーズTM宇宙船の名前",
+   ex_ru:"Надежда всегда есть.",ex_ru_kana:"ナジェージュダ フスィグダー イェスチ。",ex_jp:"希望は常にある。",
+   naze:"ソユーズTM-10号機の愛称。宇宙船に「希望」と名付けるロシアの文化が美しい。",
+   x:"🌟DAY23: Надежда（ナジェージュダ）=希望。ソユーズ宇宙船の名前でもある #ロシア語",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  {day:24,week:4,word:"Знание",kana:"ズナーニエ",meaning:"知識",tag:"宇宙飛行士選抜の第一条件",
+   ex_ru:"Знание — сила в космосе.",ex_ru_kana:"ズナーニエ スィーラ フコースマスェ。",ex_jp:"知識は宇宙における力だ。",
+   naze:"JAXA飛行士試験は理系・語学・医学と幅広い知識が必要。Знаниеが選抜突破の武器。",
+   x:"📚DAY24: Знание（ズナーニエ）=知識。JAXA選抜は知識の総合戦 #JAXA #受験",
+   acc:"#5096ff",gold:false,planet:["70,130,230","30,65,160"]},
+  {day:25,week:4,word:"Путь",kana:"プーチ",meaning:"道・旅路",tag:"宇宙への旅路",
+   ex_ru:"Путь к звёздам долог.",ex_ru_kana:"プーチ クズヴョーズダム ドーラク。",ex_jp:"星への道は長い。",
+   naze:"「千里の道も一歩から」。宇宙飛行士への道は長くても、Путьは今日から始まる。",
+   x:"🛤️DAY25: Путь（プーチ）=道。星への道は今日の一歩から #宇宙飛行士への道",
+   acc:"#32b4dc",gold:false,planet:["40,160,200","15,80,120"]},
+  {day:26,week:4,word:"Сердце",kana:"スィェールツェ",meaning:"心・ハート",tag:"宇宙で試される人間の本質",
+   ex_ru:"Сердце астронавта с Землёй.",ex_ru_kana:"スィェールツェ アストラナーフタ スジムリョーイ。",ex_jp:"飛行士の心はいつも地球と共にある。",
+   naze:"JAXAの宇宙飛行士選抜でも人間性・Сердцеが評価される。",
+   x:"💙DAY26: Сердце（スィェールツェ）=心。技術より心が宇宙飛行士を作る #JAXA #人間性",
+   acc:"#e63c64",gold:false,planet:["210,50,90","130,20,50"]},
+  {day:27,week:4,word:"Вселенная",kana:"フスィリェーンナヤ",meaning:"宇宙全体・万物",tag:"★КосмосよりさらにBIG",
+   ex_ru:"Вселенная бесконечна.",ex_ru_kana:"フスィリェーンナヤ ビスカニェーチュナ。",ex_jp:"宇宙は無限だ。",
+   naze:"КосмосがSpace、ВселеннаяはUniverse。より哲学的・深い宇宙の概念。",
+   x:"🌌DAY27: Вселенная（フスィリェーンナヤ）=宇宙全体。Cosmosより大きな概念 #宇宙哲学",
+   acc:"#b482ff",gold:false,planet:["160,110,240","80,50,160"]},
+  {day:28,week:4,word:"Будущее",kana:"ブドゥシチエ",meaning:"未来",tag:"★月間フィナーレ 28日達成！",
+   ex_ru:"Будущее начинается сегодня.",ex_ru_kana:"ブドゥシチエ ナチナーイツァ スィヴォードニャ。",ex_jp:"未来は今日から始まる。",
+   naze:"宇宙開発は常に未来への投資。JAXA・SpaceX・iSpaceが見る未来の一部に俺もなる。",
+   x:"🚀DAY28: Будущее（ブドゥシチエ）=未来。28日間ありがとう！未来は今日の積み重ね✨",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  // ─── WEEK 5 — 太陽系・天体 ────────────────────────────────
+  {day:29,week:5,word:"Солнце",kana:"ソールンツェ",meaning:"太陽",tag:"ISSの電力源・命のエネルギー",
+   ex_ru:"Солнце светит всегда.",ex_ru_kana:"ソールンツェ スヴィチット フスィグダー。",ex_jp:"太陽はいつも輝いている。",
+   naze:"ISSの電力はすべて太陽光パネルから。宇宙飛行士が最も恋しがるものの一つ。",
+   x:"☀️DAY29: Солнце（ソールンツェ）=太陽。ISSの電力源は太陽光パネル #宇宙 #ロシア語",
+   acc:"#ffa030",gold:false,planet:["220,140,30","120,70,10"]},
+  {day:30,week:5,word:"Марс",kana:"マールス",meaning:"火星",tag:"人類の次なるフロンティア",
+   ex_ru:"Марс — следующая цель.",ex_ru_kana:"マールス スリェードゥユシャヤ ツェーリ。",ex_jp:"火星が次の目標だ。",
+   naze:"SpaceXとNASAが2030年代を目指す。宇宙飛行士の最終目標がМарс。",
+   x:"🔴DAY30: Марс（マールス）=火星。人類の次の目的地は火星 #火星 #ロシア語",
+   acc:"#dc3020",gold:false,planet:["200,50,30","110,20,10"]},
+  {day:31,week:5,word:"Галактика",kana:"ガラクティカ",meaning:"銀河",tag:"数千億の星の集まり",
+   ex_ru:"Наша галактика — Млечный путь.",ex_ru_kana:"ナシャ ガラクティカ ムリェーチュヌイ プーチ。",ex_jp:"私たちの銀河は天の川だ。",
+   naze:"天の川銀河はロシア語でМлечный путь（乳の道）。宇宙の壮大さを感じる一語。",
+   x:"🌌DAY31: Галактика（ガラクティカ）=銀河。天の川はロシア語で「乳の道」 #銀河 #宇宙",
+   acc:"#8864e0",gold:false,planet:["110,80,210","55,35,140"]},
+  {day:32,week:5,word:"Спутник",kana:"スプートニク",meaning:"衛星・同伴者",tag:"史上初の人工衛星の名前",
+   ex_ru:"Спутник — первый спутник Земли.",ex_ru_kana:"スプートニク ピェールヴィ スプートニク ジムリー。",ex_jp:"スプートニクは地球初の人工衛星だ。",
+   naze:"1957年、スプートニク1号が宇宙時代を開幕。Спутникは「伴走者」という意味も持つ。",
+   x:"🛰️DAY32: Спутник（スプートニク）=衛星。1957年の宇宙革命の名前 #宇宙史 #ロシア語",
+   acc:"#60a0e0",gold:false,planet:["80,140,210","35,70,130"]},
+  {day:33,week:5,word:"Атмосфера",kana:"アトマスフィェーラ",meaning:"大気・雰囲気",tag:"地球を守る見えない盾",
+   ex_ru:"Атмосфера защищает Землю.",ex_ru_kana:"アトマスフィェーラ ザシシャーエト ジムリュ。",ex_jp:"大気圏が地球を守っている。",
+   naze:"宇宙から見ると大気圏は薄い青のライン。「雰囲気」という意味でも使う日常語。",
+   x:"🌈DAY33: Атмосфера（アトマスフィェーラ）=大気。宇宙から見ると細い青いライン #地球",
+   acc:"#40b8e8",gold:false,planet:["50,160,210","20,80,130"]},
+  {day:34,week:5,word:"Комета",kana:"カミェータ",meaning:"彗星",tag:"宇宙を駆ける氷の旅人",
+   ex_ru:"Комета летит миллионы лет.",ex_ru_kana:"カミェータ リチット ミリオーヌイ リェート。",ex_jp:"彗星は何百万年も飛び続ける。",
+   naze:"ハレー彗星はロシア語でКомета Галлея。宇宙の神秘を感じる一語。",
+   x:"☄️DAY34: Комета（カミェータ）=彗星。数百万年を旅する氷の使者 #彗星 #宇宙",
+   acc:"#c8e060",gold:false,planet:["180,210,70","90,130,30"]},
+  {day:35,week:5,word:"Горизонт",kana:"ガリゾント",meaning:"地平線・視野",tag:"宇宙では360°の地平線",
+   ex_ru:"За горизонтом — новый мир.",ex_ru_kana:"ザ ガリゾンタム ノーヴィ ミール。",ex_jp:"地平線の向こうに新しい世界がある。",
+   naze:"宇宙から見た地球の曲線——その先にホライズン。「視野を広げる」という比喩にも使う。",
+   x:"🌅DAY35: Горизонт（ガリゾント）=地平線。宇宙から見れば地球が丸いとわかる #地球",
+   acc:"#e89840",gold:false,planet:["210,130,40","120,65,15"]},
+  // ─── WEEK 6 — 宇宙行動・ミッション ──────────────────────
+  {day:36,week:6,word:"Запуск",kana:"ザープスク",meaning:"打ち上げ・発射",tag:"すべてのミッションの始まり",
+   ex_ru:"Запуск успешный!",ex_ru_kana:"ザープスク ウスピェーシュヌイ！",ex_jp:"打ち上げ成功！",
+   naze:"ミッションコントロールが叫ぶ「Запуск！」。夢への扉が開く瞬間。",
+   x:"🚀DAY36: Запуск（ザープスク）=打ち上げ。「Запуск！」が聞ける日を目指す #宇宙飛行士",
+   acc:"#ff5020",gold:false,planet:["210,70,25","110,30,10"]},
+  {day:37,week:6,word:"Посадка",kana:"パサートカ",meaning:"着陸・着地",tag:"ソユーズ帰還の瞬間",
+   ex_ru:"Посадка прошла успешно.",ex_ru_kana:"パサートカ プラシラー ウスピェーシュナ。",ex_jp:"着陸は無事成功した。",
+   naze:"カザフスタン草原への軟着陸——Посадкаが聞こえた瞬間、ミッション完了。",
+   x:"🪂DAY37: Посадка（パサートカ）=着陸。ソユーズがカザフスタンに帰る瞬間 #ソユーズ",
+   acc:"#32c878",gold:false,planet:["40,180,100","15,90,45"]},
+  {day:38,week:6,word:"Выход",kana:"ヴィーホット",meaning:"出口・船外活動",tag:"宇宙遊泳=Выход в открытый космос",
+   ex_ru:"Выход в открытый космос.",ex_ru_kana:"ヴィーホット ヴ アトクルィートィイ コースモス。",ex_jp:"宇宙空間への船外活動。",
+   naze:"EVA(船外活動)はロシア語で「Выход в открытый космос」。宇宙を手で触れる体験。",
+   x:"🧑‍🚀DAY38: Выход（ヴィーホット）=EVA。宇宙遊泳は「宇宙空間への出口」 #EVA #宇宙",
+   acc:"#4090ff",gold:false,planet:["55,120,220","25,60,145"]},
+  {day:39,week:6,word:"Стыковка",kana:"スティコフカ",meaning:"ドッキング",tag:"宇宙で二機が合体する技術",
+   ex_ru:"Стыковка прошла точно.",ex_ru_kana:"スティコフカ プラシラー トーチナ。",ex_jp:"ドッキングは正確に行われた。",
+   naze:"ISSへのドッキングは数センチの精度が必要。Стыковкаは宇宙飛行士の腕の見せ所。",
+   x:"🔗DAY39: Стыковка（スティコフカ）=ドッキング。数センチの精度で宇宙で合体 #ISS",
+   acc:"#a060e0",gold:false,planet:["140,80,210","70,35,135"]},
+  {day:40,week:6,word:"Тренировка",kana:"トリニロフカ",meaning:"訓練・トレーニング",tag:"宇宙飛行士選抜後の2年間",
+   ex_ru:"Тренировка каждый день.",ex_ru_kana:"トリニロフカ カージュドィ ジェーニ。",ex_jp:"毎日トレーニング。",
+   naze:"JAXA宇宙飛行士は選抜後2年間の訓練が必須。Тренировкаなくして宇宙なし。",
+   x:"💪DAY40: Тренировка（トリニロフカ）=訓練。JAXA選抜後2年間の修行 #JAXA #宇宙飛行士",
+   acc:"#e06030",gold:false,planet:["200,80,35","105,40,15"]},
+  {day:41,week:6,word:"Управление",kana:"ウプラヴリェーニエ",meaning:"管理・制御",tag:"ミッション管理の中核語",
+   ex_ru:"Управление полётом — МЦУ.",ex_ru_kana:"ウプラヴリェーニエ パリョータム エムツェウー。",ex_jp:"フライト管理はミッションコントロールが担う。",
+   naze:"「管理」「制御」を意味するУправление——会計士の「ビジネスコントロール」にも通じる語。",
+   x:"🎛️DAY41: Управление（ウプラヴリェーニエ）=管理。宇宙も会計も「制御」が命 #会計",
+   acc:"#50b0d0",gold:false,planet:["60,150,185","25,75,115"]},
+  {day:42,week:6,word:"Наблюдение",kana:"ナブリュジェーニエ",meaning:"観測・観察",tag:"地球観測衛星の核心",
+   ex_ru:"Наблюдение за Землёй важно.",ex_ru_kana:"ナブリュジェーニエ ザ ジムリョーイ ヴァジュナ。",ex_jp:"地球の観測は重要だ。",
+   naze:"JAXAの地球観測衛星「だいち」シリーズもНаблюдение。データが防災・農業を変える。",
+   x:"🔭DAY42: Наблюдение（ナブリュジェーニエ）=観測。地球観測が世界を救う #JAXA #衛星",
+   acc:"#30c8a0",gold:false,planet:["35,175,135","15,90,65"]},
+  // ─── WEEK 7 — 感情・精神力 ───────────────────────────────
+  {day:43,week:7,word:"Смелость",kana:"スミェーラスチ",meaning:"勇気",tag:"宇宙飛行士に最も必要な資質",
+   ex_ru:"Смелость открывает звёзды.",ex_ru_kana:"スミェーラスチ アトクルィヴァエット ズヴョーズドゥィ。",ex_jp:"勇気が星への道を開く。",
+   naze:"JAXA選抜では人間性・Смелостьが問われる。「勇気ある者だけが宇宙へ行ける」",
+   x:"🦁DAY43: Смелость（スミェーラスチ）=勇気。星への道は勇気から始まる #JAXA #勇気",
+   acc:"#ff8820",gold:false,planet:["220,115,25","130,55,10"]},
+  {day:44,week:7,word:"Радость",kana:"ラーダスチ",meaning:"喜び",tag:"ミッション達成の純粋な感情",
+   ex_ru:"Радость победы велика.",ex_ru_kana:"ラーダスチ パビェーディ ヴィリカー。",ex_jp:"勝利の喜びは大きい。",
+   naze:"帰還後、飛行士の目に浮かぶРадость——宇宙からの帰還は人類の歓喜。",
+   x:"😄DAY44: Радость（ラーダスチ）=喜び。宇宙から帰った飛行士の顔に宿るもの #感情",
+   acc:"#ffc020",gold:false,planet:["220,175,25","130,105,10"]},
+  {day:45,week:7,word:"Свобода",kana:"スヴァボーダ",meaning:"自由",tag:"無重力が与える究極の自由",
+   ex_ru:"Свобода — в невесомости.",ex_ru_kana:"スヴァボーダ フニヴィソーマスチ。",ex_jp:"自由は無重力の中にある。",
+   naze:"無重力空間での「自由」は地上では得られない感覚。Свободаは宇宙が与えてくれる贈り物。",
+   x:"🕊️DAY45: Свобода（スヴァボーダ）=自由。無重力が人間に究極の自由をくれる #無重力",
+   acc:"#60c8f0",gold:false,planet:["70,170,220","30,90,140"]},
+  {day:46,week:7,word:"Любопытство",kana:"リュバピーツトヴァ",meaning:"好奇心",tag:"Curiosityローバーの語源",
+   ex_ru:"Любопытство — двигатель науки.",ex_ru_kana:"リュバピーツトヴァ ドヴィガチリ ナウキ。",ex_jp:"好奇心が科学を動かす。",
+   naze:"NASAの火星ローバー「Curiosity」=Любопытство。好奇心こそ宇宙探索の原動力。",
+   x:"🔍DAY46: Любопытство（リュバピーツトヴァ）=好奇心。Curiosityの語源 #火星 #探査",
+   acc:"#c060e0",gold:false,planet:["165,75,210","80,30,130"]},
+  {day:47,week:7,word:"Красота",kana:"クラサタ",meaning:"美しさ",tag:"「地球は青かった」——ガガーリン",
+   ex_ru:"Красота Земли с орбиты.",ex_ru_kana:"クラサタ ジムリー スアルビートゥ。",ex_jp:"軌道から見た地球の美しさ。",
+   naze:"ガガーリンの「地球は青かった」——Красотаは宇宙が人類に見せる最初の感情。",
+   x:"🌍DAY47: Красота（クラサタ）=美しさ。ガガーリンが初めて見た地球の青さ #ガガーリン",
+   acc:"#e040a0",gold:false,planet:["210,50,140","120,20,75"]},
+  {day:48,week:7,word:"Гордость",kana:"ゴールダスチ",meaning:"誇り",tag:"国を背負う宇宙飛行士の矜持",
+   ex_ru:"Гордость — быть космонавтом.",ex_ru_kana:"ゴールダスチ ブィチ カスマナフタム。",ex_jp:"宇宙飛行士であることが誇りだ。",
+   naze:"JAXAの宇宙飛行士は日本の誇り——Гордостьを胸に宇宙へ飛ぶ。",
+   x:"🏅DAY48: Гордость（ゴールダスチ）=誇り。日本の誇りを背負って宇宙へ #JAXA #誇り",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  {day:49,week:7,word:"Любовь",kana:"リュボーフィ",meaning:"愛",tag:"宇宙から地球を見て生まれる感情",
+   ex_ru:"Любовь к Земле растёт в космосе.",ex_ru_kana:"リュボーフィ クジムリェー ラスチョット フコースマスェ。",ex_jp:"宇宙にいると地球への愛が増す。",
+   naze:"「Overview Effect」——宇宙から地球を見ると、人類への愛が生まれる。Любовь。",
+   x:"💙DAY49: Любовь（リュボーフィ）=愛。宇宙から地球を見ると愛が大きくなる #Overview",
+   acc:"#e85080",gold:false,planet:["215,60,100","130,25,50"]},
+  // ─── WEEK 8 — 科学・技術 ─────────────────────────────────
+  {day:50,week:8,word:"Кислород",kana:"キスラロット",meaning:"酸素",tag:"宇宙で最も貴重な元素",
+   ex_ru:"Кислород нужен для жизни.",ex_ru_kana:"キスラロット ヌージェン ドリャ ジーズニ。",ex_jp:"酸素は生命に必要だ。",
+   naze:"ISSでは水の電気分解で酸素を生産。Кислородの管理が飛行士の命を守る。",
+   x:"⚗️DAY50: Кислород（キスラロット）=酸素。ISSでは機械が酸素を作る #ISS #化学",
+   acc:"#40d0c0",gold:false,planet:["45,185,175","20,110,105"]},
+  {day:51,week:8,word:"Давление",kana:"ダヴリェーニエ",meaning:"圧力・プレッシャー",tag:"宇宙服に不可欠な加圧技術",
+   ex_ru:"Давление в скафандре стабильно.",ex_ru_kana:"ダヴリェーニエ フスカファンドレ スタビーリナ。",ex_jp:"宇宙服の内圧は安定している。",
+   naze:"宇宙の真空では体内の血液が沸騰する——Давление管理が命綱。会計でも「プレッシャー」",
+   x:"🔵DAY51: Давление（ダヴリェーニエ）=圧力。宇宙服がなければ血液が沸騰する #科学",
+   acc:"#3890e0",gold:false,planet:["45,125,215","20,60,140"]},
+  {day:52,week:8,word:"Скорость",kana:"スコーラスチ",meaning:"速度",tag:"第一宇宙速度は秒速7.9km",
+   ex_ru:"Скорость МКС — 7.7 км/с.",ex_ru_kana:"スコーラスチ エムカエース 7.7 キラミェートラフ フスィクンドゥ。",ex_jp:"ISSの速度は秒速7.7kmだ。",
+   naze:"第一宇宙速度7.9km/s——Скоростьがなければ軌道に乗れない。物理の核心語。",
+   x:"⚡DAY52: Скорость（スコーラスチ）=速度。ISSは秒速7.7km、1日16周回 #物理 #ISS",
+   acc:"#ffa020",gold:false,planet:["220,135,25","130,65,10"]},
+  {day:53,week:8,word:"Температура",kana:"チンピラトゥーラ",meaning:"温度",tag:"宇宙の昼は+120℃、夜は-160℃",
+   ex_ru:"Температура в космосе крайняя.",ex_ru_kana:"チンピラトゥーラ フコースマスェ クライニャヤ。",ex_jp:"宇宙の温度は極端だ。",
+   naze:"日向+120℃・日陰-160℃——宇宙服はこの280度の差に耐える。Температура。",
+   x:"🌡️DAY53: Температура（チンピラトゥーラ）=温度。宇宙は+120〜-160℃の極限世界 #物理",
+   acc:"#e85020",gold:false,planet:["210,65,25","120,30,10"]},
+  {day:54,week:8,word:"Энергия",kana:"エニェールギヤ",meaning:"エネルギー",tag:"ソ連超大型ロケットの名前",
+   ex_ru:"Энергия ракеты огромна.",ex_ru_kana:"エニェールギヤ ラキェーティ アグロームナ。",ex_jp:"ロケットのエネルギーは膨大だ。",
+   naze:"ソ連の超大型ロケット「エネルギア」の名。ISSの電力もすべてこの言葉から始まる。",
+   x:"⚡DAY54: Энергия（エニェールギヤ）=エネルギー。ソ連超大型ロケットの名でもある #宇宙史",
+   acc:"#ff6000",gold:false,planet:["220,80,0","130,40,0"]},
+  {day:55,week:8,word:"Эксперимент",kana:"エクスピリミェント",meaning:"実験",tag:"ISSの存在理由そのもの",
+   ex_ru:"Эксперимент в невесомости.",ex_ru_kana:"エクスピリミェント フニヴィソーマスチ。",ex_jp:"無重力での実験。",
+   naze:"ISSは世界最大の実験室——Экспериментが人類の知識を広げている。「きぼう」も実験棟。",
+   x:"🧪DAY55: Эксперимент（エクスピリミェント）=実験。ISSは宇宙の実験室 #ISS #きぼう",
+   acc:"#9040d8",gold:false,planet:["125,50,200","60,20,130"]},
+  {day:56,week:8,word:"Технология",kana:"チフナロギヤ",meaning:"技術",tag:"宇宙開発が生んだ民間技術",
+   ex_ru:"Технология меняет мир.",ex_ru_kana:"チフナロギヤ ミニャーエット ミール。",ex_jp:"技術が世界を変える。",
+   naze:"GPS・スマホ・メモリーフォームは宇宙技術の副産物——Технологияは社会を変える。",
+   x:"💡DAY56: Технология（チフナロギヤ）=技術。GPS・スマホは宇宙技術の落とし子 #テクノロジー",
+   acc:"#50a0e0",gold:false,planet:["60,135,210","28,68,135"]},
+  // ─── WEEK 9 — 宇宙生活・日常 ────────────────────────────
+  {day:57,week:9,word:"Питание",kana:"ピタニエ",meaning:"食事・栄養",tag:"チューブ食から宇宙ラーメンまで",
+   ex_ru:"Питание в космосе особое.",ex_ru_kana:"ピタニエ フコースマスェ アソーバエ。",ex_jp:"宇宙での食事は特別だ。",
+   naze:"宇宙食はロシア発。最初はチューブ入りペースト——今は寿司も宇宙へ。日清の宇宙ラーメン。",
+   x:"🍱DAY57: Питание（ピタニエ）=食事。宇宙食は最先端の食品技術の結晶 #宇宙食 #JAXA",
+   acc:"#e0a030",gold:false,planet:["200,140,35","115,70,15"]},
+  {day:58,week:9,word:"Сон",kana:"ソン",meaning:"睡眠・夢想",tag:"無重力で浮かびながら眠る",
+   ex_ru:"Сон в невесомости прекрасен.",ex_ru_kana:"ソン フニヴィソーマスチ プリクラースィン。",ex_jp:"無重力での眠りは素晴らしい。",
+   naze:"ISS内では寝袋を壁に固定して眠る。夢（夢想）という意味もあり、Мечтаと対をなす語。",
+   x:"😴DAY58: Сон（ソン）=睡眠。宇宙飛行士は浮かびながら眠る。夢という意味も #宇宙生活",
+   acc:"#6060c0",gold:false,planet:["80,75,180","35,35,110"]},
+  {day:59,week:9,word:"Здоровье",kana:"ズダローヴィエ",meaning:"健康",tag:"宇宙滞在で骨密度が低下",
+   ex_ru:"Здоровье — главное богатство.",ex_ru_kana:"ズダローヴィエ グラヴナエ バガットストヴァ。",ex_jp:"健康こそが最大の財産だ。",
+   naze:"宇宙では毎月1〜2%の骨密度低下。Здоровье管理のために毎日2時間運動が必須。",
+   x:"💪DAY59: Здоровье（ズダローヴィエ）=健康。宇宙飛行士は毎日2時間運動が義務 #健康",
+   acc:"#30c868",gold:false,planet:["35,180,80","15,95,38"]},
+  {day:60,week:9,word:"Тишина",kana:"チシナー",meaning:"静寂",tag:"宇宙空間は完全な無音",
+   ex_ru:"Тишина космоса абсолютна.",ex_ru_kana:"チシナー コースマサ アプサリュートナ。",ex_jp:"宇宙の静寂は絶対的だ。",
+   naze:"宇宙は音が伝わらない真空——Тишинаの中で宇宙飛行士は自分の呼吸音だけを聞く。",
+   x:"🤫DAY60: Тишина（チシナー）=静寂。宇宙は完全な無音の世界 #宇宙 #物理",
+   acc:"#8880d0",gold:false,planet:["110,100,200","55,50,130"]},
+  {day:61,week:9,word:"Дом",kana:"ドーム",meaning:"家・故郷",tag:"6ヶ月ぶりの地球=故郷",
+   ex_ru:"Дом — там, где Земля.",ex_ru_kana:"ドーム ターム グジェー ジムリャー。",ex_jp:"家は、地球があるところだ。",
+   naze:"180日の宇宙滞在後、飛行士が最初に感じること——「家に帰りたい」。Дом。",
+   x:"🏠DAY61: Дом（ドーム）=家。180日後に帰る場所、それが地球=故郷 #帰還 #宇宙飛行士",
+   acc:"#e08040",gold:false,planet:["200,105,45","115,50,20"]},
+  {day:62,week:9,word:"Время",kana:"ヴレーミャ",meaning:"時間",tag:"ISSでは1日16回の日の出",
+   ex_ru:"Время в космосе другое.",ex_ru_kana:"ヴレーミャ フコースマスェ ドルゴーエ。",ex_jp:"宇宙での時間は違う。",
+   naze:"ISSでは90分ごとに日が沈み、日が昇る——1日16回の日の出。Времяの感覚が変わる。",
+   x:"⏰DAY62: Время（ヴレーミャ）=時間。ISSでは1日16回サンライズを見る #ISS #時間",
+   acc:"#5898e0",gold:false,planet:["65,130,210","28,65,135"]},
+  {day:63,week:9,word:"Человек",kana:"チェラヴィェーク",meaning:"人間",tag:"ガガーリン「人間が宇宙へ行った！」",
+   ex_ru:"Человек — покоритель космоса.",ex_ru_kana:"チェラヴィェーク パカリーチリ コースマサ。",ex_jp:"人間は宇宙の征服者だ。",
+   naze:"「Поехали！（出発！）」——ガガーリンが叫び、Человекが宇宙へ行った瞬間、歴史が変わった。",
+   x:"👨‍🚀DAY63: Человек（チェラヴィェーク）=人間。1961年、人類が宇宙に行った日 #ガガーリン",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  // ─── WEEK 10 — ロシア宇宙史・偉人 ──────────────────────
+  {day:64,week:10,word:"Гагарин",kana:"ガガーリン",meaning:"ガガーリン",tag:"「ポヨーハリ！（出発！）」",
+   ex_ru:"Гагарин — первый человек в космосе.",ex_ru_kana:"ガガーリン ピェールヴィ チェラヴィェーク フコースマスェ。",ex_jp:"ガガーリンは宇宙初の人間だ。",
+   naze:"1961年4月12日、ユーリ・ガガーリンが「ポヨーハリ！」と叫んで宇宙に飛び立った。",
+   x:"🚀DAY64: Гагарин（ガガーリン）=ガガーリン。「ポヨーハリ！」で宇宙時代が始まった #宇宙史",
+   acc:"#e03030",gold:false,planet:["210,35,35","120,15,15"]},
+  {day:65,week:10,word:"Первый",kana:"ピェールヴィ",meaning:"最初の・ファースト",tag:"宇宙開発は「初めて」の連続",
+   ex_ru:"Первый шаг — самый важный.",ex_ru_kana:"ピェールヴィ シャーク サームィ ヴァージュヌイ。",ex_jp:"最初の一歩が最も重要だ。",
+   naze:"スプートニク1号・ガガーリン・月面着陸——宇宙史は「Первый」の積み重ねでできている。",
+   x:"🥇DAY65: Первый（ピェールヴィ）=最初の。宇宙の歴史は「初めて」の連続 #宇宙史",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  {day:66,week:10,word:"Восток",kana:"ヴァストーク",meaning:"東・ボストーク号",tag:"ガガーリンが乗った宇宙船の名",
+   ex_ru:"Восток-1 изменил историю.",ex_ru_kana:"ヴァストーク アジーン イズミニール イストーリユ。",ex_jp:"ボストーク1号が歴史を変えた。",
+   naze:"ロシア語で「東」を意味するВостокが、冷戦の宇宙船の名前になった皮肉と誇り。",
+   x:"🌅DAY66: Восток（ヴァストーク）=東・ボストーク号。東から宇宙時代が始まった #宇宙史",
+   acc:"#e05020",gold:false,planet:["210,65,25","120,30,10"]},
+  {day:67,week:10,word:"Успех",kana:"ウスピェーフ",meaning:"成功",tag:"すべての努力が報われる瞬間",
+   ex_ru:"Успех приходит к упорным.",ex_ru_kana:"ウスピェーフ プリホーディット クウパルヌィム。",ex_jp:"成功は粘り強い者に訪れる。",
+   naze:"USCPA試験・JAXA選抜——Успехは努力の先にある。Победаとの違いは「過程の価値」。",
+   x:"🎯DAY67: Успех（ウスピェーフ）=成功。粘り強い者だけが成功を掴む #USCPA #受験",
+   acc:"#30b850",gold:false,planet:["35,160,60","15,90,28"]},
+  {day:68,week:10,word:"История",kana:"イストーリヤ",meaning:"歴史・物語",tag:"宇宙開発は人類最大の物語",
+   ex_ru:"История космоса — наша история.",ex_ru_kana:"イストーリヤ コースマサ ナシャ イストーリヤ。",ex_jp:"宇宙の歴史は私たちの歴史だ。",
+   naze:"英語のhistoryとstoryは同語源——Историяは「歴史」と「物語」の両方を含む。",
+   x:"📖DAY68: История（イストーリヤ）=歴史・物語。宇宙開発は人類最大の物語 #宇宙史",
+   acc:"#8060c0",gold:false,planet:["105,75,190","50,35,120"]},
+  {day:69,week:10,word:"Исследование",kana:"イスリードヴァニエ",meaning:"探査・研究",tag:"月探査・惑星探査の核心語",
+   ex_ru:"Исследование Луны продолжается.",ex_ru_kana:"イスリードヴァニエ ルヌィ プラダルジャーイツァ。",ex_jp:"月の探査が続いている。",
+   naze:"JAXAの月探査SLIM・iSpaceのMission 3——Исследованиеが人類の知識を広げる。",
+   x:"🔬DAY69: Исследование（イスリードヴァニエ）=探査。JAXA・iSpaceの月探査が続く #月探査",
+   acc:"#30a8d8",gold:false,planet:["35,145,200","15,72,125"]},
+  {day:70,week:10,word:"Наука",kana:"ナウカ",meaning:"科学",tag:"ISSロシア実験棟「ナウカ」の名",
+   ex_ru:"Наука движет прогресс.",ex_ru_kana:"ナウカ ドヴィジェット プラグリェース。",ex_jp:"科学が進歩を動かす。",
+   naze:"2021年打ち上げのISSロシア実験棟「Наука（科学）」——科学こそ宇宙開発の魂。",
+   x:"🧬DAY70: Наука（ナウカ）=科学。ISSのロシア実験棟の名前でもある #ISS #科学",
+   acc:"#40b8a0",gold:false,planet:["45,160,135","20,90,68"]},
+  // ─── WEEK 11 — HAMA×宇宙ビジネス ────────────────────────
+  {day:71,week:11,word:"Деньги",kana:"ジェーニギ",meaning:"お金",tag:"宇宙開発の燃料はお金",
+   ex_ru:"Деньги нужны для космоса.",ex_ru_kana:"ジェーニギ ヌージュヌィ ドリャ コースマサ。",ex_jp:"宇宙にはお金が必要だ。",
+   naze:"Artemis 1回で$4.1B——宇宙開発の資金調達を支援するのが浜田会計事務所の使命。",
+   x:"💰DAY71: Деньги（ジェーニギ）=お金。宇宙スタートアップの資金調達を支援 #会計",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
+  {day:72,week:11,word:"Инвестиция",kana:"インヴィスティーツィヤ",meaning:"投資",tag:"VC×宇宙スタートアップ",
+   ex_ru:"Инвестиция в космос — будущее.",ex_ru_kana:"インヴィスティーツィヤ フコースモス ブドゥシチエ。",ex_jp:"宇宙への投資が未来だ。",
+   naze:"宇宙スタートアップへのVC投資は年々拡大——HAMAが支援するのはこの分野の資金調達。",
+   x:"📈DAY72: Инвестиция（インヴィスティーツィヤ）=投資。宇宙への投資が加速 #VC #宇宙",
+   acc:"#50a0f8",gold:false,planet:["60,130,230","28,65,150"]},
+  {day:73,week:11,word:"Компания",kana:"カンパーニヤ",meaning:"会社・カンパニー",tag:"浜田会計事務所が支援する存在",
+   ex_ru:"Компания строит ракеты.",ex_ru_kana:"カンパーニヤ ストロイット ラキェーティ。",ex_jp:"会社がロケットを作る。",
+   naze:"SpaceX・Rocket Lab・iSpace——Компания（民間会社）が宇宙開発の主役になった時代。",
+   x:"🏢DAY73: Компания（カンパーニヤ）=会社。民間企業が宇宙を変えている #宇宙ビジネス",
+   acc:"#3890d0",gold:false,planet:["45,120,195","20,60,125"]},
+  {day:74,week:11,word:"Рост",kana:"ロースト",meaning:"成長",tag:"宇宙市場は年成長率9%超",
+   ex_ru:"Рост рынка космоса быстр.",ex_ru_kana:"ロースト リンカ コースマサ ブィストル。",ex_jp:"宇宙市場の成長は速い。",
+   naze:"宇宙産業は年成長率9%超——Ростを数字で示すのが会計士の仕事。",
+   x:"📊DAY74: Рост（ロースト）=成長。宇宙市場は年9%超で成長中 #宇宙ビジネス #会計",
+   acc:"#30c060",gold:false,planet:["35,170,70","15,90,32"]},
+  {day:75,week:11,word:"Партнёр",kana:"パルトニョール",meaning:"パートナー",tag:"JAXA×民間のパートナーシップ",
+   ex_ru:"Партнёр важен в космосе.",ex_ru_kana:"パルトニョール ヴァージン フコースマスェ。",ex_jp:"宇宙ではパートナーが重要だ。",
+   naze:"JAXA×民間・NASA×SpaceX——Партнёрシップが現代宇宙開発の鍵。会計士もパートナーになれる。",
+   x:"🤝DAY75: Партнёр（パルトニョール）=パートナー。会計士も宇宙の仲間になれる #JAXA",
+   acc:"#8050e0",gold:false,planet:["110,60,205","55,28,135"]},
+  {day:76,week:11,word:"Стратегия",kana:"ストラテーギヤ",meaning:"戦略",tag:"宇宙ビジネスの経営戦略",
+   ex_ru:"Стратегия — ключ к победе.",ex_ru_kana:"ストラテーギヤ クリュチ クパビェージェ。",ex_jp:"戦略こそが勝利への鍵だ。",
+   naze:"宇宙スタートアップの経営戦略立案——財務×戦略のCFO機能がHAMAの強み。",
+   x:"♟️DAY76: Стратегия（ストラテーギヤ）=戦略。宇宙×会計の戦略で2027年独立へ #独立",
+   acc:"#d06020",gold:false,planet:["185,78,25","110,38,10"]},
+  {day:77,week:11,word:"Финансы",kana:"フィナーンスィ",meaning:"財務・ファイナンス",tag:"宇宙スタートアップ財務支援の中心",
+   ex_ru:"Финансы определяют успех.",ex_ru_kana:"フィナーンスィ アプリジリャーユット ウスピェーフ。",ex_jp:"財務が成功を決める。",
+   naze:"宇宙スタートアップの財務支援——USCPA×CPA×宇宙知識がHAMAの唯一無二の武器。",
+   x:"📋DAY77: Финансы（フィナーンスィ）=財務。宇宙スタートアップの財務支援が俺の使命 #USCPA",
+   acc:"#4878e0",gold:false,planet:["55,100,210","25,50,135"]},
+  {day:78,week:11,word:"Мечтатель",kana:"ミェチュタチリ",meaning:"夢追い人・ドリーマー",tag:"★78日間コンプリート！",
+   ex_ru:"Мечтатель достигает звёзд.",ex_ru_kana:"ミェチュタチリ ダスティガーエット ズヴョースト。",ex_jp:"夢追い人が星に届く。",
+   naze:"DAY3のМечтaから始まった旅がここで完結——夢を追い続ける者だけが星に届く。HAMAへ。",
+   x:"🌟DAY78: Мечтатель（ミェチュタチリ）=夢追い人。78日間お疲れ様！星はもう近い✨ #宇宙飛行士",
+   acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
 ];
 
-let cur = 0, exOpen = false;
+const learned = new Set();
 
-/* ── Build TOC ── */
-const tocGrid = document.getElementById('toc-grid');
-WORDS.forEach((w, i) => {
-  const el = document.createElement('div');
-  el.className = 'toc-item';
-  el.style.setProperty('--c', w.color);
-  el.innerHTML = `<div class="toc-day">DAY ${String(w.day).padStart(2,'0')}</div>
-    <div class="toc-word">${w.word}</div>
-    <div class="toc-meaning">${w.meaning}</div>`;
-  el.addEventListener('click', () => openCard(i));
-  tocGrid.appendChild(el);
+function updateLearnedCount(){
+  document.getElementById('learned-count').textContent = learned.size;
+}
+
+function makeCard(d){
+  const g = d.gold;
+  const wc = g ? '#C9A84C' : '#ffffff';
+  const mc = g ? '#C9A84C' : d.acc;
+  const kanaLine = d.ex_ru_kana
+    ? `<div class="back-example-kana">${d.ex_ru_kana}</div>`
+    : '';
+  return `
+  <div class="flip-wrap" id="card-${d.day}" data-day="${d.day}">
+    <div class="flip-inner">
+      <div class="face front" style="background:linear-gradient(160deg,rgb(${d.bg1||'8,8,20'}),rgb(${d.bg2||'15,15,40'}))">
+        <div class="front-stars"></div>
+        <div class="front-planet" style="background:radial-gradient(circle at 35% 35%,rgb(${d.planet[0]}),rgb(${d.planet[1]}));box-shadow:0 0 20px rgba(${d.planet[0]},.5)"></div>
+        <div class="front-grid"></div>
+        <div class="card-progress" id="prog-${d.day}"></div>
+        <div class="front-day" style="--acc:${d.acc};border-color:${d.acc}44;color:${d.acc}">DAY ${String(d.day).padStart(2,'0')}${d.tag.includes('★')?' ★':''}</div>
+        <div class="front-word" style="color:${wc};text-shadow:0 0 25px ${d.acc}88,0 0 50px ${d.acc}33">${d.word}</div>
+        <div class="front-kana">${d.kana}</div>
+        <div class="front-phonetic-row">
+          <span class="front-stress">${STRESS[d.word]||''}</span>
+          <button class="speak-btn" onclick="event.stopPropagation();speakWord('${d.word}')" title="発音を聞く">🔊</button>
+        </div>
+        <div class="front-line" style="background:linear-gradient(90deg,transparent,${d.acc},transparent)"></div>
+        <div class="front-meaning-hint" style="color:${mc}">${d.meaning}</div>
+        <div class="front-tag">${d.tag}</div>
+        <div class="front-flip-hint">TAP TO FLIP →</div>
+      </div>
+      <div class="face back">
+        <div class="back-topbar" style="background:${d.acc}"></div>
+        <div class="back-header">
+          <div class="back-word" style="color:${mc}">${d.word}</div>
+          <div class="back-meaning" style="color:${mc};background:${d.acc}18;border:1px solid ${d.acc}33">${d.meaning}</div>
+        </div>
+        <div class="back-section">
+          <div class="back-label" style="color:${d.acc}">🛸 例文</div>
+          <div class="back-example">${d.ex_ru}</div>
+          ${kanaLine}
+          <div class="back-example-jp">${d.ex_jp}</div>
+        </div>
+        <div class="back-section" style="flex:1">
+          <div class="back-label" style="color:${d.acc}">🚀 なぜこの単語？</div>
+          <div class="back-text">${d.naze}</div>
+        </div>
+        <div class="back-section">
+          <div class="back-label" style="color:${d.acc}">🐦 X投稿ドラフト</div>
+          <div class="back-text" style="font-size:8px;color:#999">${d.x}</div>
+        </div>
+        <div class="back-check">
+          <button class="check-btn again" onclick="markAgain(${d.day})">もう一度</button>
+          <div class="learned-badge" id="lbadge-${d.day}">✓ LEARNED</div>
+          <button class="check-btn good" onclick="markGood(${d.day})">覚えた！✓</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function markGood(day){
+  learned.add(day);
+  document.getElementById(`prog-${day}`).classList.add('done');
+  document.getElementById(`lbadge-${day}`).classList.add('show');
+  updateLearnedCount();
+}
+function markAgain(day){
+  learned.delete(day);
+  document.getElementById(`prog-${day}`).classList.remove('done');
+  document.getElementById(`lbadge-${day}`).classList.remove('show');
+  updateLearnedCount();
+  const wrap = document.getElementById(`card-${day}`);
+  if(wrap) wrap.classList.remove('flipped');
+}
+
+document.addEventListener('click', e=>{
+  const wrap = e.target.closest('.flip-wrap');
+  const btn = e.target.closest('.check-btn');
+  if(wrap && !btn) wrap.classList.toggle('flipped');
 });
 
-/* ── Open card ── */
-function openCard(idx) {
-  cur = idx; exOpen = false;
-  render(null);
-  document.getElementById('page-toc').classList.add('hidden');
-  document.getElementById('page-card').classList.remove('hidden');
-  speakNow();
-}
-
-/* ── Render ── */
-function render(fx) {
-  const w = WORDS[cur];
-  const main  = document.getElementById('card-main');
-  const panel = document.getElementById('ex-panel');
-  exOpen = false;
-  main.classList.remove('ex-open');
-  panel.classList.remove('show');
-
-  if (fx) {
-    main.classList.add(fx);
-    setTimeout(() => main.classList.remove(fx), 300);
-  }
-
-  /* Space art background */
-  const [R,G,B] = hexRgb(w.color);
-  document.getElementById('card-scene').style.backgroundImage = mkBg(w.bg, R, G, B);
-
-  /* Emoji watermark */
-  document.getElementById('card-emoji').textContent = w.emoji;
-
-  /* Typography */
-  document.getElementById('card-cat').textContent   = w.cat;
-  document.getElementById('card-cat').style.color   = w.color;
-  document.getElementById('card-day').textContent   = `DAY ${String(w.day).padStart(2,'0')}`;
-  document.getElementById('card-day').style.cssText = `border-color:${w.color};color:${w.color}`;
-  document.getElementById('card-word').textContent  = w.word;
-  document.getElementById('card-word').style.cssText= `color:${w.color};text-shadow:0 0 36px ${w.color}44,0 0 72px ${w.color}18`;
-  document.getElementById('pho-stress').textContent = w.stress;
-  document.getElementById('pho-kana').textContent   = w.kana;
-  document.getElementById('card-line').style.background = `linear-gradient(90deg,transparent,${w.color},transparent)`;
-  document.getElementById('card-meaning').textContent = w.meaning;
-  document.getElementById('card-meaning').style.color  = w.color;
-  document.getElementById('card-counter').textContent  = `${cur + 1} / ${WORDS.length}`;
-  document.getElementById('prog-fill').style.width     = `${((cur + 1) / WORDS.length) * 100}%`;
-  document.getElementById('prev-btn').disabled = cur === 0;
-  document.getElementById('next-btn').disabled = cur === WORDS.length - 1;
-
-  /* Example panel */
-  document.getElementById('ex-tag').style.color = w.color;
-  document.getElementById('ex-ru').textContent  = w.ex_ru;
-  document.getElementById('ex-jp').textContent  = w.ex_jp;
-  document.getElementById('ex-naze').textContent= w.naze;
-}
-
-/* ── Toggle example ── */
-function toggleEx() {
-  exOpen = !exOpen;
-  document.getElementById('card-main').classList.toggle('ex-open', exOpen);
-  document.getElementById('ex-panel').classList.toggle('show', exOpen);
-}
-
-/* ── Tap detection on card-main ── */
-const cardMain = document.getElementById('card-main');
-let tapX, tapY, tapT;
-cardMain.addEventListener('touchstart', e => { tapX=e.touches[0].clientX; tapY=e.touches[0].clientY; tapT=Date.now(); }, {passive:true});
-cardMain.addEventListener('touchend', e => {
-  if (Math.abs(e.changedTouches[0].clientX-tapX)<12 && Math.abs(e.changedTouches[0].clientY-tapY)<12 && Date.now()-tapT<300) toggleEx();
-});
-cardMain.addEventListener('click', e => { if (!e.target.closest('.ex-panel')) toggleEx(); });
-document.getElementById('ex-panel').addEventListener('click',    e => e.stopPropagation());
-document.getElementById('ex-panel').addEventListener('touchend', e => e.stopPropagation());
-
-/* ── Swipe navigation ── */
-let swX, swY;
-const cardPage = document.getElementById('page-card');
-cardPage.addEventListener('touchstart', e => { swX=e.touches[0].clientX; swY=e.touches[0].clientY; }, {passive:true});
-cardPage.addEventListener('touchend', e => {
-  const dx=e.changedTouches[0].clientX-swX, dy=e.changedTouches[0].clientY-swY;
-  if (Math.abs(dx)>Math.abs(dy) && Math.abs(dx)>44) go(dx<0?1:-1);
+let currentWeek = 'all';
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentWeek = tab.dataset.week;
+    renderCards();
+  });
 });
 
-/* ── Navigate ── */
-function go(dir) {
-  const n = cur+dir;
-  if (n<0||n>=WORDS.length) return;
-  cur=n; render(dir>0?'fx-l':'fx-r'); speakNow();
+function renderCards(){
+  const container = document.getElementById('cards-container');
+  const weeks = currentWeek==='all' ? [1,2,3,4,5,6,7,8,9,10,11] : [parseInt(currentWeek)];
+  const weekNames = {
+    1:"🌍 WEEK 1 — 宇宙への第一歩",
+    2:"🛸 WEEK 2 — 宇宙の「場所と物」",
+    3:"🛰️ WEEK 3 — ミッションの言葉",
+    4:"🚀 WEEK 4 — 宇宙飛行士のマインド",
+    5:"☀️ WEEK 5 — 太陽系・天体",
+    6:"🎯 WEEK 6 — 宇宙行動・ミッション",
+    7:"💫 WEEK 7 — 感情・精神力",
+    8:"⚗️ WEEK 8 — 科学・技術",
+    9:"🏕️ WEEK 9 — 宇宙生活・日常",
+    10:"📜 WEEK 10 — ロシア宇宙史・偉人",
+    11:"💼 WEEK 11 — HAMA×宇宙ビジネス"
+  };
+  const weekSubs = {
+    1:"挨拶・感謝・夢・宇宙・幸運・力・前進",
+    2:"地球・月・星・ロケット・飛行・宇宙服・軌道",
+    3:"ISS・重力・通信・空気・発見・チーム・勝利",
+    4:"忍耐・希望・知識・道・心・宇宙全体・未来",
+    5:"太陽・火星・銀河・衛星・大気・彗星・地平線",
+    6:"打ち上げ・着陸・EVA・ドッキング・訓練・管理・観測",
+    7:"勇気・喜び・自由・好奇心・美・誇り・愛",
+    8:"酸素・圧力・速度・温度・エネルギー・実験・技術",
+    9:"食事・睡眠・健康・静寂・故郷・時間・人間",
+    10:"ガガーリン・ファースト・ボストーク・成功・歴史・探査・科学",
+    11:"お金・投資・会社・成長・パートナー・戦略・財務・夢追い人"
+  };
+
+  // 背景色マッピング（DAY 1-78）
+  const bgs = {
+    1:["8,8,28","15,25,70"], 2:["5,22,15","12,50,35"], 3:["22,16,4","55,38,8"],
+    4:["8,5,28","25,12,65"], 5:["18,6,28","50,15,68"], 6:["28,8,4","70,22,6"],
+    7:["22,16,4","55,38,8"], 8:["5,15,35","10,35,75"], 9:["15,15,30","35,35,65"],
+    10:["5,5,15","15,10,35"], 11:["20,8,5","55,20,10"], 12:["5,12,35","12,28,75"],
+    13:["5,14,18","12,32,42"], 14:["8,5,22","20,12,55"], 15:["5,12,28","10,22,58"],
+    16:["10,5,20","25,10,50"], 17:["5,15,22","10,35,50"], 18:["5,16,12","10,40,28"],
+    19:["22,16,4","55,38,8"], 20:["5,10,22","10,22,55"], 21:["22,16,4","55,38,8"],
+    22:["10,7,20","25,15,48"], 23:["22,16,4","55,38,8"], 24:["5,10,22","10,22,55"],
+    25:["5,15,22","10,35,50"], 26:["22,5,12","55,12,28"], 27:["5,5,15","12,8,38"],
+    28:["22,16,4","55,38,8"],
+    // WEEK 5
+    29:["28,16,4","65,35,8"], 30:["28,5,4","65,12,8"], 31:["8,5,28","22,12,68"],
+    32:["5,14,28","12,32,68"], 33:["5,18,28","10,40,65"], 34:["15,20,5","35,48,10"],
+    35:["28,15,5","65,35,10"],
+    // WEEK 6
+    36:["28,8,4","65,20,8"], 37:["5,22,12","10,55,28"], 38:["5,12,28","12,28,68"],
+    39:["10,5,22","25,12,55"], 40:["22,8,5","55,20,10"], 41:["5,16,20","10,38,50"],
+    42:["5,18,16","10,42,35"],
+    // WEEK 7
+    43:["25,12,5","60,28,10"], 44:["25,18,4","60,42,8"], 45:["5,16,25","10,38,62"],
+    46:["12,5,22","28,12,55"], 47:["22,5,14","55,10,32"], 48:["22,16,4","55,38,8"],
+    49:["22,5,10","55,12,25"],
+    // WEEK 8
+    50:["5,18,18","10,42,42"], 51:["5,12,25","10,28,62"], 52:["25,14,4","60,32,8"],
+    53:["25,7,4","60,18,8"], 54:["25,10,4","60,22,8"], 55:["10,5,22","24,10,55"],
+    56:["5,12,22","10,28,55"],
+    // WEEK 9
+    57:["22,14,4","55,32,8"], 58:["8,7,20","18,16,50"], 59:["5,18,10","10,42,25"],
+    60:["10,9,22","24,20,55"], 61:["22,10,5","55,24,12"], 62:["5,12,22","10,28,55"],
+    63:["22,16,4","55,38,8"],
+    // WEEK 10
+    64:["22,4,4","55,10,10"], 65:["22,16,4","55,38,8"], 66:["22,7,4","55,18,8"],
+    67:["5,18,10","10,42,25"], 68:["8,6,20","18,14,50"], 69:["5,14,22","10,32,55"],
+    70:["5,16,14","10,38,32"],
+    // WEEK 11
+    71:["22,16,4","55,38,8"], 72:["5,12,25","10,28,62"], 73:["5,12,22","10,28,55"],
+    74:["5,18,10","10,42,25"], 75:["10,5,22","25,10,55"], 76:["22,8,4","55,20,8"],
+    77:["5,10,22","10,22,55"], 78:["22,16,4","55,38,8"]
+  };
+
+  let html='';
+  weeks.forEach(w=>{
+    const days = DAYS.filter(d=>d.week===w);
+    days.forEach(d=>{
+      d.bg1 = bgs[d.day]?.[0] || "8,8,20";
+      d.bg2 = bgs[d.day]?.[1] || "15,15,40";
+    });
+    html+=`
+    <div class="week-title">
+      <h2>${weekNames[w]}</h2>
+      <p>${weekSubs[w]}</p>
+      <div class="week-divider"></div>
+    </div>
+    <div class="cards-grid">${days.map(makeCard).join('')}</div>`;
+  });
+  container.innerHTML = html;
+  learned.forEach(day=>{
+    const p = document.getElementById(`prog-${day}`);
+    const b = document.getElementById(`lbadge-${day}`);
+    if(p) p.classList.add('done');
+    if(b) b.classList.add('show');
+  });
 }
-document.getElementById('prev-btn').addEventListener('click', () => go(-1));
-document.getElementById('next-btn').addEventListener('click', () => go(1));
 
-/* ── Back ── */
-document.getElementById('back-btn').addEventListener('click', () => {
-  window.speechSynthesis&&window.speechSynthesis.cancel();
-  document.getElementById('page-card').classList.add('hidden');
-  document.getElementById('page-toc').classList.remove('hidden');
-});
-
-/* ── Keyboard ── */
-document.addEventListener('keydown', e => {
-  if (document.getElementById('page-card').classList.contains('hidden')) return;
-  if (e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
-  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   go(-1);
-  if (e.key===' ') { e.preventDefault(); toggleEx(); }
-  if (e.key==='Escape') document.getElementById('back-btn').click();
-});
-
-/* ── Speak word ── */
-function speakNow() {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  setTimeout(() => {
-    const u = new SpeechSynthesisUtterance(WORDS[cur].word);
-    u.lang='ru-RU'; u.rate=0.75; u.pitch=1.0;
-    window.speechSynthesis.speak(u);
-  }, 320);
-}
-document.getElementById('speak-btn').addEventListener('click', speakNow);
-
-/* ── Speak example sentence ── */
-function speakEx() {
-  if (!window.speechSynthesis) return;
-  const btn = document.getElementById('ex-speak-btn');
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(WORDS[cur].ex_ru);
-  u.lang='ru-RU'; u.rate=0.72; u.pitch=1.0;
-  u.onstart = () => btn.classList.add('playing');
-  u.onend   = () => btn.classList.remove('playing');
-  u.onerror = () => btn.classList.remove('playing');
-  window.speechSynthesis.speak(u);
-}
-document.getElementById('ex-speak-btn').addEventListener('click', e => { e.stopPropagation(); speakEx(); });
-document.getElementById('ex-speak-btn').addEventListener('touchend', e => { e.stopPropagation(); });
+renderCards();
 </script>
 </body>
 </html>
