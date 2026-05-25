@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>🚀 宇宙ロシア語 単語帳</title>
+<meta property="og:title" content="🚀 宇宙ロシア語 単語帳 — ZATT-MAN">
+<meta property="og:description" content="宇宙×ロシア語 78単語。DAY1から積み上げる宇宙飛行士への語学旅 🛸">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zattman.github.io/space-russian/">
+<meta property="og:site_name" content="ZATT-MAN SPACE RUSSIAN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚀 宇宙ロシア語 単語帳 — ZATT-MAN">
+<meta name="twitter:description" content="宇宙×ロシア語 78単語。DAY1から積み上げる宇宙飛行士への語学旅 🛸">
+<meta name="theme-color" content="#07070f">
 <style>
 :root { --gold:#C9A84C; --dark:#07070f; }
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -228,18 +237,207 @@ body { background:var(--dark); color:#fff; font-family:'Helvetica Neue',Arial,sa
 .card-main.fx-r { animation:fxR .28s ease forwards; }
 @keyframes fxL { 0%{opacity:1;transform:none} 38%{opacity:0;transform:translateX(-26px)} 39%{opacity:0;transform:translateX(26px)} 100%{opacity:1;transform:none} }
 @keyframes fxR { 0%{opacity:1;transform:none} 38%{opacity:0;transform:translateX(26px)} 39%{opacity:0;transform:translateX(-26px)} 100%{opacity:1;transform:none} }
+
+/* ── Learned button ── */
+.learned-btn {
+  display:flex; align-items:center; gap:6px;
+  padding:8px 20px; border-radius:20px; border:1.5px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04); color:rgba(255,255,255,.36);
+  font-size:11px; font-weight:700; letter-spacing:2px; cursor:pointer; transition:all .25s;
+}
+.learned-btn.done {
+  border-color:#32c87a; color:#32c87a; background:rgba(50,200,122,.12);
+}
+.learned-btn:active { transform:scale(.94); }
+.toc-item.learned { opacity:.6; }
+.toc-item.learned .toc-day::after { content:' ✓'; color:#32c87a; }
+.learned-stats { font-size:9px; color:#555; letter-spacing:2px; margin-top:4px; }
+
+/* ── Mascot ── */
+.mascot-widget {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07);
+  border-radius:14px; padding:8px 14px; margin:8px 16px 0;
+  cursor:pointer; transition:background .2s;
+}
+.mascot-widget:active { background:rgba(255,255,255,.06); }
+.mascot-face { font-size:32px; line-height:1; }
+.mascot-info { flex:1; }
+.mascot-name { font-size:10px; font-weight:800; letter-spacing:2px; color:#fff; }
+.mascot-lv   { font-size:8px; color:#555; letter-spacing:1px; margin-top:2px; }
+.mascot-bar  { height:3px; background:rgba(255,255,255,.06); border-radius:2px; margin-top:6px; overflow:hidden; }
+.mascot-bar-fill { height:100%; border-radius:2px; transition:width .8s ease; background:linear-gradient(90deg,#32c87a,#C9A84C); }
+.mascot-pct  { font-size:8px; color:var(--gold); font-weight:700; letter-spacing:1px; }
+@keyframes mascotPop { 0%{transform:scale(1)} 40%{transform:scale(1.28)} 100%{transform:scale(1)} }
+.mascot-face.pop { animation:mascotPop .4s ease; }
+
+/* ── Quiz button ── */
+.quiz-btn {
+  margin:8px 16px 0; padding:10px 0; border-radius:12px;
+  background:linear-gradient(135deg,rgba(78,120,220,.18),rgba(201,168,76,.12));
+  border:1px solid rgba(78,120,220,.28); color:#8aabf8;
+  font-size:10px; font-weight:800; letter-spacing:3px; cursor:pointer; transition:all .22s;
+  width:calc(100% - 32px);
+}
+.quiz-btn:active { background:rgba(78,120,220,.28); }
+
+/* ── Quiz overlay ── */
+.quiz-overlay {
+  position:fixed; inset:0; background:#07070f; z-index:100;
+  display:flex; flex-direction:column; align-items:center;
+}
+.quiz-overlay.hidden { display:none; }
+.quiz-topbar {
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px; border-bottom:1px solid rgba(255,255,255,.06);
+}
+.quiz-close { background:none; border:none; color:#444; font-size:22px; cursor:pointer; padding:4px 10px; }
+.quiz-progress-text { font-size:9px; color:#444; letter-spacing:3px; }
+.quiz-score-badge { font-size:9px; color:#32c87a; letter-spacing:2px; font-weight:700; }
+.quiz-card-area {
+  flex:1; width:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:24px 20px; gap:18px;
+}
+.quiz-word {
+  font-size:clamp(52px,15vw,88px); font-weight:900; color:#fff;
+  text-align:center; letter-spacing:1px; line-height:1.1;
+}
+.quiz-kana { font-size:14px; color:#666; letter-spacing:3px; }
+.quiz-meaning {
+  font-size:26px; font-weight:700; color:#C9A84C;
+  min-height:36px; transition:opacity .25s;
+}
+.quiz-meaning.hidden-val { opacity:0; pointer-events:none; }
+.quiz-tap-hint { font-size:9px; color:#333; letter-spacing:4px; }
+.quiz-btns {
+  width:100%; display:flex; gap:14px; padding:0 20px 32px;
+  justify-content:center;
+}
+.quiz-btn-learned {
+  flex:1; padding:14px 0; border-radius:14px;
+  background:rgba(50,200,122,.14); border:1.5px solid #32c87a;
+  color:#32c87a; font-size:12px; font-weight:800; letter-spacing:2px;
+  cursor:pointer; transition:all .2s;
+}
+.quiz-btn-learned:active { background:rgba(50,200,122,.26); transform:scale(.97); }
+.quiz-btn-skip {
+  flex:1; padding:14px 0; border-radius:14px;
+  background:rgba(255,255,255,.04); border:1.5px solid rgba(255,255,255,.10);
+  color:#555; font-size:12px; font-weight:800; letter-spacing:2px;
+  cursor:pointer; transition:all .2s;
+}
+.quiz-btn-skip:active { background:rgba(255,255,255,.09); transform:scale(.97); }
+.quiz-result {
+  width:100%; flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:14px; padding:24px;
+}
+.quiz-result.hidden { display:none; }
+.quiz-result-emoji { font-size:64px; }
+.quiz-result-title { font-size:20px; font-weight:800; color:#fff; }
+.quiz-result-sub   { font-size:13px; color:#555; line-height:1.6; text-align:center; }
+.quiz-result-btn {
+  margin-top:10px; padding:12px 32px; border-radius:14px;
+  background:rgba(201,168,76,.14); border:1.5px solid var(--gold);
+  color:var(--gold); font-size:11px; font-weight:800; letter-spacing:3px;
+  cursor:pointer; transition:all .2s;
+}
+.quiz-result-btn:active { background:rgba(201,168,76,.26); }
+.quiz-bar { width:100%; height:3px; background:rgba(255,255,255,.06); }
+.quiz-bar-fill { height:100%; background:linear-gradient(90deg,#4878e0,#32c87a); transition:width .4s; }
+
+/* ── Theme toggle button ── */
+.theme-toggle {
+  position:fixed; top:14px; right:14px; z-index:300;
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.10);
+  color:#667; font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .2s; -webkit-tap-highlight-color:transparent;
+}
+.theme-toggle:active { transform:scale(.9); }
+
+/* ══════════════ LIGHT MODE ══════════════ */
+[data-theme="light"] body { background:#EDF2FF; color:#0a1628; }
+[data-theme="light"] .stars-bg { opacity:0; }
+[data-theme="light"] body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 600px 300px at 20% 10%, rgba(100,160,255,.10), transparent),
+    radial-gradient(ellipse 400px 400px at 85% 85%, rgba(26,92,220,.07), transparent);
+}
+[data-theme="light"] #page-toc { background:#EDF2FF; }
+[data-theme="light"] .toc-header { background:linear-gradient(180deg,rgba(237,242,255,.97) 60%,transparent); }
+[data-theme="light"] .toc-logo { color:rgba(10,22,40,.22); }
+[data-theme="light"] .toc-title { background:linear-gradient(135deg,#1a5cdc,#0a1628 55%,#1a5cdc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+[data-theme="light"] .toc-sub { color:#7799bb; }
+[data-theme="light"] .toc-week-header { color:#9aabbb; }
+[data-theme="light"] .toc-item { background:rgba(255,255,255,.75); border-color:rgba(10,22,40,.07); }
+[data-theme="light"] .toc-word { color:#0a1628; }
+[data-theme="light"] .toc-meaning { color:#334466; }
+[data-theme="light"] .toc-tag-sm { color:#99aacc; }
+[data-theme="light"] .wf-btn { color:#88aacc; border-color:rgba(10,22,40,.09); }
+[data-theme="light"] .wf-btn.active { background:rgba(26,92,220,.09); border-color:#1a5cdcaa; color:#1a5cdc; }
+[data-theme="light"] .mascot-widget { background:rgba(255,255,255,.55); border-color:rgba(10,22,40,.07); }
+[data-theme="light"] .mascot-name { color:#0a1628; }
+[data-theme="light"] .mascot-lv { color:#6688aa; }
+[data-theme="light"] .mascot-bar { background:rgba(10,22,40,.06); }
+[data-theme="light"] .quiz-btn { background:linear-gradient(135deg,rgba(26,92,220,.09),rgba(201,168,76,.07)); border-color:rgba(26,92,220,.25); color:#1a5cdc; }
+[data-theme="light"] #page-card { background:#EDF2FF; }
+[data-theme="light"] .back-btn { background:rgba(10,22,40,.06); border-color:rgba(10,22,40,.09); color:#334466; }
+[data-theme="light"] .speak-btn { background:rgba(10,22,40,.05); border-color:rgba(10,22,40,.08); color:#446688; }
+[data-theme="light"] .card-scene { opacity:.18 !important; }
+[data-theme="light"] .card-word { color:#0a1628 !important; text-shadow:none !important; }
+[data-theme="light"] .pho-stress { color:rgba(10,22,40,.40); }
+[data-theme="light"] .pho-sep { color:rgba(10,22,40,.18); }
+[data-theme="light"] .pho-kana { color:rgba(10,22,40,.52); }
+[data-theme="light"] .tap-hint { color:rgba(10,22,40,.18); }
+[data-theme="light"] .ex-panel { background:rgba(237,242,255,.97); border-color:rgba(10,22,40,.09); }
+[data-theme="light"] .ex-ru { color:#0a1628; }
+[data-theme="light"] .ex-kana { color:#3355aa; background:rgba(26,92,220,.06); border-left-color:rgba(50,100,200,.28); }
+[data-theme="light"] .ex-jp { color:#334466; }
+[data-theme="light"] .ex-hr { background:rgba(10,22,40,.06); }
+[data-theme="light"] .ex-naze { color:#445566; }
+[data-theme="light"] .ex-x { color:#7799bb; }
+[data-theme="light"] .ex-speak-btn { background:rgba(10,22,40,.05); border-color:rgba(10,22,40,.09); color:#446688; }
+[data-theme="light"] .nav-btn { background:rgba(10,22,40,.05); border-color:rgba(10,22,40,.08); color:rgba(10,22,40,.55); }
+[data-theme="light"] .progress-bar { background:rgba(10,22,40,.07); }
+[data-theme="light"] .card-counter { color:#99aacc; }
+[data-theme="light"] .learned-btn { background:rgba(10,22,40,.04); border-color:rgba(10,22,40,.11); color:rgba(10,22,40,.38); }
+[data-theme="light"] .quiz-overlay { background:#EDF2FF; }
+[data-theme="light"] .quiz-word { color:#0a1628; }
+[data-theme="light"] .quiz-kana { color:#99aacc; }
+[data-theme="light"] .quiz-topbar { border-color:rgba(10,22,40,.07); }
+[data-theme="light"] .quiz-close { color:#99aacc; }
+[data-theme="light"] .quiz-progress-text { color:#99aacc; }
+[data-theme="light"] .quiz-tap-hint { color:rgba(10,22,40,.22); }
+[data-theme="light"] .quiz-btn-skip { background:rgba(10,22,40,.04); border-color:rgba(10,22,40,.09); color:#99aacc; }
+[data-theme="light"] .quiz-result-title { color:#0a1628; }
+[data-theme="light"] .quiz-result-sub { color:#6688aa; }
+[data-theme="light"] .quiz-bar { background:rgba(10,22,40,.07); }
+[data-theme="light"] .theme-toggle { background:rgba(10,22,40,.06); border-color:rgba(10,22,40,.08); color:#446688; }
 </style>
 </head>
 <body>
 <div class="stars-bg"></div>
+<button class="theme-toggle" id="theme-toggle" title="ダーク / ライト切替">☀️</button>
 
 <!-- ── TOC ── -->
 <div id="page-toc">
   <div class="toc-header">
     <div class="toc-logo">ZATT-MAN × SPACE RUSSIAN</div>
     <div class="toc-title">宇宙ロシア語 単語帳</div>
-    <div class="toc-sub">78 WORDS · 11 WEEKS</div>
+    <div class="toc-sub" id="toc-sub-stats">78 WORDS · 11 WEEKS</div>
   </div>
+  <div class="mascot-widget" id="mascot-widget">
+    <div class="mascot-face" id="mascot-face">🥚</div>
+    <div class="mascot-info">
+      <div class="mascot-name" id="mascot-name">COSMO EGG</div>
+      <div class="mascot-lv" id="mascot-lv">習得率 0% — まだ旅は始まっていない</div>
+      <div class="mascot-bar"><div class="mascot-bar-fill" id="mascot-bar" style="width:0%"></div></div>
+    </div>
+    <div class="mascot-pct" id="mascot-pct">0%</div>
+  </div>
+  <button class="quiz-btn" id="quiz-start-btn">⚡ QUIZ — 未習得ランダム出題</button>
   <div class="week-filter" id="week-filter"></div>
   <div class="toc-scroll"><div id="toc-body"></div></div>
 </div>
@@ -290,9 +488,36 @@ body { background:var(--dark); color:#fff; font-family:'Helvetica Neue',Arial,sa
     <div class="card-counter" id="card-counter">1 / 78</div>
     <div class="card-nav">
       <button class="nav-btn" id="prev-btn">‹</button>
+      <button class="learned-btn" id="learned-btn">✓ 覚えた</button>
       <button class="nav-btn" id="next-btn">›</button>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+  </div>
+</div>
+
+<!-- ── Quiz Overlay ── -->
+<div class="quiz-overlay hidden" id="quiz-overlay">
+  <div class="quiz-bar"><div class="quiz-bar-fill" id="quiz-bar-fill" style="width:0%"></div></div>
+  <div class="quiz-topbar">
+    <button class="quiz-close" id="quiz-close-btn">✕</button>
+    <div class="quiz-progress-text" id="quiz-progress-text">0 / 0</div>
+    <div class="quiz-score-badge" id="quiz-score-badge">✓ 0</div>
+  </div>
+  <div class="quiz-card-area" id="quiz-card-area">
+    <div class="quiz-word" id="quiz-word">—</div>
+    <div class="quiz-kana" id="quiz-kana"></div>
+    <div class="quiz-meaning hidden-val" id="quiz-meaning">—</div>
+    <div class="quiz-tap-hint" id="quiz-tap-hint">✦ TAP TO REVEAL ✦</div>
+  </div>
+  <div class="quiz-result hidden" id="quiz-result">
+    <div class="quiz-result-emoji" id="quiz-result-emoji">🌟</div>
+    <div class="quiz-result-title" id="quiz-result-title">セッション完了！</div>
+    <div class="quiz-result-sub" id="quiz-result-sub"></div>
+    <button class="quiz-result-btn" id="quiz-again-btn">もう一度</button>
+  </div>
+  <div class="quiz-btns" id="quiz-btns">
+    <button class="quiz-btn-skip" id="quiz-skip-btn">✕ まだ...</button>
+    <button class="quiz-btn-learned" id="quiz-learned-btn">✓ 覚えた！</button>
   </div>
 </div>
 
@@ -740,6 +965,155 @@ const WORDS=[
    acc:"#C9A84C",gold:true,planet:["201,168,76","120,90,30"]},
 ];
 
+/* ── Learned tracking (localStorage) ── */
+let LEARNED = JSON.parse(localStorage.getItem('spaceRu_learned')||'{}');
+
+function saveLearned(){ localStorage.setItem('spaceRu_learned', JSON.stringify(LEARNED)); }
+
+function learnedCount(){ return Object.values(LEARNED).filter(Boolean).length; }
+
+function toggleLearned(day){
+  LEARNED[day] = !LEARNED[day];
+  saveLearned();
+  updateLearnedUI();
+  // mascot pop animation on new learn
+  if(LEARNED[day]){
+    const face = document.getElementById('mascot-face');
+    face.classList.remove('pop');
+    void face.offsetWidth;
+    face.classList.add('pop');
+  }
+}
+
+function updateLearnedUI(){
+  const n = learnedCount();
+  const total = WORDS.length;
+  const pct = Math.round(n/total*100);
+
+  // stats line
+  document.getElementById('toc-sub-stats').textContent =
+    `${n} / ${total} 習得 · ${pct}%`;
+
+  // learned button state in card
+  const btn = document.getElementById('learned-btn');
+  if(btn){
+    const isLearned = !!LEARNED[WORDS[cur]?.day];
+    btn.textContent = isLearned ? '★ 習得済み' : '✓ 覚えた';
+    btn.classList.toggle('done', isLearned);
+  }
+
+  // TOC items
+  document.querySelectorAll('.toc-item').forEach(el=>{
+    const idx = parseInt(el.dataset.idx);
+    const day = WORDS[idx]?.day;
+    el.classList.toggle('learned', !!LEARNED[day]);
+  });
+
+  // mascot
+  renderMascot(pct);
+}
+
+/* ── Mascot ── */
+const MASCOT_LEVELS = [
+  { min:0,  max:0,   face:'🥚',  name:'COSMO EGG',    desc:'まだ旅は始まっていない' },
+  { min:1,  max:12,  face:'🐣',  name:'ハッチリング',    desc:'少しずつ殻を破り始めた' },
+  { min:13, max:25,  face:'🧑‍🚀', name:'訓練生',         desc:'宇宙語が身につき始めた' },
+  { min:26, max:50,  face:'🚀',  name:'コスモノート',    desc:'星への扉が開いてきた！' },
+  { min:51, max:74,  face:'⭐',  name:'コスモパイロット', desc:'半分以上マスター！快調！' },
+  { min:75, max:89,  face:'🌟',  name:'コスモ司令官',    desc:'もう少しで伝説の域へ…' },
+  { min:90, max:100, face:'🏆',  name:'コスモ英雄',      desc:'全単語制覇！星があなたを呼んでいる✨' },
+];
+
+function renderMascot(pct){
+  const lv = MASCOT_LEVELS.find(l=>pct>=l.min&&pct<=l.max) || MASCOT_LEVELS[0];
+  document.getElementById('mascot-face').textContent = lv.face;
+  document.getElementById('mascot-name').textContent = lv.name;
+  document.getElementById('mascot-lv').textContent   = `習得率 ${pct}% — ${lv.desc}`;
+  document.getElementById('mascot-bar').style.width  = pct+'%';
+  document.getElementById('mascot-pct').textContent  = pct+'%';
+}
+
+/* ── Quiz ── */
+let quizQueue=[], quizIdx=0, quizSession={total:0,learned:0}, quizRevealed=false;
+
+function startQuiz(){
+  // unlearned words first; if all learned, use all
+  let pool = WORDS.filter(w=>!LEARNED[w.day]);
+  if(pool.length===0) pool=[...WORDS];
+  // shuffle
+  quizQueue = pool.sort(()=>Math.random()-.5);
+  quizIdx=0; quizSession={total:quizQueue.length,learned:0}; quizRevealed=false;
+
+  document.getElementById('quiz-overlay').classList.remove('hidden');
+  document.getElementById('quiz-result').classList.add('hidden');
+  document.getElementById('quiz-card-area').style.display='';
+  document.getElementById('quiz-btns').style.display='';
+  showQuizCard();
+}
+
+function showQuizCard(){
+  if(quizIdx>=quizQueue.length){ endQuiz(); return; }
+  const w = quizQueue[quizIdx];
+  quizRevealed=false;
+  document.getElementById('quiz-word').textContent = w.word;
+  document.getElementById('quiz-kana').textContent = w.kana;
+  document.getElementById('quiz-meaning').textContent = w.meaning;
+  document.getElementById('quiz-meaning').classList.add('hidden-val');
+  document.getElementById('quiz-tap-hint').style.opacity='1';
+  document.getElementById('quiz-progress-text').textContent =
+    `${quizIdx+1} / ${quizQueue.length}`;
+  document.getElementById('quiz-score-badge').textContent = `✓ ${quizSession.learned}`;
+  const pct = Math.round(quizIdx/quizQueue.length*100);
+  document.getElementById('quiz-bar-fill').style.width = pct+'%';
+}
+
+function revealQuiz(){
+  if(quizRevealed) return;
+  quizRevealed=true;
+  document.getElementById('quiz-meaning').classList.remove('hidden-val');
+  document.getElementById('quiz-tap-hint').style.opacity='0';
+}
+
+function endQuiz(){
+  document.getElementById('quiz-card-area').style.display='none';
+  document.getElementById('quiz-btns').style.display='none';
+  document.getElementById('quiz-result').classList.remove('hidden');
+  const n=quizSession.learned, t=quizSession.total;
+  const emojis=['😅','🌱','🚀','⭐','🌟','🏆'];
+  const pct = Math.round(n/t*100);
+  const emojiIdx = Math.min(Math.floor(pct/20),5);
+  document.getElementById('quiz-result-emoji').textContent = emojis[emojiIdx];
+  document.getElementById('quiz-result-title').textContent =
+    pct===100?'パーフェクト！🎉':pct>=60?'よくできました！':'もう一息！';
+  document.getElementById('quiz-result-sub').textContent =
+    `${t}問中 ${n}問正解 (${pct}%)\n覚えた単語: ${learnedCount()} / ${WORDS.length}`;
+  document.getElementById('quiz-bar-fill').style.width='100%';
+}
+
+document.getElementById('quiz-card-area').addEventListener('click',()=>{
+  if(!quizRevealed) revealQuiz();
+});
+document.getElementById('quiz-learned-btn').addEventListener('click',()=>{
+  if(!quizRevealed){ revealQuiz(); return; }
+  const w=quizQueue[quizIdx];
+  if(!LEARNED[w.day]){ LEARNED[w.day]=true; saveLearned(); updateLearnedUI(); quizSession.learned++; }
+  quizIdx++; showQuizCard();
+});
+document.getElementById('quiz-skip-btn').addEventListener('click',()=>{
+  if(!quizRevealed){ revealQuiz(); return; }
+  quizIdx++; showQuizCard();
+});
+document.getElementById('quiz-close-btn').addEventListener('click',()=>{
+  document.getElementById('quiz-overlay').classList.add('hidden');
+  updateLearnedUI(); renderToc();
+});
+document.getElementById('quiz-again-btn').addEventListener('click',()=>startQuiz());
+document.getElementById('quiz-start-btn').addEventListener('click',()=>startQuiz());
+document.getElementById('learned-btn').addEventListener('click',()=>{
+  toggleLearned(WORDS[cur].day);
+  updateLearnedUI();
+});
+
 /* ── Build TOC ── */
 let filterWeek = 'all';
 
@@ -786,6 +1160,9 @@ function renderToc(){
   body.innerHTML = html;
   body.querySelectorAll('.toc-item').forEach(el=>{
     el.addEventListener('click',()=>openCard(parseInt(el.dataset.idx)));
+    // apply learned state
+    const day = WORDS[parseInt(el.dataset.idx)]?.day;
+    if(LEARNED[day]) el.classList.add('learned');
   });
 }
 
@@ -830,6 +1207,12 @@ function render(fx){
   document.getElementById('prog-fill').style.width=`${((cur+1)/WORDS.length)*100}%`;
   document.getElementById('prev-btn').disabled=cur===0;
   document.getElementById('next-btn').disabled=cur===WORDS.length-1;
+
+  // learned button
+  const lBtn=document.getElementById('learned-btn');
+  const isL=!!LEARNED[w.day];
+  lBtn.textContent=isL?'★ 習得済み':'✓ 覚えた';
+  lBtn.classList.toggle('done',isL);
 
   document.getElementById('ex-tag').style.color=w.acc;
   document.getElementById('ex-ru').textContent=w.ex_ru;
@@ -916,8 +1299,21 @@ function speakEx(){
 document.getElementById('ex-speak-btn').addEventListener('click',e=>{e.stopPropagation();speakEx();});
 document.getElementById('ex-speak-btn').addEventListener('touchend',e=>{e.stopPropagation();});
 
+/* ── Theme toggle ── */
+const THEME_KEY_RU='spaceRu_theme';
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('theme-toggle').textContent=t==='light'?'🌙':'☀️';
+  localStorage.setItem(THEME_KEY_RU,t);
+}
+applyTheme(localStorage.getItem(THEME_KEY_RU)||'dark');
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  applyTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light');
+});
+
 /* ── Init ── */
 buildToc();
+updateLearnedUI();
 </script>
 </body>
 </html>
